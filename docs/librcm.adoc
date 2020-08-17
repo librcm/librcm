@@ -9,6 +9,14 @@ Frank Braun <frank@cryptogroup.net>
 This document describes how to write _reusable C modules_ and documents
 `librcm`.
 
+ifdef::backend-html5[]
+Download as
+https://raw.githubusercontent.com/librcm/librcm/master/docs/librcm.pdf[PDF].
+endif::[]
+ifndef::backend-html5[]
+Check https://librcm.org for updates.
+endif::[]
+
 == Introduction
 
 The C programming language was first introduced in 1972
