@@ -470,6 +470,7 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 </ul>
 </li>
 <li><a href="#_librcm_module_apis"><code>librcm</code> module APIs</a></li>
+<li><a href="#rcm_rfc3339.h"><code>rcm_rfc3339.h</code>&#8201;&#8212;&#8201;RFC3339 time</a></li>
 <li><a href="#_deliverables">Deliverables</a></li>
 </ul>
 </div>
@@ -721,8 +722,50 @@ make them reusable in libraries without any symbol leakage.</p>
 <div class="sect1">
 <h2 id="_librcm_module_apis"><code>librcm</code> module APIs</h2>
 <div class="sectionbody">
-<div class="paragraph">
-<p>TODO</p>
+
+</div>
+</div>
+<div class="sect1">
+<h2 id="rcm_rfc3339.h"><code>rcm_rfc3339.h</code>&#8201;&#8212;&#8201;RFC3339 time</h2>
+<div class="sectionbody">
+<div class="dlist">
+<dl>
+<dt class="hdlist1"><code>RCM_RFC3339_BUFSIZE</code></dt>
+<dd>
+<p>The RCM3339 buffer size.</p>
+</dd>
+<dt class="hdlist1"><code>rcm_rfc3339_t</code></dt>
+<dd>
+<p>The RCF3339 time type.</p>
+</dd>
+<dt class="hdlist1"><code>int rcm_rfc3339_parse(rcm_rfc3339_t *time, const char *value, char *err);</code></dt>
+<dd>
+<p>Parse time value in RFC3339 format.
+Returns -1, if the parsing failed. 0, otherwise.
+In case of error, the error message is written to <code>err</code>.</p>
+</dd>
+<dt class="hdlist1"><code>rcm_rfc3339_t rcm_rfc3339_now(void);</code></dt>
+<dd>
+<p>Return the current time (now) in UTC.</p>
+</dd>
+<dt class="hdlist1"><code>char *rcm_rfc3339_format(char *out, rcm_rfc3339_t time);</code></dt>
+<dd>
+<p>Format time as RFC3339 in UTC to out buffer (<code>\0</code>-terminated).
+Out must have at least size <code>RCM_RFC3339_BUFSIZE</code>!</p>
+</dd>
+<dt class="hdlist1"><code>bool rcm_rfc3339_after(rcm_rfc3339_t ltime, rcm_rfc3339_t rtime);</code></dt>
+<dd>
+<p>Return true if <code>ltime</code> is after <code>rtime</code>, false otherwise.</p>
+</dd>
+<dt class="hdlist1"><code>bool rcm_rfc3339_before(rcm_rfc3339_t ltime, rcm_rfc3339_t rtime);</code></dt>
+<dd>
+<p>Return true if <code>ltime</code> is before <code>rtime</code>, false otherwise.</p>
+</dd>
+<dt class="hdlist1"><code>rcm_rfc3339_t rcm_rfc3339_from_time_t(time_t time);</code></dt>
+<dd>
+<p>Convert from <code>time_t</code> to <code>rfc3339_t</code>.</p>
+</dd>
+</dl>
 </div>
 </div>
 </div>

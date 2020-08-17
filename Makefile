@@ -1,11 +1,13 @@
+DOCS:=$(wildcard docs/*.adoc)
+
 all: docs
 
 docs: docs/index.html docs/librcm.pdf
 
-docs/index.html: docs/librcm.adoc
+docs/index.html: docs/librcm.adoc $(DOCS)
 	asciidoctor -o $@ $<
 
-docs/%.pdf: docs/%.adoc
+docs/%.pdf: docs/%.adoc $(DOCS)
 	asciidoctor-pdf $<
 
 .PHONY: fmt
