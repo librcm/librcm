@@ -7,3 +7,7 @@ docs/index.html: docs/librcm.adoc
 
 docs/%.pdf: docs/%.adoc
 	asciidoctor-pdf $<
+
+.PHONY: fmt
+fmt:
+	clang-format -i -style=file src/*.[ch]
