@@ -154,8 +154,8 @@ Visual Studio has poor support for C99.
 
 == `librcm` module APIs
 
-include::rcm_rfc3339.adoc[RFC3339]
-
+include::rcm_errbuf.adoc[]
+include::rcm_rfc3339.adoc[]
 
 == Deliverables
 

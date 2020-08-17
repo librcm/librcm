@@ -470,6 +470,7 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 </ul>
 </li>
 <li><a href="#_librcm_module_apis"><code>librcm</code> module APIs</a></li>
+<li><a href="#rcm_errbuf.h"><code>rcm_errbuf.h</code>&#8201;&#8212;&#8201;Error buffer</a></li>
 <li><a href="#rcm_rfc3339.h"><code>rcm_rfc3339.h</code>&#8201;&#8212;&#8201;RFC3339 time</a></li>
 <li><a href="#_deliverables">Deliverables</a></li>
 </ul>
@@ -723,6 +724,24 @@ make them reusable in libraries without any symbol leakage.</p>
 <h2 id="_librcm_module_apis"><code>librcm</code> module APIs</h2>
 <div class="sectionbody">
 
+</div>
+</div>
+<div class="sect1">
+<h2 id="rcm_errbuf.h"><code>rcm_errbuf.h</code>&#8201;&#8212;&#8201;Error buffer</h2>
+<div class="sectionbody">
+<div class="dlist">
+<dl>
+<dt class="hdlist1"><code>RCM_ERRBUF_SIZE</code></dt>
+<dd>
+<p>The default error buffer size.</p>
+</dd>
+<dt class="hdlist1"><code>void rcm_errbuf_set(char *err, const char *format, &#8230;&#8203;);</code></dt>
+<dd>
+<p>Set error buffer <code>err</code> to <code>format</code> string (<code>printf(3)</code>-like) with arguments
+<code>&#8230;&#8203;</code>.</p>
+</dd>
+</dl>
+</div>
 </div>
 </div>
 <div class="sect1">
