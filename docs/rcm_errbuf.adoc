@@ -5,5 +5,5 @@
 The default error buffer size.
 
 `void rcm_errbuf_set(char *err, const char *format, ...);`::
-Set error buffer `err` to `format` string (`printf(3)`-like) with arguments
-`...`.
+Sets error buffer `err` to `format` string (`printf(3)`-like) with arguments
+`...`. Does nothing, if `err` is `NULL`.

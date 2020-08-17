@@ -737,8 +737,8 @@ make them reusable in libraries without any symbol leakage.</p>
 </dd>
 <dt class="hdlist1"><code>void rcm_errbuf_set(char *err, const char *format, &#8230;&#8203;);</code></dt>
 <dd>
-<p>Set error buffer <code>err</code> to <code>format</code> string (<code>printf(3)</code>-like) with arguments
-<code>&#8230;&#8203;</code>.</p>
+<p>Sets error buffer <code>err</code> to <code>format</code> string (<code>printf(3)</code>-like) with arguments
+<code>&#8230;&#8203;</code>. Does nothing, if <code>err</code> is <code>NULL</code>.</p>
 </dd>
 </dl>
 </div>
