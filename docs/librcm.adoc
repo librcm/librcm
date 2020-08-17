@@ -1,5 +1,5 @@
 = librcm -- reusable C modules
-Frank Braun <frank@cryptogroup.net>
+Frank Braun <https://frankbraun.org>
 2020-08-17
 :doctype: book
 :reproducible:
@@ -16,6 +16,7 @@ endif::[]
 ifndef::backend-html5[]
 Check https://librcm.org for updates.
 endif::[]
+Source code on https://github.com/librcm/librcm[GitHub].
 
 == Introduction
 
@@ -93,14 +94,16 @@ But it comes at the cost that even less C code is reusable, because it doesn't
 conform to the future-proof C method. However, as more and more C code becomes
 a future-proof *reusable C module* this is less and less of a problem.
 
-== What does module mean?
+== Resusable C modules
+
+=== What does module mean?
 
 A C module is a single C header file which defines and implements an API
 that can be used by _consumers_ of the module. The module should
 _consume_ as little other modules and header files as possible, to keep
 the dependency graph small.
 
-== What does reusable mean?
+=== What does reusable mean?
 
 Reusable means that such a module should be useful on as many platforms
 as possible. Supported platforms include:
@@ -149,7 +152,9 @@ Visual Studio has poor support for C99.
 === `goto` is not allowed
 
 
+== `librcm` module APIs
 
+TODO
 
 
 == Deliverables

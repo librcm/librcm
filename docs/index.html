@@ -442,7 +442,7 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <h1>librcm&#8201;&#8212;&#8201;reusable C modules</h1>
 <div class="details">
 <span id="author" class="author">Frank Braun</span><br>
-<span id="email" class="email"><a href="mailto:frank@cryptogroup.net">frank@cryptogroup.net</a></span><br>
+<span id="email" class="email"><a href="https://frankbraun.org" class="bare">https://frankbraun.org</a></span><br>
 <span id="revdate">2020-08-17</span>
 </div>
 <div id="toc" class="toc2">
@@ -454,8 +454,12 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <li><a href="#_the_importance_of_c_in_the_future">The importance of C in the future</a></li>
 </ul>
 </li>
+<li><a href="#_resusable_c_modules">Resusable C modules</a>
+<ul class="sectlevel2">
 <li><a href="#_what_does_module_mean">What does module mean?</a></li>
 <li><a href="#_what_does_reusable_mean">What does reusable mean?</a></li>
+</ul>
+</li>
 <li><a href="#_goals">Goals</a></li>
 <li><a href="#_error_handling">Error handling</a></li>
 <li><a href="#_memory_managment">Memory managment</a></li>
@@ -465,6 +469,7 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <li><a href="#_goto_is_not_allowed"><code>goto</code> is not allowed</a></li>
 </ul>
 </li>
+<li><a href="#_librcm_module_apis"><code>librcm</code> module APIs</a></li>
 <li><a href="#_deliverables">Deliverables</a></li>
 </ul>
 </div>
@@ -478,7 +483,8 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 </div>
 <div class="paragraph">
 <p>Download as
-<a href="https://raw.githubusercontent.com/librcm/librcm/master/docs/librcm.pdf">PDF</a>.</p>
+<a href="https://raw.githubusercontent.com/librcm/librcm/master/docs/librcm.pdf">PDF</a>.
+Source code on <a href="https://github.com/librcm/librcm">GitHub</a>.</p>
 </div>
 </div>
 </div>
@@ -587,8 +593,10 @@ a future-proof <strong>reusable C module</strong> this is less and less of a pro
 </div>
 </div>
 <div class="sect1">
-<h2 id="_what_does_module_mean">What does module mean?</h2>
+<h2 id="_resusable_c_modules">Resusable C modules</h2>
 <div class="sectionbody">
+<div class="sect2">
+<h3 id="_what_does_module_mean">What does module mean?</h3>
 <div class="paragraph">
 <p>A C module is a single C header file which defines and implements an API
 that can be used by <em>consumers</em> of the module. The module should
@@ -596,10 +604,8 @@ that can be used by <em>consumers</em> of the module. The module should
 the dependency graph small.</p>
 </div>
 </div>
-</div>
-<div class="sect1">
-<h2 id="_what_does_reusable_mean">What does reusable mean?</h2>
-<div class="sectionbody">
+<div class="sect2">
+<h3 id="_what_does_reusable_mean">What does reusable mean?</h3>
 <div class="paragraph">
 <p>Reusable means that such a module should be useful on as many platforms
 as possible. Supported platforms include:</p>
@@ -628,6 +634,7 @@ as possible. Supported platforms include:</p>
 <p>All major processor architectures: x86, ARM, and PowerPC.</p>
 </li>
 </ul>
+</div>
 </div>
 </div>
 </div>
@@ -708,6 +715,14 @@ make them reusable in libraries without any symbol leakage.</p>
 <div class="sect2">
 <h3 id="_goto_is_not_allowed"><code>goto</code> is not allowed</h3>
 
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_librcm_module_apis"><code>librcm</code> module APIs</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>TODO</p>
 </div>
 </div>
 </div>
