@@ -1,7 +1,7 @@
 /* SPDX-License-Identifier: Unlicense OR MIT */
 
-#ifndef ERRBUF_H
-#define ERRBUF_H
+#ifndef RCM_ERRBUF_H
+#define RCM_ERRBUF_H
 
 /* Documentation: https://librcm.org/#rcm_errbuf.h */
 
