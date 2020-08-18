@@ -5,6 +5,10 @@
 
 /* Documentation: https://librcm.org/#rcm_errbuf.h */
 
+#ifndef RCM_API
+#define RCM_API extern
+#endif
+
 #ifndef RCM_ERRBUF_SIZE
 #define RCM_ERRBUF_SIZE 1024
 #endif
