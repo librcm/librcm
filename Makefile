@@ -12,4 +12,4 @@ docs/%.pdf: docs/%.adoc $(DOCS)
 
 .PHONY: fmt
 fmt:
-	clang-format -i -style=file src/*.[ch]
+	clang-format -i -style=file src/rcm_*.[ch]
