@@ -1,0 +1,5 @@
+strict digraph {
+  rcm_errbuf [shape=box];
+  rcm_rfc3339 [shape=box];
+  rcm_rfc3339 -> rcm_errbuf
+}

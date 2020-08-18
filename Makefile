@@ -39,10 +39,10 @@ bin/%: obj/%.o
 docs: docs/index.html docs/librcm.pdf
 
 docs/index.html: docs/librcm.adoc $(DOCS)
-	asciidoctor -o $@ $<
+	asciidoctor -r asciidoctor-diagram -o $@ $<
 
 docs/%.pdf: docs/%.adoc $(DOCS)
-	asciidoctor-pdf $<
+	asciidoctor-pdf -r asciidoctor-diagram $<
 
 .PHONY: clean cleanup fmt test
 clean:

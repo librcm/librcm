@@ -151,6 +151,12 @@ Visual Studio has poor support for C99.
 
 === `goto` is not allowed
 
+== `librcm` module dependencies
+
+[graphviz,module_deps]
+....
+include::module_deps.dot[]
+....
 
 == `librcm` module APIs
 
