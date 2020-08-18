@@ -3,8 +3,8 @@
 #include "greatest.h"
 
 #define RCM_API static
-#include "rcm_errbuf.h"
 #include "rcm_errbuf.c"
+#include "rcm_errbuf.h"
 
 TEST rcm_errbuf_test(void)
 {
@@ -21,7 +21,8 @@ SUITE(rcm_errbuf_suite)
 
 GREATEST_MAIN_DEFS();
 
-int main(int argc, char **argv) {
+int main(int argc, char **argv)
+{
   GREATEST_MAIN_BEGIN();
   RUN_SUITE(rcm_errbuf_suite);
   GREATEST_MAIN_END();

@@ -759,13 +759,16 @@ make them reusable in libraries without any symbol leakage.</p>
 </dd>
 <dt class="hdlist1"><code>int rcm_rfc3339_parse(rcm_rfc3339_t *time, const char *value, char *err);</code></dt>
 <dd>
-<p>Parse time value in RFC3339 format.
+<p>Parse time <code>value</code> in RFC3339 format and store the result in <code>time</code>.
 Returns -1, if the parsing failed. 0, otherwise.
 In case of error, the error message is written to <code>err</code>.</p>
 </dd>
-<dt class="hdlist1"><code>rcm_rfc3339_t rcm_rfc3339_now(void);</code></dt>
+<dt class="hdlist1"><code>int rcm_rfc3339_now(rcm_rfc3339_t *t, char *err);</code></dt>
 <dd>
-<p>Return the current time (now) in UTC.</p>
+<p>Return the current time (now) in UTC and store it in <code>t</code>.
+Returns -1, if the time could not be determined. 0, otherwise.
+In case of error, the error message is written to <code>err</code>.
+MT-Unsafe.</p>
 </dd>
 <dt class="hdlist1"><code>char *rcm_rfc3339_format(char *out, rcm_rfc3339_t time);</code></dt>
 <dd>
@@ -782,7 +785,8 @@ Out must have at least size <code>RCM_RFC3339_BUFSIZE</code>!</p>
 </dd>
 <dt class="hdlist1"><code>rcm_rfc3339_t rcm_rfc3339_from_time_t(time_t time);</code></dt>
 <dd>
-<p>Convert from <code>time_t</code> to <code>rfc3339_t</code>.</p>
+<p>Convert from <code>time_t</code> to <code>rfc3339_t</code>.
+MT-Unsafe.</p>
 </dd>
 </dl>
 </div>
