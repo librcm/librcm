@@ -21,9 +21,9 @@ Returns -1, if the time could not be determined. 0, otherwise.
 In case of error, the error message is written to `err`.
 MT-Unsafe.
 
-`char *rcm_rfc3339_format(char *out, rcm_rfc3339_t time);`::
-Format time as RFC3339 in UTC to out buffer (`\0`-terminated).
-Out must have at least size `RCM_RFC3339_BUFSIZE`!
+`void rcm_rfc3339_format(char *out, rcm_rfc3339_t time);`::
+Format time as RFC3339 in UTC to `out` buffer (`\0`-terminated).
+The `out` buffer must have at least size `RCM_RFC3339_BUFSIZE`!
 
 `bool rcm_rfc3339_after(rcm_rfc3339_t ltime, rcm_rfc3339_t rtime);`::
 Return true if `ltime` is after `rtime`, false otherwise.

@@ -3,8 +3,8 @@
 #include "greatest.h"
 
 #define RCM_API static
+
 #include "rcm_errbuf.c"
-#include "rcm_errbuf.h"
 
 TEST rcm_errbuf_test(void)
 {

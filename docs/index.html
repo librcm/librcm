@@ -770,10 +770,10 @@ Returns -1, if the time could not be determined. 0, otherwise.
 In case of error, the error message is written to <code>err</code>.
 MT-Unsafe.</p>
 </dd>
-<dt class="hdlist1"><code>char *rcm_rfc3339_format(char *out, rcm_rfc3339_t time);</code></dt>
+<dt class="hdlist1"><code>void rcm_rfc3339_format(char *out, rcm_rfc3339_t time);</code></dt>
 <dd>
-<p>Format time as RFC3339 in UTC to out buffer (<code>\0</code>-terminated).
-Out must have at least size <code>RCM_RFC3339_BUFSIZE</code>!</p>
+<p>Format time as RFC3339 in UTC to <code>out</code> buffer (<code>\0</code>-terminated).
+The <code>out</code> buffer must have at least size <code>RCM_RFC3339_BUFSIZE</code>!</p>
 </dd>
 <dt class="hdlist1"><code>bool rcm_rfc3339_after(rcm_rfc3339_t ltime, rcm_rfc3339_t rtime);</code></dt>
 <dd>
