@@ -62,4 +62,3 @@ int main(int argc, char **argv)
   RUN_SUITE(rcm_rfc3339_suite);
   GREATEST_MAIN_END();
 }
-
