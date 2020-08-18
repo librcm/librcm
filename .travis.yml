@@ -1,2 +1,5 @@
 language: c
-run: make test
+compiler:
+  - clang
+  - gcc
+script: make test
