@@ -1,0 +1,5 @@
+[[rcm_pid.h]]
+=== `rcm_pid.h` -- Process ID
+
+`int pid_get(void);`::
+Returns the process ID (PID) of the calling process.

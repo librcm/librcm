@@ -1,5 +1,5 @@
 [[rcm_errbuf.h]]
-== `rcm_errbuf.h` -- Error buffer
+=== `rcm_errbuf.h` -- Error buffer
 
 `RCM_ERRBUF_SIZE`::
 The default error buffer size.

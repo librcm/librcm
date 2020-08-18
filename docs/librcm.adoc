@@ -122,7 +122,7 @@ as possible. Supported platforms include:
 - Modules must be compilable as `static` in an amalgamation file, to
   make them reusable in libraries without any symbol leakage.
 - Modules must minimize cognitive overhead. Standardize everything.
-- Modules should avoid dynamic memory allocation.
+- Modules should avoid dynamic memory allocation wherever possible
 
 
 == Error handling
@@ -161,6 +161,7 @@ include::module_deps.dot[]
 == `librcm` module APIs
 
 include::rcm_errbuf.adoc[]
+include::rcm_pid.adoc[]
 include::rcm_rfc3339.adoc[]
 
 == Deliverables

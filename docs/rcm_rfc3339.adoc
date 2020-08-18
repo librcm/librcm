@@ -1,5 +1,5 @@
 [[rcm_rfc3339.h]]
-== `rcm_rfc3339.h` -- RFC3339 time
+=== `rcm_rfc3339.h` -- RFC3339 time
 
 `RCM_RFC3339_BUFSIZE`::
 

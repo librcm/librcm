@@ -470,9 +470,13 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 </ul>
 </li>
 <li><a href="#_librcm_module_dependencies"><code>librcm</code> module dependencies</a></li>
-<li><a href="#_librcm_module_apis"><code>librcm</code> module APIs</a></li>
+<li><a href="#_librcm_module_apis"><code>librcm</code> module APIs</a>
+<ul class="sectlevel2">
 <li><a href="#rcm_errbuf.h"><code>rcm_errbuf.h</code>&#8201;&#8212;&#8201;Error buffer</a></li>
+<li><a href="#rcm_pid.h"><code>rcm_pid.h</code>&#8201;&#8212;&#8201;Process ID</a></li>
 <li><a href="#rcm_rfc3339.h"><code>rcm_rfc3339.h</code>&#8201;&#8212;&#8201;RFC3339 time</a></li>
+</ul>
+</li>
 <li><a href="#_deliverables">Deliverables</a></li>
 </ul>
 </div>
@@ -657,7 +661,7 @@ make them reusable in libraries without any symbol leakage.</p>
 <p>Modules must minimize cognitive overhead. Standardize everything.</p>
 </li>
 <li>
-<p>Modules should avoid dynamic memory allocation.</p>
+<p>Modules should avoid dynamic memory allocation wherever possible</p>
 </li>
 </ul>
 </div>
@@ -726,7 +730,7 @@ make them reusable in libraries without any symbol leakage.</p>
 <div class="sectionbody">
 <div class="imageblock">
 <div class="content">
-<img src="module_deps.png" alt="module deps" width="127" height="155">
+<img src="module_deps.png" alt="module deps" width="234" height="155">
 </div>
 </div>
 </div>
@@ -734,12 +738,8 @@ make them reusable in libraries without any symbol leakage.</p>
 <div class="sect1">
 <h2 id="_librcm_module_apis"><code>librcm</code> module APIs</h2>
 <div class="sectionbody">
-
-</div>
-</div>
-<div class="sect1">
-<h2 id="rcm_errbuf.h"><code>rcm_errbuf.h</code>&#8201;&#8212;&#8201;Error buffer</h2>
-<div class="sectionbody">
+<div class="sect2">
+<h3 id="rcm_errbuf.h"><code>rcm_errbuf.h</code>&#8201;&#8212;&#8201;Error buffer</h3>
 <div class="dlist">
 <dl>
 <dt class="hdlist1"><code>RCM_ERRBUF_SIZE</code></dt>
@@ -754,10 +754,19 @@ make them reusable in libraries without any symbol leakage.</p>
 </dl>
 </div>
 </div>
+<div class="sect2">
+<h3 id="rcm_pid.h"><code>rcm_pid.h</code>&#8201;&#8212;&#8201;Process ID</h3>
+<div class="dlist">
+<dl>
+<dt class="hdlist1"><code>int pid_get(void);</code></dt>
+<dd>
+<p>Returns the process ID (PID) of the calling process.</p>
+</dd>
+</dl>
 </div>
-<div class="sect1">
-<h2 id="rcm_rfc3339.h"><code>rcm_rfc3339.h</code>&#8201;&#8212;&#8201;RFC3339 time</h2>
-<div class="sectionbody">
+</div>
+<div class="sect2">
+<h3 id="rcm_rfc3339.h"><code>rcm_rfc3339.h</code>&#8201;&#8212;&#8201;RFC3339 time</h3>
 <div class="dlist">
 <dl>
 <dt class="hdlist1"><code>RCM_RFC3339_BUFSIZE</code></dt>
@@ -801,6 +810,7 @@ The <code>out</code> buffer must have at least size <code>RCM_RFC3339_BUFSIZE</c
 MT-Unsafe.</p>
 </dd>
 </dl>
+</div>
 </div>
 </div>
 </div>
