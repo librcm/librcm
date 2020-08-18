@@ -759,7 +759,8 @@ make them reusable in libraries without any symbol leakage.</p>
 </dd>
 <dt class="hdlist1"><code>int rcm_rfc3339_parse(rcm_rfc3339_t *time, const char *value, char *err);</code></dt>
 <dd>
-<p>Parse time <code>value</code> in RFC3339 format and store the result in <code>time</code>.
+<p>Parse time <code>value</code> in RFC3339 format and store the result in <code>time</code>
+(if not <code>NULL</code>).
 Returns -1, if the parsing failed. 0, otherwise.
 In case of error, the error message is written to <code>err</code>.</p>
 </dd>
