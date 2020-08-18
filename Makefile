@@ -15,11 +15,17 @@ OBJ:=$(SRC:src/%.c=obj/%.o)
 DEP:=$(SRC:src/%.c=obj/%.d)
 TEST_SRC:=$(wildcard src/rcm_*_test.c)
 TEST_BIN:=$(TEST_SRC:src/%.c=bin/%)
+HEADER:=$(wildcard src/rcm_*.h)
+LIBOBJ:=$(HEADER:src/%.h=obj/%.o)
 
-all: $(OBJ) $(TEST_BIN) docs
+all: $(OBJ) $(TEST_BIN) lib/librcm.a docs
 
 # read dependencies
 -include $(DEP)
+
+lib/librcm.a: $(LIBOBJ)
+	@test -d $(@D) || mkdir -p $(@D)
+	$(AR) cr $@ $(LIBOBJ)
 
 obj/%.o: src/%.c
 	@test -d $(@D) || mkdir -p $(@D)
@@ -38,9 +44,12 @@ docs/index.html: docs/librcm.adoc $(DOCS)
 docs/%.pdf: docs/%.adoc $(DOCS)
 	asciidoctor-pdf $<
 
-.PHONY: clean fmt test
+.PHONY: clean cleanup fmt test
 clean:
 	rm -rf obj
+
+cleanup: clean
+	rm -rf bin lib
 
 fmt:
 	clang-format -i -style=file src/rcm_*.[ch]
