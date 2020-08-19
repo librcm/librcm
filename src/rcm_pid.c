@@ -1,7 +1,11 @@
 /* SPDX-License-Identifier: Unlicense OR MIT */
 
+#ifndef _WIN32
 #include <sys/types.h>
 #include <unistd.h>
+#else
+#include <windows.h>
+#endif
 
 #include "rcm_pid.h"
 
