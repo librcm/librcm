@@ -5,6 +5,7 @@ Frank Braun <https://frankbraun.org>
 :reproducible:
 :source-highlighter: rouge
 :toc: left
+:icons: font
 
 This document describes how to write _reusable C modules_ and documents
 `librcm`.
@@ -144,7 +145,51 @@ TODO
 
 == How to write a module
 
-TODO
+A reusable C module `mod` consists of four components:
+
+1. The header file: `rcm_mod.h`
+2. The implementation C file: `rcm_mod.c`
+3. The unit test file: `rcm_mod_test.c`
+4. The module documentation: `rcm_mod.adoc`
+
+Only the header and the C files are really necessary to reuse the module.
+The online documentation for a module is linked from the header file.
+
+We write the documentation in a separate file for the following reasons:
+
+- It gives us the design capabilities of a lightweight markdown language.
+- Generated documentation is often of poor quality, because it is written as an
+  afterthought. Writing the documentation separately, in the API design stage,
+  makes it better.
+
+=== How to write the header file
+
+[source,c]
+----
+/* SPDX-License-Identifier: Unlicense OR MIT */ <1>
+
+#ifndef RCM_MOD_H <2>
+#define RCM_MOD_H
+
+/* Documentation: https://librcm.org/#rcm_mod.h */ <3>
+
+#ifndef RCM_API
+#define RCM_API extern <4>
+#endif
+
+RCM_API void rcm_mod_foo(void); <5>
+
+RCM_API int rcm_mod_bar(void);
+
+#endif <6>
+----
+<1> License identifier
+<2> https://en.wikipedia.org/wiki/Include_guard[Include guard]
+<3> Link to online documentation
+<4> Define `RCM_API`. Allows to compile all module functions as `static`
+<5> Function definition(s)
+<6> End of include guard
+
 
 == Rules
 
