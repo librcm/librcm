@@ -1,6 +1,4 @@
-language:
-  - c
-  - go
+language: go
 go: 1.14
 compiler:
   - clang
