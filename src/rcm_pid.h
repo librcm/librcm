@@ -11,4 +11,4 @@
 
 RCM_API int rcm_pid_get(void);
 
-#endif
+#endif /* RCM_PID_H */

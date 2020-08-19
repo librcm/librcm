@@ -5,6 +5,10 @@
 
 /* Documentation: https://librcm.org/#rcm_rfc3339.h */
 
+#ifndef RCM_API
+#define RCM_API extern
+#endif
+
 #define RCM_RFC3339_BUFSIZE 21
 
 typedef struct rcm_rfc3339_t rcm_rfc3339_t;
@@ -32,4 +36,4 @@ struct rcm_rfc3339_t {
   int sec;
 };
 
-#endif
+#endif /* RCM_RFC3339_H */

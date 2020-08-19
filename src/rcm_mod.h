@@ -13,4 +13,4 @@ RCM_API void rcm_mod_foo(void);
 
 RCM_API int rcm_mod_bar(void);
 
-#endif
+#endif /* RCM_MOD_H */

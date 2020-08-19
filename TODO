@@ -1,3 +1,5 @@
+- extract documentation from header files, Go style (`rcmdoc`)
+  - use regular expressions?
 - explain goto chain for error handling
 - outrule other goto uses (except inner break)
 - switch to `int rc`?

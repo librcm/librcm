@@ -18,7 +18,7 @@ TEST_BIN:=$(TEST_SRC:src/%.c=bin/%)
 HEADER:=$(wildcard src/rcm_*.h)
 LIBOBJ:=$(HEADER:src/%.h=obj/%.o)
 
-all: $(OBJ) $(TEST_BIN) lib/librcm.a docs
+all: $(OBJ) $(TEST_BIN) lib/librcm.a tools docs
 
 # read dependencies
 -include $(DEP)
@@ -36,6 +36,9 @@ bin/%: obj/%.o
 	@test -d $(@D) || mkdir -p $(@D)
 	$(CC) $< -o $@
 
+tools:
+	go install -v ./cmd/...
+
 docs: docs/index.html docs/librcm.pdf
 
 docs/index.html: docs/librcm.adoc $(DOCS)
@@ -44,7 +47,10 @@ docs/index.html: docs/librcm.adoc $(DOCS)
 docs/%.pdf: docs/%.adoc $(DOCS)
 	asciidoctor-pdf -r asciidoctor-diagram $<
 
-.PHONY: clean cleanup fmt test
+.PHONY: chk clean cleanup fmt test
+chk: tools
+	rcmchk src/rcm_*.[ch]
+
 clean:
 	rm -rf obj
 

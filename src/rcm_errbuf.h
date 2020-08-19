@@ -22,4 +22,4 @@
 RCM_API void rcm_errbuf_set(char *err, const char *format, ...)
     RCM_ERRBUF_FORMAT_ATTRIBUTE(2, 3);
 
-#endif
+#endif /* RCM_ERRBUF_H */

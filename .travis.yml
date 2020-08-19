@@ -1,8 +1,11 @@
-language: c
+language:
+  - c
+  - go
+go: 1.13
 compiler:
   - clang
   - gcc
 before_install:
   - sudo apt -qq update
   - sudo apt -qq install valgrind
-script: make test
+script: make chk test
