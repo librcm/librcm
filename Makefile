@@ -1,6 +1,5 @@
 CFLAGS?=-O2 -pipe
-CFLAGS+=-std=c99 \
-        -Wall -Werror -Wpedantic -Wextra -fPIC \
+CFLAGS+=-Wall -Werror -Wpedantic -Wextra -fPIC \
         -Wpointer-arith \
         -Wcast-align \
         -Wstrict-prototypes \

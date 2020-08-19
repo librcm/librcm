@@ -1038,8 +1038,7 @@ In case of error, the error message is written to <code>err</code>.</p>
 <dd>
 <p>Return the current time (now) in UTC and store it in <code>t</code>.
 Returns -1, if the time could not be determined. 0, otherwise.
-In case of error, the error message is written to <code>err</code>.
-MT-Unsafe.</p>
+In case of error, the error message is written to <code>err</code>.</p>
 </dd>
 <dt class="hdlist1"><code>void rcm_rfc3339_format(char *out, rcm_rfc3339_t time);</code></dt>
 <dd>
@@ -1056,8 +1055,7 @@ The <code>out</code> buffer must have at least size <code>RCM_RFC3339_BUFSIZE</c
 </dd>
 <dt class="hdlist1"><code>rcm_rfc3339_t rcm_rfc3339_from_time_t(time_t time);</code></dt>
 <dd>
-<p>Convert from <code>time_t</code> to <code>rfc3339_t</code>.
-MT-Unsafe.</p>
+<p>Convert from <code>time_t</code> to <code>rfc3339_t</code>.</p>
 </dd>
 </dl>
 </div>

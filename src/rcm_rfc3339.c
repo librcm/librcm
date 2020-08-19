@@ -128,22 +128,31 @@ RCM_API int rcm_rfc3339_parse(rcm_rfc3339_t *time, const char *value, char *err)
   return 0;
 }
 
+static void rcm_rfc3339_gmtime(struct tm *result, time_t t)
+{
+#ifndef _WIN32
+  gmtime_r(&t, result);
+#else
+  gmtime_s(result, &t);
+#endif
+}
+
 RCM_API int rcm_rfc3339_now(rcm_rfc3339_t *t, char *err)
 {
-  struct tm *tm;
+  struct tm tm;
   time_t now;
   assert(t);
   if (time(&now) == (time_t)-1) {
     rcm_errbuf_set(err, "rcm_rfc3339: cannot get time: %s", strerror(errno));
     return -1;
   }
-  tm = gmtime(&now);
-  t->sec = tm->tm_sec;
-  t->min = tm->tm_min;
-  t->hour = tm->tm_hour;
-  t->day = tm->tm_mday;
-  t->mon = tm->tm_mon + 1;
-  t->year = tm->tm_year + 1900;
+  rcm_rfc3339_gmtime(&tm, now);
+  t->sec = tm.tm_sec;
+  t->min = tm.tm_min;
+  t->hour = tm.tm_hour;
+  t->day = tm.tm_mday;
+  t->mon = tm.tm_mon + 1;
+  t->year = tm.tm_year + 1900;
   return 0;
 }
 
@@ -215,13 +224,13 @@ RCM_API bool rcm_rfc3339_before(rcm_rfc3339_t ltime, rcm_rfc3339_t rtime)
 RCM_API rcm_rfc3339_t rcm_rfc3339_from_time_t(time_t time)
 {
   rcm_rfc3339_t t;
-  struct tm *tm;
-  tm = gmtime(&time);
-  t.sec = tm->tm_sec;
-  t.min = tm->tm_min;
-  t.hour = tm->tm_hour;
-  t.day = tm->tm_mday;
-  t.mon = tm->tm_mon + 1;
-  t.year = tm->tm_year + 1900;
+  struct tm tm;
+  rcm_rfc3339_gmtime(&tm, time);
+  t.sec = tm.tm_sec;
+  t.min = tm.tm_min;
+  t.hour = tm.tm_hour;
+  t.day = tm.tm_mday;
+  t.mon = tm.tm_mon + 1;
+  t.year = tm.tm_year + 1900;
   return t;
 }
