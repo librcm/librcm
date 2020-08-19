@@ -7,3 +7,29 @@
 - describe memory allocator, make it settable
 - outrule setjmp, longjmp (MISRA does that, too?)
 - https://github.com/kokke/tiny-regex-c
+
+modules:
+- base64
+- c_assert?
+- json parser
+- TweetNaCl
+- dir
+- ed25519
+- executable
+- file
+- fileset?
+- fileutil
+- hex
+- http
+- jsonrpc
+- hash table (which one?)
+- membuf
+- mem
+- mftest
+- printf
+- rand
+- semver
+- sha256 (TweetNacl contains sha512)
+- sleep
+- thread
+- windows dirent.h
