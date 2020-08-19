@@ -1,0 +1,7 @@
+- explain goto chain for error handling
+- outrule other goto uses (except inner break)
+- switch to `int rc`?
+- use enums for error codes?
+- describe memory allocator, make it settable
+- outrule setjmp, longjmp (MISRA does that, too?)
+- https://github.com/kokke/tiny-regex-c

@@ -463,7 +463,15 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <li><a href="#_goals">Goals</a></li>
 <li><a href="#_error_handling">Error handling</a></li>
 <li><a href="#_memory_managment">Memory managment</a></li>
+<li><a href="#_how_to_write_a_module">How to write a module</a></li>
 <li><a href="#_rules">Rules</a>
+<ul class="sectlevel2">
+<li><a href="#_allowed_defines">Allowed defines</a></li>
+<li><a href="#_coding_style">Coding style</a></li>
+<li><a href="#_example_module">Example module</a></li>
+</ul>
+</li>
+<li><a href="#_how_to_test">How to test</a>
 <ul class="sectlevel2">
 <li><a href="#_use_ansi_c89">Use ANSI C89</a></li>
 <li><a href="#_goto_is_not_allowed"><code>goto</code> is not allowed</a></li>
@@ -661,9 +669,13 @@ make them reusable in libraries without any symbol leakage.</p>
 <p>Modules must minimize cognitive overhead. Standardize everything.</p>
 </li>
 <li>
-<p>Modules should avoid dynamic memory allocation wherever possible</p>
+<p>Modules should avoid dynamic memory allocation wherever possible.</p>
 </li>
 </ul>
+</div>
+<div class="paragraph">
+<p>See also the
+<a href="https://github.com/nothings/stb/blob/master/docs/stb_howto.txt">STB how-to</a>.</p>
 </div>
 </div>
 </div>
@@ -694,12 +706,139 @@ make them reusable in libraries without any symbol leakage.</p>
 <div class="sect1">
 <h2 id="_memory_managment">Memory managment</h2>
 <div class="sectionbody">
-
+<div class="paragraph">
+<p>TODO</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_how_to_write_a_module">How to write a module</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>TODO</p>
+</div>
 </div>
 </div>
 <div class="sect1">
 <h2 id="_rules">Rules</h2>
 <div class="sectionbody">
+<div class="ulist">
+<ul>
+<li>
+<p>Write portable ANSI C89.</p>
+</li>
+<li>
+<p><code>#include &lt;stdbool.h&gt;</code> is OK.</p>
+</li>
+<li>
+<p>Modules are single header files.</p>
+</li>
+<li>
+<p>Public domain for new code (use the [Unlicense]).</p>
+</li>
+<li>
+<p>Permissive license (BSD, MIT, or ISC) for modified third party code.</p>
+</li>
+<li>
+<p>No GPL.</p>
+</li>
+<li>
+<p>Format the code with <code>clang-format</code> (standardized <code>.clang-format</code>
+file).</p>
+</li>
+<li>
+<p>Write unit tests for the code with the
+<a href="https://github.com/silentbicycle/greatest">greatest</a> testing library.</p>
+</li>
+</ul>
+</div>
+<div class="sect2">
+<h3 id="_allowed_defines">Allowed defines</h3>
+<div class="paragraph">
+<p>The number of defines used in reusable C modules must be kept to the
+absolute minimum! Otherwise <code>#ifdef</code>-hell ensues.</p>
+</div>
+<div class="paragraph">
+<p>List of allowed <code>#ifdef</code>-statements:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><code><em>ANDROID</em></code>: Android.</p>
+</li>
+<li>
+<p><code><em>APPLE</em></code>: Apple platform (MacOS <em>and</em> iOS).</p>
+</li>
+<li>
+<p><code><em>linux</em></code>: Linux (also defined on Android).</p>
+</li>
+<li>
+<p><code><em>FreeBSD</em></code>: FreeBSD.</p>
+</li>
+<li>
+<p><code><em>OpenBSD</em></code>: OpenBSD.</p>
+</li>
+<li>
+<p><code>_MSC_VER</code>: The Visual Studio compiler is used. Defined as an
+integer literal that encodes the major and minor number elements of
+the compiler&#8217;s version number.</p>
+</li>
+<li>
+<p><code>NDEBUG</code>: combined with <code>#ifndef</code> to disable debugging code.</p>
+</li>
+<li>
+<p><code>TARGET_OS_IOS</code>: Is <code>== 0</code> for Mac OS and <code>&gt; 0</code> for iOS (on Apple
+platform).</p>
+</li>
+<li>
+<p><code>_WIN32</code>: Windows (usually with <code>#ifndef</code> to implement POSIX first).</p>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_coding_style">Coding style</h3>
+<div class="ulist">
+<ul>
+<li>
+<p>Error buffer: <code>char err[ERRBUF_SIZE]</code> (module <code>rcm_errbuf.h</code>)</p>
+</li>
+<li>
+<p>Return variables: <code>int ret</code></p>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_example_module">Example module</h3>
+<div class="paragraph">
+<p>TODO: <code>rcm_mod.h</code> example module.</p>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_how_to_test">How to test</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>TODO:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>valgrind, clang, greatest</p>
+</li>
+<li>
+<p>assertions</p>
+</li>
+<li>
+<p>allowed types</p>
+</li>
+<li>
+<p>licensensing</p>
+</li>
+</ul>
+</div>
 <div class="sect2">
 <h3 id="_use_ansi_c89">Use ANSI C89</h3>
 <div class="paragraph">
