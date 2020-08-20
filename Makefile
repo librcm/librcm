@@ -1,12 +1,15 @@
 CFLAGS?=-O2 -pipe
 CFLAGS+=-Wall -Werror -Wpedantic -Wextra -fPIC \
         -Wpointer-arith \
+        -Wcast-qual \
         -Wcast-align \
         -Wstrict-prototypes \
         -Wmissing-prototypes \
+        -Wconversion \
         -Wshadow \
         -Wswitch-enum \
-        -g
+        -g \
+        -Wno-unused-parameter # TODO: remove
 
 DOCS:=$(wildcard docs/*.adoc)
 SRC:=$(wildcard src/rcm_*.c)

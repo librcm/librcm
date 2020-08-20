@@ -1,16 +1,17 @@
 - extract documentation from header files, Go style (`rcmdoc`)
   - use regular expressions?
+- switch to `int rc` for return codes!
+- rcm_assert, ban assert.h (rfc3339 module)
+- clang-analyzer
+
 - explain goto chain for error handling
 - outrule other goto uses (except inner break)
-- switch to `int rc`?
-- use enums for error codes?
 - describe memory allocator, make it settable
 - outrule setjmp, longjmp (MISRA does that, too?)
 - https://github.com/kokke/tiny-regex-c
 
 modules:
 - base64
-- c_assert?
 - json parser
 - TweetNaCl
 - dir
