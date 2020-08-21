@@ -1,7 +1,16 @@
 strict digraph {
+  rcm_assert [shape=box]
+  rcm_base64 [shape=box]
+  rcm_base64buf [shape=box]
   rcm_errbuf [shape=box]
+  rcm_mem [shape=box]
   rcm_mod [shape=box]
   rcm_pid [shape=box]
   rcm_rfc3339 [shape=box]
+  rcm_base64 -> rcm_assert 
+  rcm_base64buf -> rcm_assert 
+  rcm_base64buf -> rcm_base64
+  rcm_base64buf -> rcm_errbuf 
+  rcm_base64buf -> rcm_mem 
   rcm_rfc3339 -> rcm_errbuf
 }

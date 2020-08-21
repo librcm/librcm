@@ -150,7 +150,7 @@ A reusable C module `mod` consists of four components:
 1. The header file: `rcm_mod.h`
 2. The implementation C file: `rcm_mod.c`
 3. The unit test file: `rcm_mod_test.c`
-4. The module documentation: `rcm_mod.adoc`
+4. The module documentation (generated): `rcm_mod.adoc`
 
 Only the header and the C files are really necessary to reuse the module.
 The online documentation for a module is linked from the header file.
@@ -263,6 +263,8 @@ include::module_deps.dot[]
 
 == `librcm` module APIs
 
+include::rcm_base64.adoc[]
+include::rcm_base64buf.adoc[]
 include::rcm_errbuf.adoc[]
 include::rcm_mod.adoc[]
 include::rcm_pid.adoc[]

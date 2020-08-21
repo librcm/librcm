@@ -9,6 +9,8 @@
 #define RCM_API extern
 #endif
 
+#include "rcm_errbuf.h"
+
 #define RCM_RFC3339_BUFSIZE 21
 
 typedef struct rcm_rfc3339_t rcm_rfc3339_t;

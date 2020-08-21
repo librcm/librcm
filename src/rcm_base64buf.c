@@ -1,7 +1,6 @@
 /* SPDX-License-Identifier: Unlicense OR MIT */
 
 #include "rcm_base64buf.h"
-#include "rcm_assert.h"
 
 RCM_API rcm_base64buf_err_t rcm_base64buf_encode(char **out,
                                                  const unsigned char *in,

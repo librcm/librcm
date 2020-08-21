@@ -1,6 +1,5 @@
 /* SPDX-License-Identifier: Unlicense OR MIT */
 
-#include "rcm_assert.h"
 #include "rcm_base64.h"
 
 RCM_API size_t rcm_base64_encode_len(size_t len)
@@ -15,7 +14,8 @@ RCM_API size_t rcm_base64_encode_len(size_t len)
   return len / 3 * 4 + (len % 3) ? 4 : 0;
 }
 
-RCM_API rcm_base64_err_t rcm_base64_encode(char *out, const unsigned char *in, size_t len)
+RCM_API rcm_base64_err_t rcm_base64_encode(char *out, const unsigned char *in,
+                                           size_t len)
 {
   if (rcm_assert(out && in)) {
     return RCM_BASE64_ERR_ASSERT_FAILED;

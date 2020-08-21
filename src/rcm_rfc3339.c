@@ -8,7 +8,6 @@
 #include <string.h>
 #include <time.h>
 
-#include "rcm_errbuf.h"
 #include "rcm_rfc3339.h"
 
 RCM_API int rcm_rfc3339_parse(rcm_rfc3339_t *time, const char *value, char *err)
@@ -103,12 +102,12 @@ RCM_API int rcm_rfc3339_parse(rcm_rfc3339_t *time, const char *value, char *err)
     return -1;
   }
   /* convert to time_t */
-  tm.tm_year = year - 1900;
-  tm.tm_mon = month - 1;
-  tm.tm_mday = day;
-  tm.tm_hour = hour;
-  tm.tm_min = minute;
-  tm.tm_sec = second;
+  tm.tm_year = (int) year - 1900;
+  tm.tm_mon = (int) month - 1;
+  tm.tm_mday = (int) day;
+  tm.tm_hour = (int) hour;
+  tm.tm_min = (int) minute;
+  tm.tm_sec = (int) second;
   t = mktime(&tm);
   if (t == (time_t)-1) {
     rcm_errbuf_set(err,
@@ -118,12 +117,12 @@ RCM_API int rcm_rfc3339_parse(rcm_rfc3339_t *time, const char *value, char *err)
     return -1;
   }
   if (time) {
-    time->year = year;
-    time->mon = month;
-    time->day = day;
-    time->hour = hour;
-    time->min = minute;
-    time->sec = second;
+    time->year = (int) year;
+    time->mon = (int) month;
+    time->day = (int) day;
+    time->hour = (int) hour;
+    time->min = (int) minute;
+    time->sec = (int) second;
   }
   return 0;
 }

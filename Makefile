@@ -12,6 +12,7 @@ CFLAGS+=-Wall -Werror -Wpedantic -Wextra -fPIC \
         -Wno-unused-parameter # TODO: remove
 
 DOCS:=$(wildcard docs/*.adoc)
+DOCS+=docs/module_deps.dot
 SRC:=$(wildcard src/rcm_*.c)
 OBJ:=$(SRC:src/%.c=obj/%.o)
 DEP:=$(SRC:src/%.c=obj/%.d)
@@ -49,7 +50,7 @@ docs/index.html: docs/librcm.adoc $(DOCS)
 docs/%.pdf: docs/%.adoc $(DOCS)
 	asciidoctor-pdf -r asciidoctor-diagram $<
 
-.PHONY: chk clean cleanup fmt test
+.PHONY: chk clean cleanup fmt mkdocs test
 chk: tools
 	rcmchk src/rcm_*.[ch]
 
@@ -61,6 +62,9 @@ cleanup: clean
 
 fmt:
 	clang-format -i -style=file src/rcm_*.[ch]
+
+mkdocs: tools
+	rcmdoc src/rcm_base64.h src/rcm_base64buf.h
 
 test: $(TEST_BIN)
 	@for T in $(TEST_BIN); do \
