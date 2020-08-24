@@ -488,6 +488,7 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <li><a href="#rcm_base64.h"><code>rcm_base64.h</code>&#8201;&#8212;&#8201;Base64 encoding</a></li>
 <li><a href="#rcm_base64buf.h"><code>rcm_base64buf.h</code>&#8201;&#8212;&#8201;Base64 buffer</a></li>
 <li><a href="#rcm_errbuf.h"><code>rcm_errbuf.h</code>&#8201;&#8212;&#8201;Error buffer</a></li>
+<li><a href="#rcm_mem.h"><code>rcm_mem.h</code>&#8201;&#8212;&#8201;Memory allocator</a></li>
 <li><a href="#rcm_mod.h"><code>rcm_mod.h</code>&#8201;&#8212;&#8201;Example module</a></li>
 <li><a href="#rcm_pid.h"><code>rcm_pid.h</code>&#8201;&#8212;&#8201;Process ID</a></li>
 <li><a href="#rcm_rfc3339.h"><code>rcm_rfc3339.h</code>&#8201;&#8212;&#8201;RFC3339 time</a></li>
@@ -1038,6 +1039,24 @@ platform).</p>
 <dt class="hdlist1"><code>void rcm_errbuf_set(char *err, const char *format, &#8230;&#8203;);</code></dt>
 <dd>
 <p>Sets error buffer err to format string (printf(3)-like) with arguments <code>&#8230;&#8203;</code>. Does nothing, if err is <code>NULL</code>.</p>
+</dd>
+</dl>
+</div>
+</div>
+<div class="sect2">
+<h3 id="rcm_mem.h"><code>rcm_mem.h</code>&#8201;&#8212;&#8201;Memory allocator</h3>
+<div class="paragraph">
+<p>This modules defines the memory allocator for <em>reusable C modules</em>.</p>
+</div>
+<div class="dlist">
+<dl>
+<dt class="hdlist1"><code>void *rcm_mem_malloc(size_t size);</code></dt>
+<dd>
+<p>Allocates size bytes and returns a pointer to the allocated memory. The memory is not initialized.</p>
+</dd>
+<dt class="hdlist1"><code>void rcm_mem_free(void *ptr);</code></dt>
+<dd>
+<p>Frees the memory space pointed to by ptr.</p>
 </dd>
 </dl>
 </div>

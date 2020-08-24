@@ -64,7 +64,7 @@ fmt:
 	clang-format -i -style=file src/rcm_*.[ch]
 
 mkdocs: tools
-	rcmdoc src/rcm_base64.h src/rcm_base64buf.h src/rcm_errbuf.h src/rcm_mod.h src/rcm_pid.h src/rcm_rfc3339.h
+	rcmdoc src/rcm_base64.h src/rcm_base64buf.h src/rcm_errbuf.h src/rcm_mod.h src/rcm_pid.h src/rcm_rfc3339.h src/rcm_mem.h
 
 test: $(TEST_BIN)
 	@for T in $(TEST_BIN); do \
