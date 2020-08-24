@@ -4,6 +4,7 @@
 - rcm_assert, ban assert.h (rfc3339 module)
 - clang-analyzer
 - only header file should include rcm deps, C file only corresponding header file
+- replace travis with github actions
 
 - explain goto chain for error handling
 - outrule other goto uses (except inner break)
