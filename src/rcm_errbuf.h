@@ -13,6 +13,7 @@
 
    The error buffer module. */
 
+/* The default error buffer size. */
 #ifndef RCM_ERRBUF_SIZE
 #define RCM_ERRBUF_SIZE 1024
 #endif

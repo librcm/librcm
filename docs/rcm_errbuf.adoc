@@ -5,6 +5,8 @@
 
 The error buffer module.
 
+`#define RCM_ERRBUF_SIZE 1024`::
+The default error buffer size.
 `void rcm_errbuf_set(char *err, const char *format, ...;;`::
 Sets error buffer err to format string (printf(3)-like) with arguments `...`. Does nothing, if err is `NULL`.
 

@@ -17,6 +17,13 @@ var (
 
 /\* (.+?) \*/`)
 
+	reDefine = regexp.MustCompile(`
+/\* (.+?) \*/
+#ifndef .+?
+(#define .+?)
+#endif
+`)
+
 	reFunc = regexp.MustCompile(`(?s)
 (;.+?) IPA_MCR
 /\* (.+?) \*/`)
@@ -50,6 +57,9 @@ func genDoc(filename string) error {
 		return fmt.Errorf("%s: no header found", filename)
 	}
 
+	// find defines
+	def := reDefine.FindAllSubmatch(buf, -1)
+
 	// open .adoc file
 	docFile := filepath.Join("docs", strings.TrimSuffix(base, ".h")+".adoc")
 	fmt.Println("writing", docFile)
@@ -69,6 +79,12 @@ func genDoc(filename string) error {
 	fmt.Fprintln(w, "")
 	fmt.Fprintln(w, removeWhitespace(header))
 	fmt.Fprintln(w, "")
+
+	// print defines
+	for i := 0; i < len(def); i++ {
+		fmt.Fprintf(w, "`%s`::\n", string(def[i][2]))
+		fmt.Fprintln(w, string(def[i][1]))
+	}
 
 	// find functions (on reverse buffer)
 	reverse(buf)
