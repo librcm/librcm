@@ -9,6 +9,10 @@
 #define RCM_API extern
 #endif
 
+/* Error buffer:
+
+   The error buffer module. */
+
 #ifndef RCM_ERRBUF_SIZE
 #define RCM_ERRBUF_SIZE 1024
 #endif
@@ -19,6 +23,8 @@
 #define RCM_ERRBUF_FORMAT_ATTRIBUTE(i, j)
 #endif
 
+/* Sets error buffer err to format string (printf(3)-like) with arguments
+   `...`. Does nothing, if err is `NULL`. */
 RCM_API void rcm_errbuf_set(char *err, const char *format, ...)
     RCM_ERRBUF_FORMAT_ATTRIBUTE(2, 3);
 

@@ -1,9 +1,10 @@
+// generated from ../src/rcm_errbuf.h with `rcmdoc`
+
 [[rcm_errbuf.h]]
 === `rcm_errbuf.h` -- Error buffer
 
-`RCM_ERRBUF_SIZE`::
-The default error buffer size.
+The error buffer module.
 
-`void rcm_errbuf_set(char *err, const char *format, ...);`::
-Sets error buffer `err` to `format` string (`printf(3)`-like) with arguments
-`...`. Does nothing, if `err` is `NULL`.
+`void rcm_errbuf_set(char *err, const char *format, ...;;`::
+Sets error buffer err to format string (printf(3)-like) with arguments `...`. Does nothing, if err is `NULL`.
+

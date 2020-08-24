@@ -75,8 +75,15 @@ func genDoc(filename string) error {
 	//fmt.Println(string(buf))
 	fn := reFunc.FindAllSubmatch(buf, -1)
 	for i := len(fn) - 1; i >= 0; i-- {
+		funcName := removeWhitespace(string(reverse(fn[i][1])))
+		// remove attributes
+		idx := strings.Index(funcName, ")")
+		if idx == -1 {
+			return fmt.Errorf("')' not found in: %s\n", funcName)
+		}
+		funcName = funcName[:idx] + ";"
 		if len(fn[i]) > 2 {
-			fmt.Fprintf(w, "`%s`::\n", removeWhitespace(string(reverse(fn[i][1]))))
+			fmt.Fprintf(w, "`%s;`::\n", funcName)
 			fmt.Fprintln(w, removeWhitespace(string(reverse(fn[i][2]))))
 			fmt.Fprintln(w, "")
 		}
