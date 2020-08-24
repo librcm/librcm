@@ -1,5 +1,10 @@
+// generated from ../src/rcm_pid.h with `rcmdoc`
+
 [[rcm_pid.h]]
 === `rcm_pid.h` -- Process ID
 
-`int pid_get(void);`::
+Module to deal with process IDs (PIDs).
+
+`int rcm_pid_get(void);`::
 Returns the process ID (PID) of the calling process.
+

@@ -979,23 +979,23 @@ platform).</p>
 </div>
 <div class="dlist">
 <dl>
-<dt class="hdlist1"><code>size_t rcm_base64_encode_len(size_t len;;</code></dt>
+<dt class="hdlist1"><code>size_t rcm_base64_encode_len(size_t len);</code></dt>
 <dd>
 <p>Returns the base64 encoded length of a binary input buffer of size len.</p>
 </dd>
-<dt class="hdlist1"><code>rcm_base64_err_t rcm_base64_encode(char *out, const unsigned char *in, size_t len;;</code></dt>
+<dt class="hdlist1"><code>rcm_base64_err_t rcm_base64_encode(char *out, const unsigned char *in, size_t len);</code></dt>
 <dd>
 <p>Writes the base64 encoding of the input buffer in of lenght len to out and appends a <code>\0</code> character. The output buffer out has to be at least the size <code>rcm_base64_encode_len(len)+1</code>!</p>
 </dd>
-<dt class="hdlist1"><code>size_t rcm_base64_decode_len(size_t len;;</code></dt>
+<dt class="hdlist1"><code>size_t rcm_base64_decode_len(size_t len);</code></dt>
 <dd>
 <p>Returns the decoded length of an base64 encoded input buffer of size len.</p>
 </dd>
-<dt class="hdlist1"><code>rcm_base64_err_t rcm_base64_decode(unsigned char *out, const char *in, size_t len;;</code></dt>
+<dt class="hdlist1"><code>rcm_base64_err_t rcm_base64_decode(unsigned char *out, const char *in, size_t len);</code></dt>
 <dd>
 <p>Decodes the base64 encoded input in of length len and writes it to out (if not NULL). If the the output buffer out is not NULL it has to be at least of the size <code>rcm_base64_decode_len(len)</code>!</p>
 </dd>
-<dt class="hdlist1"><code>const char *rcm_base64_errstr(rcm_base64_err_t errnum;;</code></dt>
+<dt class="hdlist1"><code>const char *rcm_base64_errstr(rcm_base64_err_t errnum);</code></dt>
 <dd>
 <p>Return an error string describing the given error number errnum. For RCM_BASE64_OK an empty string is returned ("", not NULL).</p>
 </dd>
@@ -1009,15 +1009,15 @@ platform).</p>
 </div>
 <div class="dlist">
 <dl>
-<dt class="hdlist1"><code>rcm_base64buf_err_t rcm_base64buf_encode(char **out, const unsigned char *in, size_t len, char *err;;</code></dt>
+<dt class="hdlist1"><code>rcm_base64buf_err_t rcm_base64buf_encode(char **out, const unsigned char *in, size_t len, char *err);</code></dt>
 <dd>
 <p>Encodes the base64 encoding of the input buffer in of lenght len and writes it it as a null-terminated string to out.</p>
 </dd>
-<dt class="hdlist1"><code>rcm_base64buf_err_t rcm_base64buf_decode(unsigned char **out, size_t *outlen, const char *in, size_t len, char *err;;</code></dt>
+<dt class="hdlist1"><code>rcm_base64buf_err_t rcm_base64buf_decode(unsigned char **out, size_t *outlen, const char *in, size_t len, char *err);</code></dt>
 <dd>
 <p>Decodes the base64 encoded input in of length len and writes it to the freshly allocated out buffer. If outlen is not NULL, the length of the output buffer is written to it. In case of error out remains unmodified, an error code is returned, and an error message is written to err.</p>
 </dd>
-<dt class="hdlist1"><code>const char *rcm_base64buf_errstr(rcm_base64buf_err_t errnum;;</code></dt>
+<dt class="hdlist1"><code>const char *rcm_base64buf_errstr(rcm_base64buf_err_t errnum);</code></dt>
 <dd>
 <p>Return an error string describing the given error number errnum. For RCM_BASE64BUF_OK an empty string is returned ("", not NULL).</p>
 </dd>
@@ -1035,7 +1035,7 @@ platform).</p>
 <dd>
 <p>The default error buffer size.</p>
 </dd>
-<dt class="hdlist1"><code>void rcm_errbuf_set(char *err, const char *format, &#8230;&#8203;;;</code></dt>
+<dt class="hdlist1"><code>void rcm_errbuf_set(char *err, const char *format, &#8230;&#8203;);</code></dt>
 <dd>
 <p>Sets error buffer err to format string (printf(3)-like) with arguments <code>&#8230;&#8203;</code>. Does nothing, if err is <code>NULL</code>.</p>
 </dd>
@@ -1049,11 +1049,11 @@ platform).</p>
 </div>
 <div class="dlist">
 <dl>
-<dt class="hdlist1"><code>void rcm_mod_foo(void;;</code></dt>
+<dt class="hdlist1"><code>void rcm_mod_foo(void);</code></dt>
 <dd>
 <p>Does nothing.</p>
 </dd>
-<dt class="hdlist1"><code>int rcm_mod_bar(void;;</code></dt>
+<dt class="hdlist1"><code>int rcm_mod_bar(void);</code></dt>
 <dd>
 <p>Returns 23.</p>
 </dd>
@@ -1062,9 +1062,12 @@ platform).</p>
 </div>
 <div class="sect2">
 <h3 id="rcm_pid.h"><code>rcm_pid.h</code>&#8201;&#8212;&#8201;Process ID</h3>
+<div class="paragraph">
+<p>Module to deal with process IDs (PIDs).</p>
+</div>
 <div class="dlist">
 <dl>
-<dt class="hdlist1"><code>int pid_get(void);</code></dt>
+<dt class="hdlist1"><code>int rcm_pid_get(void);</code></dt>
 <dd>
 <p>Returns the process ID (PID) of the calling process.</p>
 </dd>
@@ -1073,33 +1076,22 @@ platform).</p>
 </div>
 <div class="sect2">
 <h3 id="rcm_rfc3339.h"><code>rcm_rfc3339.h</code>&#8201;&#8212;&#8201;RFC3339 time</h3>
+<div class="paragraph">
+<p>Module to deal with time strings in RFC3339 format.</p>
+</div>
 <div class="dlist">
 <dl>
-<dt class="hdlist1"><code>RCM_RFC3339_BUFSIZE</code></dt>
-<dd>
-<p>The RCM3339 buffer size.</p>
-</dd>
-<dt class="hdlist1"><code>rcm_rfc3339_t</code></dt>
-<dd>
-<p>The RCF3339 time type.</p>
-</dd>
 <dt class="hdlist1"><code>int rcm_rfc3339_parse(rcm_rfc3339_t *time, const char *value, char *err);</code></dt>
 <dd>
-<p>Parse time <code>value</code> in RFC3339 format and store the result in <code>time</code>
-(if not <code>NULL</code>).
-Returns -1, if the parsing failed. 0, otherwise.
-In case of error, the error message is written to <code>err</code>.</p>
+<p>Parse time <code>value</code> in RFC3339 format and store the result in <code>time</code> (if not <code>NULL</code>). Returns -1, if the parsing failed. 0, otherwise. In case of error, the error message is written to <code>err</code>.</p>
 </dd>
 <dt class="hdlist1"><code>int rcm_rfc3339_now(rcm_rfc3339_t *t, char *err);</code></dt>
 <dd>
-<p>Return the current time (now) in UTC and store it in <code>t</code>.
-Returns -1, if the time could not be determined. 0, otherwise.
-In case of error, the error message is written to <code>err</code>.</p>
+<p>Return the current time (now) in UTC and store it in <code>t</code>. Returns -1, if the time could not be determined. 0, otherwise. In case of error, the error message is written to <code>err</code>.</p>
 </dd>
 <dt class="hdlist1"><code>void rcm_rfc3339_format(char *out, rcm_rfc3339_t time);</code></dt>
 <dd>
-<p>Format time as RFC3339 in UTC to <code>out</code> buffer (<code>\0</code>-terminated).
-The <code>out</code> buffer must have at least size <code>RCM_RFC3339_BUFSIZE</code>!</p>
+<p>Format time as RFC3339 in UTC to <code>out</code> buffer (<code>\0</code>-terminated). The <code>out</code> buffer must have at least size <code>RCM_RFC3339_BUFSIZE</code>!</p>
 </dd>
 <dt class="hdlist1"><code>bool rcm_rfc3339_after(rcm_rfc3339_t ltime, rcm_rfc3339_t rtime);</code></dt>
 <dd>

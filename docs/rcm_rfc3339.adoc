@@ -1,29 +1,18 @@
+// generated from ../src/rcm_rfc3339.h with `rcmdoc`
+
 [[rcm_rfc3339.h]]
 === `rcm_rfc3339.h` -- RFC3339 time
 
-`RCM_RFC3339_BUFSIZE`::
-
-The RCM3339 buffer size.
-
-`rcm_rfc3339_t`::
-
-The RCF3339 time type.
+Module to deal with time strings in RFC3339 format.
 
 `int rcm_rfc3339_parse(rcm_rfc3339_t *time, const char *value, char *err);`::
-
-Parse time `value` in RFC3339 format and store the result in `time`
-(if not `NULL`).
-Returns -1, if the parsing failed. 0, otherwise.
-In case of error, the error message is written to `err`.
+Parse time `value` in RFC3339 format and store the result in `time` (if not `NULL`). Returns -1, if the parsing failed. 0, otherwise. In case of error, the error message is written to `err`.
 
 `int rcm_rfc3339_now(rcm_rfc3339_t *t, char *err);`::
-Return the current time (now) in UTC and store it in `t`.
-Returns -1, if the time could not be determined. 0, otherwise.
-In case of error, the error message is written to `err`.
+Return the current time (now) in UTC and store it in `t`. Returns -1, if the time could not be determined. 0, otherwise. In case of error, the error message is written to `err`.
 
 `void rcm_rfc3339_format(char *out, rcm_rfc3339_t time);`::
-Format time as RFC3339 in UTC to `out` buffer (`\0`-terminated).
-The `out` buffer must have at least size `RCM_RFC3339_BUFSIZE`!
+Format time as RFC3339 in UTC to `out` buffer (`\0`-terminated). The `out` buffer must have at least size `RCM_RFC3339_BUFSIZE`!
 
 `bool rcm_rfc3339_after(rcm_rfc3339_t ltime, rcm_rfc3339_t rtime);`::
 Return true if `ltime` is after `rtime`, false otherwise.
@@ -33,3 +22,4 @@ Return true if `ltime` is before `rtime`, false otherwise.
 
 `rcm_rfc3339_t rcm_rfc3339_from_time_t(time_t time);`::
 Convert from `time_t` to `rfc3339_t`.
+
