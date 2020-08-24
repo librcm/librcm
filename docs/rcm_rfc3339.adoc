@@ -5,6 +5,12 @@
 
 Module to deal with time strings in RFC3339 format.
 
+`#define RCM_RFC3339_BUFSIZE 21`::
+The default RFC3339 string buffer size.
+
+`typedef struct rcm_rfc3339_t rcm_rfc3339_t;`::
+The RCF3339 time type.
+
 `int rcm_rfc3339_parse(rcm_rfc3339_t *time, const char *value, char *err);`::
 Parse time `value` in RFC3339 format and store the result in `time` (if not `NULL`). Returns -1, if the parsing failed. 0, otherwise. In case of error, the error message is written to `err`.
 

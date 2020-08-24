@@ -17,13 +17,22 @@ var (
 
 /\* (.+?) \*/`)
 
-	reDefine = regexp.MustCompile(`
+	reDefineGuard = regexp.MustCompile(`
 /\* (.+?) \*/
 #ifndef .+?
 (#define .+?)
 #endif
 `)
 
+	reDefine = regexp.MustCompile(`
+/\* (.+?) \*/
+(#define .+?)
+`)
+
+	reTypedef = regexp.MustCompile(`
+/\* (.+?) \*/
+(typedef struct .+?)
+`)
 	reFunc = regexp.MustCompile(`(?s)
 (;.+?) IPA_MCR
 /\* (.+?) \*/`)
@@ -57,8 +66,14 @@ func genDoc(filename string) error {
 		return fmt.Errorf("%s: no header found", filename)
 	}
 
+	// find defines with guards
+	defGuard := reDefineGuard.FindAllSubmatch(buf, -1)
+
 	// find defines
 	def := reDefine.FindAllSubmatch(buf, -1)
+
+	// find typdefs
+	typedef := reTypedef.FindAllSubmatch(buf, -1)
 
 	// open .adoc file
 	docFile := filepath.Join("docs", strings.TrimSuffix(base, ".h")+".adoc")
@@ -80,10 +95,25 @@ func genDoc(filename string) error {
 	fmt.Fprintln(w, removeWhitespace(header))
 	fmt.Fprintln(w, "")
 
+	// print defines with guards
+	for i := 0; i < len(defGuard); i++ {
+		fmt.Fprintf(w, "`%s`::\n", string(defGuard[i][2]))
+		fmt.Fprintln(w, string(defGuard[i][1]))
+		fmt.Fprintln(w, "")
+	}
+
 	// print defines
 	for i := 0; i < len(def); i++ {
 		fmt.Fprintf(w, "`%s`::\n", string(def[i][2]))
 		fmt.Fprintln(w, string(def[i][1]))
+		fmt.Fprintln(w, "")
+	}
+
+	// print typedefs
+	for i := 0; i < len(typedef); i++ {
+		fmt.Fprintf(w, "`%s`::\n", string(typedef[i][2]))
+		fmt.Fprintln(w, string(typedef[i][1]))
+		fmt.Fprintln(w, "")
 	}
 
 	// find functions (on reverse buffer)

@@ -1081,6 +1081,14 @@ platform).</p>
 </div>
 <div class="dlist">
 <dl>
+<dt class="hdlist1"><code>#define RCM_RFC3339_BUFSIZE 21</code></dt>
+<dd>
+<p>The default RFC3339 string buffer size.</p>
+</dd>
+<dt class="hdlist1"><code>typedef struct rcm_rfc3339_t rcm_rfc3339_t;</code></dt>
+<dd>
+<p>The RCF3339 time type.</p>
+</dd>
 <dt class="hdlist1"><code>int rcm_rfc3339_parse(rcm_rfc3339_t *time, const char *value, char *err);</code></dt>
 <dd>
 <p>Parse time <code>value</code> in RFC3339 format and store the result in <code>time</code> (if not <code>NULL</code>). Returns -1, if the parsing failed. 0, otherwise. In case of error, the error message is written to <code>err</code>.</p>
