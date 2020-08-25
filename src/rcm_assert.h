@@ -14,7 +14,7 @@ Robust assertions:
 
 The robust assertion macro is inspired by the "JPL Institutional Coding
 Standard for the C Programming Language", Rule 16,
-(see https://lars-lab.jpl.nasa.gov/JPL_Coding_Standard_C.pdf).
+(see https://librcm.org/mirrors/JPL_Coding_Standard_C.pdf).
 
 Recommended use:
 
