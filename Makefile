@@ -68,5 +68,6 @@ mkdocs: tools
 
 test: $(TEST_BIN)
 	@for T in $(TEST_BIN); do \
-		valgrind --tool=memcheck --leak-check=full --quiet $$T; \
+    valgrind --tool=memcheck --leak-check=full --error-exitcode=1 \
+             --quiet $$T || exit 1; \
 	done
