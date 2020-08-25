@@ -14,5 +14,6 @@ done
 
 for HEADER in $RCM_HEADER; do
   GCOV=`echo $HEADER | sed s/.h$/.c.gcov/ | sed s%src/%%`
+  echo "checking full coverage for $GCOV"
   ! grep "^    #####" $GCOV || exit 1
 done

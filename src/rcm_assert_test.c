@@ -16,6 +16,20 @@ TEST rcm_assert_test_failure(void)
   PASS();
 }
 
+TEST rcm_assert_test_no_handler_success(void)
+{
+  rcm_assert_set_handler(NULL);
+  ASSERT_EQ(true, rcm_assert(true));
+  PASS();
+}
+
+TEST rcm_assert_test_no_handler_failure(void)
+{
+  rcm_assert_set_handler(NULL);
+  ASSERT_EQ(false, rcm_assert(false));
+  PASS();
+}
+
 static bool rcm_assert_test_handler(const char *file, int line,
                                     const char *expr, void *data)
 {
@@ -48,6 +62,8 @@ SUITE(rcm_assert_suite)
 {
   RUN_TEST(rcm_assert_test_success);
   RUN_TEST(rcm_assert_test_failure);
+  RUN_TEST(rcm_assert_test_no_handler_success);
+  RUN_TEST(rcm_assert_test_no_handler_failure);
   RUN_TEST(rcm_assert_test_handler_success);
   RUN_TEST(rcm_assert_test_handler_failure);
 }
