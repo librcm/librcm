@@ -9,6 +9,26 @@
 #define RCM_API extern
 #endif
 
+/*
+Robust assertions:
+
+The robust assertion macro is inspired by the "JPL Institutional Coding
+Standard for the C Programming Language", Rule 16,
+(see https://lars-lab.jpl.nasa.gov/JPL_Coding_Standard_C.pdf).
+
+Recommended use:
+
+[source,c]
+----
+if (!rcm_assert(p >= 0)) {
+  return RCM_ASSERT_ERR_FAILED;
+}
+----
+
+Compile with -DNDEBUG for production and without for development and
+testing.
+*/
+
 #include <stdbool.h>
 
 typedef enum {
@@ -16,21 +36,7 @@ typedef enum {
   RCM_ASSERT_ERR_FAILED_ASSERT = -4
 } rcm_assert_err_t;
 
-/* Robust assertion macro. It is inspired by the "JPL Institutional Coding
-   Standard for the C Programming Language", Rule 16,
-   (see https://lars-lab.jpl.nasa.gov/JPL_Coding_Standard_C.pdf).
-
-   Recommended use:
-
-   [source,c]
-   ----
-   if (!rcm_assert(p >= 0)) {
-     return RCM_ASSERT_ERR_FAILED;
-   }
-   ----
-
-   Compile with -DNDEBUG for production and without for development and
-   testing. */
+/* Robust assertion macro. */
 #define rcm_assert(e) rcm_assert_handle((e), __FILE__, __LINE__, #e)
 
 /* An assertion handler. Should return false to mark the assertion as failed.

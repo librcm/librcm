@@ -9,9 +9,11 @@
 #define RCM_API extern
 #endif
 
-/* Memory allocator:
+/*
+Memory allocator:
 
-   This modules defines the memory allocator for _reusable C modules_. */
+This modules defines the memory allocator for _reusable C modules_.
+*/
 
 #include <stdlib.h>
 

@@ -3,7 +3,9 @@
 [[rcm_base64.h]]
 === `rcm_base64.h` -- Base64 encoding
 
-This module implements low-level funtions for the base64 standard encoding with padding as described in RFC 4648. Use the rcm_base64_buf module for higher-level functions (with memory allocation and error buffers).
+This module implements low-level funtions for the base64 standard encoding
+with padding as described in RFC 4648. Use the rcm_base64_buf module for
+higher-level functions (with memory allocation and error buffers).
 
 `size_t rcm_base64_encode_len(size_t len);`::
 Returns the base64 encoded length of a binary input buffer of size len.

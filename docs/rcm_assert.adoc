@@ -1,0 +1,36 @@
+// generated from ../src/rcm_assert.h with `rcmdoc`
+
+[[rcm_assert.h]]
+=== `rcm_assert.h` -- Robust assertions
+
+The robust assertion macro is inspired by the "JPL Institutional Coding
+Standard for the C Programming Language", Rule 16,
+(see https://lars-lab.jpl.nasa.gov/JPL_Coding_Standard_C.pdf).
+
+Recommended use:
+
+[source,c]
+----
+if (!rcm_assert(p >= 0)) {
+  return RCM_ASSERT_ERR_FAILED;
+}
+----
+
+Compile with -DNDEBUG for production and without for development and
+testing.
+
+`#define rcm_assert(e) rcm_assert_handle((e), __FILE__, __LINE__, #e)`::
+Robust assertion macro.
+
+`void rcm_assert_set_handler(rcm_assert_handler_func *handler);`::
+Set the assertion handler. The default is rcm_assert_default_handler. Set to NULL to disable logging of assertions.
+
+`void rcm_assert_set_handler_data(void *data);`::
+Set data pointer passed to the assertion handler.
+
+`bool rcm_assert_default_handler(const char *file, int line, const char *expr, void *data);`::
+The default assert handler. Prints the failed assertion to stderr and then calls abort(3) if not compiled with NDEBUG.
+
+`bool rcm_assert_handle(bool assert_result, const char *file, int line, const char *expr);`::
+Internal function. It calls the rcm_assert_handler, if not NULL and assert_result is false.
+

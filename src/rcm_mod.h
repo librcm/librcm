@@ -9,10 +9,11 @@
 #define RCM_API extern
 #endif
 
-/* Example module:
+/*
+Example module:
 
-   Example module which shows how to write _reusable C modules_. */
-
+Example module which shows how to write _reusable C modules_.
+*/
 
 /* Does nothing. */
 RCM_API void rcm_mod_foo(void);

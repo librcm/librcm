@@ -9,9 +9,11 @@
 #define RCM_API extern
 #endif
 
-/* Process ID:
+/*
+Process ID:
 
-   Module to deal with process IDs (PIDs). */
+Module to deal with process IDs (PIDs).
+*/
 
 /* Returns the process ID (PID) of the calling process. */
 RCM_API int rcm_pid_get(void);

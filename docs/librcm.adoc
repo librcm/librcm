@@ -263,6 +263,7 @@ include::module_deps.dot[]
 
 == `librcm` module APIs
 
+include::rcm_assert.adoc[]
 include::rcm_base64.adoc[]
 include::rcm_base64buf.adoc[]
 include::rcm_errbuf.adoc[]

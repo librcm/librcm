@@ -9,9 +9,11 @@
 #define RCM_API extern
 #endif
 
-/* Error buffer:
+/*
+Error buffer:
 
-   The error buffer module. */
+The error buffer module.
+*/
 
 /* The default error buffer size. */
 #ifndef RCM_ERRBUF_SIZE

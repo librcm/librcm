@@ -3,7 +3,9 @@
 [[rcm_base64buf.h]]
 === `rcm_base64buf.h` -- Base64 buffer
 
-This module implements high-level functions for the base64 standard encoding with padding as described in RFC 4648. Use the rcm_base64 module for lower-level functions (without memory allocation and error buffers).
+This module implements high-level functions for the base64 standard encoding
+with padding as described in RFC 4648. Use the rcm_base64 module for
+lower-level functions (without memory allocation and error buffers).
 
 `rcm_base64buf_err_t rcm_base64buf_encode(char **out, const unsigned char *in, size_t len, char *err);`::
 Encodes the base64 encoding of the input buffer in of lenght len and writes it it as a null-terminated string to out.

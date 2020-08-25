@@ -15,7 +15,9 @@ var (
 #define RCM_API extern
 #endif
 
-/\* (.+?) \*/`)
+/\*
+(.+?)
+\*/`)
 
 	reDefineGuard = regexp.MustCompile(`
 /\* (.+?) \*/
@@ -85,14 +87,13 @@ func genDoc(filename string) error {
 	defer w.Close()
 
 	lines := strings.Split(sub[1], "\n")
-	header := strings.Join(lines[1:], "")
+	header := strings.Join(lines[1:], "\n")
 
 	fmt.Fprintf(w, "// generated from %s with `rcmdoc`\n", "../"+filename)
 	fmt.Fprintln(w, "")
 	fmt.Fprintf(w, "[[%s]]\n", base)
 	fmt.Fprintf(w, "=== `%s` -- %s\n", base, strings.TrimSuffix(lines[0], ":"))
-	fmt.Fprintln(w, "")
-	fmt.Fprintln(w, removeWhitespace(header))
+	fmt.Fprintln(w, header)
 	fmt.Fprintln(w, "")
 
 	// print defines with guards

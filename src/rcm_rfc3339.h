@@ -9,9 +9,11 @@
 #define RCM_API extern
 #endif
 
-/* RFC3339 time:
+/*
+RFC3339 time:
 
-   Module to deal with time strings in RFC3339 format. */
+Module to deal with time strings in RFC3339 format.
+*/
 
 #include "rcm_errbuf.h"
 

@@ -9,11 +9,13 @@
 #define RCM_API extern
 #endif
 
-/* Base64 buffer:
+/*
+Base64 buffer:
 
-   This module implements high-level functions for the base64 standard encoding
-   with padding as described in RFC 4648. Use the rcm_base64 module for
-   lower-level functions (without memory allocation and error buffers). */
+This module implements high-level functions for the base64 standard encoding
+with padding as described in RFC 4648. Use the rcm_base64 module for
+lower-level functions (without memory allocation and error buffers).
+*/
 
 #include "rcm_assert.h"
 #include "rcm_base64.h"
