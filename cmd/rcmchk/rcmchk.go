@@ -105,6 +105,10 @@ func check(filename string) error {
 			if err := emptyLine(filename, ln, line); err != nil {
 				return err
 			}
+		default:
+			if strings.Contains(line, "int ret") {
+				return fmt.Errorf("%s: %d: use `int rc;` instead of `int ret;`", filename, ln)
+			}
 		}
 	}
 	// header files only

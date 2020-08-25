@@ -27,7 +27,7 @@ typedef enum {
   RCM_BASE64BUF_OK = 0,
   RCM_BASE64BUF_ERR_NOMEM = -2,
   RCM_BASE64BUF_ERR_FAILED_ASSERT = -4,
-  RCM_BASE64BUF_ERR_ILLEGAL_CHAR = -5
+  RCM_BASE64BUF_ERR_ILLEGAL_CHAR = -10
 } rcm_base64buf_err_t;
 
 /* Encodes the base64 encoding of the input buffer in of lenght len and writes
@@ -45,7 +45,7 @@ RCM_API rcm_base64buf_err_t rcm_base64buf_decode(unsigned char **out,
                                                  size_t len, char *err);
 
 /* Return an error string describing the given error number errnum.
-   For RCM_BASE64BUF_OK an empty string is returned ("", not NULL). */
+   For `RCM_BASE64BUF_OK` an empty string is returned ("", not NULL). */
 RCM_API const char *rcm_base64buf_errstr(rcm_base64buf_err_t errnum);
 
 #endif /* RCM_BASE64BUF_H */

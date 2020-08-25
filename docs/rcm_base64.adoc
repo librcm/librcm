@@ -13,8 +13,8 @@ higher-level functions (with memory allocation and error buffers).
 ----
 typedef enum {
   RCM_BASE64_OK = 0,
-  RCM_BASE64_ERR_ASSERT_FAILED = -4,
-  RCM_BASE64_ERR_ILLEGAL_CHAR = -5
+  RCM_BASE64_ERR_FAILED_ASSERT = -4,
+  RCM_BASE64_ERR_ILLEGAL_CHAR = -10
 } rcm_base64_err_t;
 ----
 
@@ -62,5 +62,5 @@ const char *rcm_base64_errstr(rcm_base64_err_t errnum);
 ----
 
 Return an error string describing the given error number errnum.
-   For RCM_BASE64_OK an empty string is returned ("", not NULL).
+   For `RCM_BASE64_OK` an empty string is returned ("", not NULL).
 

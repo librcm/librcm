@@ -24,8 +24,8 @@ higher-level functions (with memory allocation and error buffers).
 /* The base64 error type. */
 typedef enum {
   RCM_BASE64_OK = 0,
-  RCM_BASE64_ERR_ASSERT_FAILED = -4,
-  RCM_BASE64_ERR_ILLEGAL_CHAR = -5
+  RCM_BASE64_ERR_FAILED_ASSERT = -4,
+  RCM_BASE64_ERR_ILLEGAL_CHAR = -10
 } rcm_base64_err_t;
 
 /* Returns the base64 encoded length of a binary input buffer of size len. */
@@ -47,7 +47,7 @@ RCM_API rcm_base64_err_t rcm_base64_decode(unsigned char *out, const char *in,
                                            size_t len);
 
 /* Return an error string describing the given error number errnum.
-   For RCM_BASE64_OK an empty string is returned ("", not NULL). */
+   For `RCM_BASE64_OK` an empty string is returned ("", not NULL). */
 RCM_API const char *rcm_base64_errstr(rcm_base64_err_t errnum);
 
 #endif /* RCM_BASE64_H */

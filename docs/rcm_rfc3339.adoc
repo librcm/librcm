@@ -18,6 +18,18 @@ The default RFC3339 string buffer size.
 
 [source,c]
 ----
+typedef enum {
+  RCM_RFC3339_OK = 0,
+  RCM_RFC3339_ERR_FAILED_ASSERT = -4,
+  RCM_RFC3339_ERR_PARSE = -10,
+  RCM_RFC3339_ERR_TIME = -11
+} rcm_rfc3339_err_t;
+----
+
+The RFC3339 error type.
+
+[source,c]
+----
 typedef struct rcm_rfc3339_t rcm_rfc3339_t;
 ----
 
@@ -27,27 +39,28 @@ The RCF3339 time type.
 
 [source,c]
 ----
-int rcm_rfc3339_parse(rcm_rfc3339_t *time, const char *value,
-                      char *err);
+rcm_rfc3339_err_t rcm_rfc3339_parse(rcm_rfc3339_t *time,
+                                    const char *value, char *err);
 ----
 
 Parse time `value` in RFC3339 format and store the result in `time`
    (if not `NULL`).
-   Returns -1, if the parsing failed. 0, otherwise.
+   Returns `RCM_RFC3339_ERR_PARSE`, if the parsing failed. 0, otherwise.
    In case of error, the error message is written to `err`.
 
 [source,c]
 ----
-int rcm_rfc3339_now(rcm_rfc3339_t *t, char *err);
+rcm_rfc3339_err_t rcm_rfc3339_now(rcm_rfc3339_t *t, char *err);
 ----
 
 Return the current time (now) in UTC and store it in `t`.
-   Returns -1, if the time could not be determined. 0, otherwise.
-   In case of error, the error message is written to `err`.
+   Returns `RCM_RFC3339_ERR_TIME`, if the time could not be determined.
+   0, otherwise. In case of error, the error message is written to `err`.
 
 [source,c]
 ----
-void rcm_rfc3339_format(char *out, rcm_rfc3339_t time);
+rcm_rfc3339_err_t rcm_rfc3339_format(char *out, rcm_rfc3339_t time,
+                                     char *err);
 ----
 
 Format time as RFC3339 in UTC to `out` buffer (`\0`-terminated).
@@ -73,4 +86,12 @@ rcm_rfc3339_t rcm_rfc3339_from_time_t(time_t time);
 ----
 
 Convert from `time_t` to `rfc3339_t`.
+
+[source,c]
+----
+const char *rcm_rfc3339_errstr(rcm_rfc3339_err_t errnum);
+----
+
+Return an error string describing the given error number errnum.
+   For `RCM_RFC3339_OK` an empty string is returned ("", not NULL).
 

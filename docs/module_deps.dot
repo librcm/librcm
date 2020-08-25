@@ -12,5 +12,6 @@ strict digraph {
   rcm_base64buf -> rcm_base64
   rcm_base64buf -> rcm_errbuf 
   rcm_base64buf -> rcm_mem 
+  rcm_rfc3339 -> rcm_assert
   rcm_rfc3339 -> rcm_errbuf
 }

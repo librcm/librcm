@@ -18,7 +18,7 @@ RCM_API rcm_base64_err_t rcm_base64_encode(char *out, const unsigned char *in,
                                            size_t len)
 {
   if (rcm_assert(out && in)) {
-    return RCM_BASE64_ERR_ASSERT_FAILED;
+    return RCM_BASE64_ERR_FAILED_ASSERT;
   }
   /* TODO */
   return RCM_BASE64_OK;
@@ -38,7 +38,7 @@ RCM_API rcm_base64_err_t rcm_base64_decode(unsigned char *out, const char *in,
                                            size_t len)
 {
   if (rcm_assert(in)) {
-    return RCM_BASE64_ERR_ASSERT_FAILED;
+    return RCM_BASE64_ERR_FAILED_ASSERT;
   }
   /* TODO */
   return RCM_BASE64_OK;
@@ -49,7 +49,7 @@ RCM_API const char *rcm_base64_errstr(rcm_base64_err_t errnum)
   switch (errnum) {
   case RCM_BASE64_OK:
     return "";
-  case RCM_BASE64_ERR_ASSERT_FAILED:
+  case RCM_BASE64_ERR_FAILED_ASSERT:
     return "rcm_base64: assertion failed";
   case RCM_BASE64_ERR_ILLEGAL_CHAR:
     return "rcm_base64: illegal character";

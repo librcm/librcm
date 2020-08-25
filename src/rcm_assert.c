@@ -1,10 +1,10 @@
 /* SPDX-License-Identifier: Unlicense OR MIT */
 
-#include "rcm_assert.h"
-
 #include <assert.h>
 #include <stdio.h>
 #include <stdlib.h>
+
+#include "rcm_assert.h"
 
 #ifndef NDEBUG
 static int rcm_assert_num_of_assertions = 0;

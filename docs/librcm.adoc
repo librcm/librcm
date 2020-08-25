@@ -237,7 +237,7 @@ List of allowed `#ifdef`-statements:
 === Coding style
 
 - Error buffer: `char err[ERRBUF_SIZE]` (module `rcm_errbuf.h`)
-- Return variables: `int ret`
+- Return variables: `int rc`
 
 === Example module
 

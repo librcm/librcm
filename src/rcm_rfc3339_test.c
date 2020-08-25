@@ -2,8 +2,7 @@
 
 #include "greatest.h"
 
-#define RCM_API static
-
+#include "rcm_assert.c"
 #include "rcm_errbuf.c"
 #include "rcm_rfc3339.c"
 
@@ -20,7 +19,7 @@ TEST rcm_rfc3339_test_indefinite(void)
   ASSERT(!rcm_rfc3339_after(now, example));
   ASSERT(rcm_rfc3339_before(now, example));
   ASSERT(!rcm_rfc3339_before(example, now));
-  rcm_rfc3339_format(str, example);
+  ASSERT(!rcm_rfc3339_format(str, example, err));
   ASSERT_STR_EQ(RCM_RFC3339_EXAMPLE, str);
   PASS();
 }
@@ -47,11 +46,18 @@ TEST rcm_rfc3339_test_from_time_t(void)
   PASS();
 }
 
+TEST rcm_rfc3339_test_errstr(void)
+{
+  ASSERT_STR_EQ("", rcm_rfc3339_errstr(RCM_RFC3339_OK));
+  PASS();
+}
+
 SUITE(rcm_rfc3339_suite)
 {
   RUN_TEST(rcm_rfc3339_test_indefinite);
   RUN_TEST(rcm_rfc3339_test_points);
   RUN_TEST(rcm_rfc3339_test_from_time_t);
+  RUN_TEST(rcm_rfc3339_test_errstr);
 }
 
 GREATEST_MAIN_DEFS();
