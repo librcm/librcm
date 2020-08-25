@@ -777,11 +777,19 @@ makes it better.</p>
 #define RCM_API extern <i class="conum" data-value="4"></i><b>(4)</b>
 #endif
 </span>
-<span class="n">RCM_API</span> <span class="kt">void</span> <span class="nf">rcm_mod_foo</span><span class="p">(</span><span class="kt">void</span><span class="p">);</span> <i class="conum" data-value="5"></i><b>(5)</b>
+<span class="cm">/*
+Example module: <i class="conum" data-value="5"></i><b>(5)</b>
 
+Example module which shows how to write _reusable C modules_. <i class="conum" data-value="6"></i><b>(6)</b>
+*/</span>
+
+<span class="cm">/* Does nothing. */</span> <i class="conum" data-value="7"></i><b>(7)</b>
+<span class="n">RCM_API</span> <span class="kt">void</span> <span class="nf">rcm_mod_foo</span><span class="p">(</span><span class="kt">void</span><span class="p">);</span> <i class="conum" data-value="8"></i><b>(8)</b>
+
+<span class="cm">/* Returns 23. */</span>
 <span class="n">RCM_API</span> <span class="kt">int</span> <span class="nf">rcm_mod_bar</span><span class="p">(</span><span class="kt">void</span><span class="p">);</span>
 
-<span class="cp">#endif <i class="conum" data-value="6"></i><b>(6)</b>
+<span class="cp">#endif </span><span class="cm">/* RCM_MOD_H */</span><span class="cp"> <i class="conum" data-value="9"></i><b>(9)</b>
 </span></code></pre>
 </div>
 </div>
@@ -805,10 +813,22 @@ makes it better.</p>
 </tr>
 <tr>
 <td><i class="conum" data-value="5"></i><b>5</b></td>
-<td>Function definition(s)</td>
+<td>Module name, ends with <code>:</code></td>
 </tr>
 <tr>
 <td><i class="conum" data-value="6"></i><b>6</b></td>
+<td>Module description</td>
+</tr>
+<tr>
+<td><i class="conum" data-value="7"></i><b>7</b></td>
+<td>Function comment(s)</td>
+</tr>
+<tr>
+<td><i class="conum" data-value="8"></i><b>8</b></td>
+<td>Function definition(s)</td>
+</tr>
+<tr>
+<td><i class="conum" data-value="9"></i><b>9</b></td>
 <td>End of include guard</td>
 </tr>
 </table>

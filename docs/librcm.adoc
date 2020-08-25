@@ -177,19 +177,29 @@ We write the documentation in a separate file for the following reasons:
 #define RCM_API extern <4>
 #endif
 
-RCM_API void rcm_mod_foo(void); <5>
+/*
+Example module: <5>
 
+Example module which shows how to write _reusable C modules_. <6>
+*/
+
+/* Does nothing. */ <7>
+RCM_API void rcm_mod_foo(void); <8>
+
+/* Returns 23. */
 RCM_API int rcm_mod_bar(void);
 
-#endif <6>
+#endif /* RCM_MOD_H */ <9>
 ----
 <1> License identifier
 <2> https://en.wikipedia.org/wiki/Include_guard[Include guard]
 <3> Link to online documentation
 <4> Define `RCM_API`. Allows to compile all module functions as `static`
-<5> Function definition(s)
-<6> End of include guard
-
+<5> Module name, ends with `:`
+<6> Module description
+<7> Function comment(s)
+<8> Function definition(s)
+<9> End of include guard
 
 == Rules
 
