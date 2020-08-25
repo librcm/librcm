@@ -21,7 +21,7 @@ Recommended use:
 [source,c]
 ----
 if (!rcm_assert(p >= 0)) {
-  return RCM_ASSERT_ERR_FAILED;
+  return RCM_ASSERT_ERR_FAILED_ASSERT;
 }
 ----
 
