@@ -21,6 +21,7 @@ higher-level functions (with memory allocation and error buffers).
 
 #include "rcm_assert.h"
 
+/* The base64 error type. */
 typedef enum {
   RCM_BASE64_OK = 0,
   RCM_BASE64_ERR_ASSERT_FAILED = -4,

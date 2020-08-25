@@ -22,6 +22,7 @@ lower-level functions (without memory allocation and error buffers).
 #include "rcm_errbuf.h"
 #include "rcm_mem.h"
 
+/* The base64buf error type. */
 typedef enum {
   RCM_BASE64BUF_OK = 0,
   RCM_BASE64BUF_ERR_NOMEM = -2,

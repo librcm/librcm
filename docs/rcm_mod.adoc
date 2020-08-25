@@ -5,9 +5,19 @@
 
 Example module which shows how to write _reusable C modules_.
 
-`void rcm_mod_foo(void);`::
+==== Functions
+
+[source,c]
+----
+void rcm_mod_foo(void);
+----
+
 Does nothing.
 
-`int rcm_mod_bar(void);`::
+[source,c]
+----
+int rcm_mod_bar(void);
+----
+
 Returns 23.
 

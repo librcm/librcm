@@ -5,6 +5,12 @@
 
 Module to deal with process IDs (PIDs).
 
-`int rcm_pid_get(void);`::
+==== Functions
+
+[source,c]
+----
+int rcm_pid_get(void);
+----
+
 Returns the process ID (PID) of the calling process.
 

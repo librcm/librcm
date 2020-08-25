@@ -999,7 +999,7 @@ platform).</p>
 <div class="paragraph">
 <p>The robust assertion macro is inspired by the "JPL Institutional Coding
 Standard for the C Programming Language", Rule 16,
-(see <a href="https://lars-lab.jpl.nasa.gov/JPL_Coding_Standard_C.pdf" class="bare">https://lars-lab.jpl.nasa.gov/JPL_Coding_Standard_C.pdf</a>).</p>
+(see <a href="https://librcm.org/mirrors/JPL_Coding_Standard_C.pdf" class="bare">https://librcm.org/mirrors/JPL_Coding_Standard_C.pdf</a>).</p>
 </div>
 <div class="paragraph">
 <p>Recommended use:</p>
@@ -1015,29 +1015,104 @@ Standard for the C Programming Language", Rule 16,
 <p>Compile with -DNDEBUG for production and without for development and
 testing.</p>
 </div>
-<div class="dlist">
-<dl>
-<dt class="hdlist1"><code>#define rcm_assert(e) rcm_assert_handle((e), <em>FILE</em>, <em>LINE</em>, #e)</code></dt>
-<dd>
+<div class="sect3">
+<h4 id="_defines">Defines</h4>
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight"><code data-lang="c"><span class="cp">#define rcm_assert(e) rcm_assert_handle((e), __FILE__, __LINE__, #e)</span></code></pre>
+</div>
+</div>
+<div class="paragraph">
 <p>Robust assertion macro.</p>
-</dd>
-<dt class="hdlist1"><code>void rcm_assert_set_handler(rcm_assert_handler_func *handler);</code></dt>
-<dd>
-<p>Set the assertion handler. The default is rcm_assert_default_handler. Set to NULL to disable logging of assertions.</p>
-</dd>
-<dt class="hdlist1"><code>void rcm_assert_set_handler_data(void *data);</code></dt>
-<dd>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_typedefs">Typedefs</h4>
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight"><code data-lang="c"><span class="k">typedef</span> <span class="k">enum</span> <span class="p">{</span>
+  <span class="n">RCM_ASSERT_OK</span> <span class="o">=</span> <span class="mi">0</span><span class="p">,</span>
+  <span class="n">RCM_ASSERT_ERR_FAILED_ASSERT</span> <span class="o">=</span> <span class="o">-</span><span class="mi">4</span>
+<span class="p">}</span> <span class="n">rcm_assert_err_t</span><span class="p">;</span></code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>The assert error type.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight"><code data-lang="c"><span class="k">typedef</span> <span class="n">bool</span> <span class="nf">rcm_assert_handler_func</span><span class="p">(</span><span class="k">const</span> <span class="kt">char</span> <span class="o">*</span><span class="n">file</span><span class="p">,</span> <span class="kt">int</span> <span class="n">line</span><span class="p">,</span>
+                                     <span class="k">const</span> <span class="kt">char</span> <span class="o">*</span><span class="n">expr</span><span class="p">,</span> <span class="kt">void</span> <span class="o">*</span><span class="n">data</span><span class="p">);</span></code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>An assertion handler. Should return false to mark the assertion as failed.
+   Should return true to ignore failed assertions completely.</p>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_functions">Functions</h4>
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight"><code data-lang="c"><span class="kt">void</span> <span class="nf">rcm_assert_set_handler</span><span class="p">(</span><span class="n">rcm_assert_handler_func</span> <span class="o">*</span><span class="n">handler</span><span class="p">);</span></code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Set the assertion handler. The default is rcm_assert_default_handler. Set to
+   NULL to disable logging of assertions.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight"><code data-lang="c"><span class="kt">void</span> <span class="nf">rcm_assert_set_handler_data</span><span class="p">(</span><span class="kt">void</span> <span class="o">*</span><span class="n">data</span><span class="p">);</span></code></pre>
+</div>
+</div>
+<div class="paragraph">
 <p>Set data pointer passed to the assertion handler.</p>
-</dd>
-<dt class="hdlist1"><code>bool rcm_assert_default_handler(const char *file, int line, const char *expr, void *data);</code></dt>
-<dd>
-<p>The default assert handler. Prints the failed assertion to stderr and then calls abort(3) if not compiled with NDEBUG.</p>
-</dd>
-<dt class="hdlist1"><code>bool rcm_assert_handle(bool assert_result, const char *file, int line, const char *expr);</code></dt>
-<dd>
-<p>Internal function. It calls the rcm_assert_handler, if not NULL and assert_result is false.</p>
-</dd>
-</dl>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight"><code data-lang="c"><span class="n">bool</span> <span class="nf">rcm_assert_default_handler</span><span class="p">(</span><span class="k">const</span> <span class="kt">char</span> <span class="o">*</span><span class="n">file</span><span class="p">,</span> <span class="kt">int</span> <span class="n">line</span><span class="p">,</span>
+                                <span class="k">const</span> <span class="kt">char</span> <span class="o">*</span><span class="n">expr</span><span class="p">,</span> <span class="kt">void</span> <span class="o">*</span><span class="n">data</span><span class="p">);</span></code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>The default assert handler. Prints the failed assertion to stderr and then
+   calls abort(3) if not compiled with NDEBUG.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight"><code data-lang="c"><span class="n">bool</span> <span class="nf">rcm_assert_handle</span><span class="p">(</span><span class="n">bool</span> <span class="n">assert_result</span><span class="p">,</span> <span class="k">const</span> <span class="kt">char</span> <span class="o">*</span><span class="n">file</span><span class="p">,</span> <span class="kt">int</span> <span class="n">line</span><span class="p">,</span>
+                       <span class="k">const</span> <span class="kt">char</span> <span class="o">*</span><span class="n">expr</span><span class="p">);</span></code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Internal function. It calls the rcm_assert_handler, if not NULL and
+   assert_result is false.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight"><code data-lang="c"><span class="kt">int</span> <span class="nf">rcm_assert_num_of_asserts</span><span class="p">(</span><span class="kt">void</span><span class="p">);</span></code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Reset number of assertions. Debug only.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight"><code data-lang="c"><span class="kt">void</span> <span class="nf">rcm_assert_abort</span><span class="p">(</span><span class="kt">int</span> <span class="n">n</span><span class="p">);</span></code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Abort assertion n. Debug only.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight"><code data-lang="c"><span class="kt">void</span> <span class="nf">rcm_assert_reset_abort</span><span class="p">(</span><span class="kt">void</span><span class="p">);</span></code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Reset assertion abortion. Debug only.</p>
+</div>
 </div>
 </div>
 <div class="sect2">
@@ -1047,29 +1122,70 @@ testing.</p>
 with padding as described in RFC 4648. Use the rcm_base64_buf module for
 higher-level functions (with memory allocation and error buffers).</p>
 </div>
-<div class="dlist">
-<dl>
-<dt class="hdlist1"><code>size_t rcm_base64_encode_len(size_t len);</code></dt>
-<dd>
+<div class="sect3">
+<h4 id="_typedefs_2">Typedefs</h4>
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight"><code data-lang="c"><span class="k">typedef</span> <span class="k">enum</span> <span class="p">{</span>
+  <span class="n">RCM_BASE64_OK</span> <span class="o">=</span> <span class="mi">0</span><span class="p">,</span>
+  <span class="n">RCM_BASE64_ERR_ASSERT_FAILED</span> <span class="o">=</span> <span class="o">-</span><span class="mi">4</span><span class="p">,</span>
+  <span class="n">RCM_BASE64_ERR_ILLEGAL_CHAR</span> <span class="o">=</span> <span class="o">-</span><span class="mi">5</span>
+<span class="p">}</span> <span class="n">rcm_base64_err_t</span><span class="p">;</span></code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>The base64 error type.</p>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_functions_2">Functions</h4>
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight"><code data-lang="c"><span class="kt">size_t</span> <span class="nf">rcm_base64_encode_len</span><span class="p">(</span><span class="kt">size_t</span> <span class="n">len</span><span class="p">);</span></code></pre>
+</div>
+</div>
+<div class="paragraph">
 <p>Returns the base64 encoded length of a binary input buffer of size len.</p>
-</dd>
-<dt class="hdlist1"><code>rcm_base64_err_t rcm_base64_encode(char *out, const unsigned char *in, size_t len);</code></dt>
-<dd>
-<p>Writes the base64 encoding of the input buffer in of lenght len to out and appends a <code>\0</code> character. The output buffer out has to be at least the size <code>rcm_base64_encode_len(len)+1</code>!</p>
-</dd>
-<dt class="hdlist1"><code>size_t rcm_base64_decode_len(size_t len);</code></dt>
-<dd>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight"><code data-lang="c"><span class="n">rcm_base64_err_t</span> <span class="nf">rcm_base64_encode</span><span class="p">(</span><span class="kt">char</span> <span class="o">*</span><span class="n">out</span><span class="p">,</span> <span class="k">const</span> <span class="kt">unsigned</span> <span class="kt">char</span> <span class="o">*</span><span class="n">in</span><span class="p">,</span>
+                                   <span class="kt">size_t</span> <span class="n">len</span><span class="p">);</span></code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Writes the base64 encoding of the input buffer in of lenght len to out and
+   appends a <code>\0</code> character. The output buffer out has to be at least the size
+   <code>rcm_base64_encode_len(len)+1</code>!</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight"><code data-lang="c"><span class="kt">size_t</span> <span class="nf">rcm_base64_decode_len</span><span class="p">(</span><span class="kt">size_t</span> <span class="n">len</span><span class="p">);</span></code></pre>
+</div>
+</div>
+<div class="paragraph">
 <p>Returns the decoded length of an base64 encoded input buffer of size len.</p>
-</dd>
-<dt class="hdlist1"><code>rcm_base64_err_t rcm_base64_decode(unsigned char *out, const char *in, size_t len);</code></dt>
-<dd>
-<p>Decodes the base64 encoded input in of length len and writes it to out (if not NULL). If the the output buffer out is not NULL it has to be at least of the size <code>rcm_base64_decode_len(len)</code>!</p>
-</dd>
-<dt class="hdlist1"><code>const char *rcm_base64_errstr(rcm_base64_err_t errnum);</code></dt>
-<dd>
-<p>Return an error string describing the given error number errnum. For RCM_BASE64_OK an empty string is returned ("", not NULL).</p>
-</dd>
-</dl>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight"><code data-lang="c"><span class="n">rcm_base64_err_t</span> <span class="nf">rcm_base64_decode</span><span class="p">(</span><span class="kt">unsigned</span> <span class="kt">char</span> <span class="o">*</span><span class="n">out</span><span class="p">,</span> <span class="k">const</span> <span class="kt">char</span> <span class="o">*</span><span class="n">in</span><span class="p">,</span>
+                                   <span class="kt">size_t</span> <span class="n">len</span><span class="p">);</span></code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Decodes the base64 encoded input in of length len and writes it to out (if
+   not NULL). If the the output buffer out is not NULL it has to be at least of
+   the size <code>rcm_base64_decode_len(len)</code>!</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight"><code data-lang="c"><span class="k">const</span> <span class="kt">char</span> <span class="o">*</span><span class="nf">rcm_base64_errstr</span><span class="p">(</span><span class="n">rcm_base64_err_t</span> <span class="n">errnum</span><span class="p">);</span></code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Return an error string describing the given error number errnum.
+   For RCM_BASE64_OK an empty string is returned ("", not NULL).</p>
+</div>
 </div>
 </div>
 <div class="sect2">
@@ -1079,21 +1195,57 @@ higher-level functions (with memory allocation and error buffers).</p>
 with padding as described in RFC 4648. Use the rcm_base64 module for
 lower-level functions (without memory allocation and error buffers).</p>
 </div>
-<div class="dlist">
-<dl>
-<dt class="hdlist1"><code>rcm_base64buf_err_t rcm_base64buf_encode(char **out, const unsigned char *in, size_t len, char *err);</code></dt>
-<dd>
-<p>Encodes the base64 encoding of the input buffer in of lenght len and writes it it as a null-terminated string to out.</p>
-</dd>
-<dt class="hdlist1"><code>rcm_base64buf_err_t rcm_base64buf_decode(unsigned char **out, size_t *outlen, const char *in, size_t len, char *err);</code></dt>
-<dd>
-<p>Decodes the base64 encoded input in of length len and writes it to the freshly allocated out buffer. If outlen is not NULL, the length of the output buffer is written to it. In case of error out remains unmodified, an error code is returned, and an error message is written to err.</p>
-</dd>
-<dt class="hdlist1"><code>const char *rcm_base64buf_errstr(rcm_base64buf_err_t errnum);</code></dt>
-<dd>
-<p>Return an error string describing the given error number errnum. For RCM_BASE64BUF_OK an empty string is returned ("", not NULL).</p>
-</dd>
-</dl>
+<div class="sect3">
+<h4 id="_typedefs_3">Typedefs</h4>
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight"><code data-lang="c"><span class="k">typedef</span> <span class="k">enum</span> <span class="p">{</span>
+  <span class="n">RCM_BASE64BUF_OK</span> <span class="o">=</span> <span class="mi">0</span><span class="p">,</span>
+  <span class="n">RCM_BASE64BUF_ERR_NOMEM</span> <span class="o">=</span> <span class="o">-</span><span class="mi">2</span><span class="p">,</span>
+  <span class="n">RCM_BASE64BUF_ERR_FAILED_ASSERT</span> <span class="o">=</span> <span class="o">-</span><span class="mi">4</span><span class="p">,</span>
+  <span class="n">RCM_BASE64BUF_ERR_ILLEGAL_CHAR</span> <span class="o">=</span> <span class="o">-</span><span class="mi">5</span>
+<span class="p">}</span> <span class="n">rcm_base64buf_err_t</span><span class="p">;</span></code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>The base64buf error type.</p>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_functions_3">Functions</h4>
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight"><code data-lang="c"><span class="n">rcm_base64buf_err_t</span> <span class="nf">rcm_base64buf_encode</span><span class="p">(</span><span class="kt">char</span> <span class="o">**</span><span class="n">out</span><span class="p">,</span>
+                                         <span class="k">const</span> <span class="kt">unsigned</span> <span class="kt">char</span> <span class="o">*</span><span class="n">in</span><span class="p">,</span>
+                                         <span class="kt">size_t</span> <span class="n">len</span><span class="p">,</span> <span class="kt">char</span> <span class="o">*</span><span class="n">err</span><span class="p">);</span></code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Encodes the base64 encoding of the input buffer in of lenght len and writes
+   it it as a null-terminated string to out.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight"><code data-lang="c"><span class="n">rcm_base64buf_err_t</span> <span class="nf">rcm_base64buf_decode</span><span class="p">(</span><span class="kt">unsigned</span> <span class="kt">char</span> <span class="o">**</span><span class="n">out</span><span class="p">,</span>
+                                         <span class="kt">size_t</span> <span class="o">*</span><span class="n">outlen</span><span class="p">,</span> <span class="k">const</span> <span class="kt">char</span> <span class="o">*</span><span class="n">in</span><span class="p">,</span>
+                                         <span class="kt">size_t</span> <span class="n">len</span><span class="p">,</span> <span class="kt">char</span> <span class="o">*</span><span class="n">err</span><span class="p">);</span></code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Decodes the base64 encoded input in of length len and writes it to the
+   freshly allocated out buffer. If outlen is not NULL, the length of the output
+   buffer is written to it. In case of error out remains unmodified, an error
+   code is returned, and an error message is written to err.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight"><code data-lang="c"><span class="k">const</span> <span class="kt">char</span> <span class="o">*</span><span class="nf">rcm_base64buf_errstr</span><span class="p">(</span><span class="n">rcm_base64buf_err_t</span> <span class="n">errnum</span><span class="p">);</span></code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Return an error string describing the given error number errnum.
+   For RCM_BASE64BUF_OK an empty string is returned ("", not NULL).</p>
+</div>
 </div>
 </div>
 <div class="sect2">
@@ -1101,17 +1253,28 @@ lower-level functions (without memory allocation and error buffers).</p>
 <div class="paragraph">
 <p>The error buffer module.</p>
 </div>
-<div class="dlist">
-<dl>
-<dt class="hdlist1"><code>#define RCM_ERRBUF_SIZE 1024</code></dt>
-<dd>
+<div class="sect3">
+<h4 id="_defines_2">Defines</h4>
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight"><code data-lang="c"><span class="cp">#define RCM_ERRBUF_SIZE 1024</span></code></pre>
+</div>
+</div>
+<div class="paragraph">
 <p>The default error buffer size.</p>
-</dd>
-<dt class="hdlist1"><code>void rcm_errbuf_set(char *err, const char *format, &#8230;&#8203;);</code></dt>
-<dd>
-<p>Sets error buffer err to format string (printf(3)-like) with arguments <code>&#8230;&#8203;</code>. Does nothing, if err is <code>NULL</code>.</p>
-</dd>
-</dl>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_functions_4">Functions</h4>
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight"><code data-lang="c"><span class="kt">void</span> <span class="nf">rcm_errbuf_set</span><span class="p">(</span><span class="kt">char</span> <span class="o">*</span><span class="n">err</span><span class="p">,</span> <span class="k">const</span> <span class="kt">char</span> <span class="o">*</span><span class="n">format</span><span class="p">,</span> <span class="p">...);</span></code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Sets error buffer err to format string (printf(3)-like) with arguments
+   <code>&#8230;&#8203;</code>. Does nothing, if err is <code>NULL</code>.</p>
+</div>
 </div>
 </div>
 <div class="sect2">
@@ -1119,17 +1282,25 @@ lower-level functions (without memory allocation and error buffers).</p>
 <div class="paragraph">
 <p>This modules defines the memory allocator for <em>reusable C modules</em>.</p>
 </div>
-<div class="dlist">
-<dl>
-<dt class="hdlist1"><code>void *rcm_mem_malloc(size_t size);</code></dt>
-<dd>
-<p>Allocates size bytes and returns a pointer to the allocated memory. The memory is not initialized.</p>
-</dd>
-<dt class="hdlist1"><code>void rcm_mem_free(void *ptr);</code></dt>
-<dd>
+<div class="sect3">
+<h4 id="_functions_5">Functions</h4>
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight"><code data-lang="c"><span class="kt">void</span> <span class="o">*</span><span class="nf">rcm_mem_malloc</span><span class="p">(</span><span class="kt">size_t</span> <span class="n">size</span><span class="p">);</span></code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Allocates size bytes and returns a pointer to the allocated memory.
+   The memory is not initialized.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight"><code data-lang="c"><span class="kt">void</span> <span class="nf">rcm_mem_free</span><span class="p">(</span><span class="kt">void</span> <span class="o">*</span><span class="n">ptr</span><span class="p">);</span></code></pre>
+</div>
+</div>
+<div class="paragraph">
 <p>Frees the memory space pointed to by ptr.</p>
-</dd>
-</dl>
+</div>
 </div>
 </div>
 <div class="sect2">
@@ -1137,17 +1308,24 @@ lower-level functions (without memory allocation and error buffers).</p>
 <div class="paragraph">
 <p>Example module which shows how to write <em>reusable C modules</em>.</p>
 </div>
-<div class="dlist">
-<dl>
-<dt class="hdlist1"><code>void rcm_mod_foo(void);</code></dt>
-<dd>
+<div class="sect3">
+<h4 id="_functions_6">Functions</h4>
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight"><code data-lang="c"><span class="kt">void</span> <span class="nf">rcm_mod_foo</span><span class="p">(</span><span class="kt">void</span><span class="p">);</span></code></pre>
+</div>
+</div>
+<div class="paragraph">
 <p>Does nothing.</p>
-</dd>
-<dt class="hdlist1"><code>int rcm_mod_bar(void);</code></dt>
-<dd>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight"><code data-lang="c"><span class="kt">int</span> <span class="nf">rcm_mod_bar</span><span class="p">(</span><span class="kt">void</span><span class="p">);</span></code></pre>
+</div>
+</div>
+<div class="paragraph">
 <p>Returns 23.</p>
-</dd>
-</dl>
+</div>
 </div>
 </div>
 <div class="sect2">
@@ -1155,13 +1333,16 @@ lower-level functions (without memory allocation and error buffers).</p>
 <div class="paragraph">
 <p>Module to deal with process IDs (PIDs).</p>
 </div>
-<div class="dlist">
-<dl>
-<dt class="hdlist1"><code>int rcm_pid_get(void);</code></dt>
-<dd>
+<div class="sect3">
+<h4 id="_functions_7">Functions</h4>
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight"><code data-lang="c"><span class="kt">int</span> <span class="nf">rcm_pid_get</span><span class="p">(</span><span class="kt">void</span><span class="p">);</span></code></pre>
+</div>
+</div>
+<div class="paragraph">
 <p>Returns the process ID (PID) of the calling process.</p>
-</dd>
-</dl>
+</div>
 </div>
 </div>
 <div class="sect2">
@@ -1169,41 +1350,85 @@ lower-level functions (without memory allocation and error buffers).</p>
 <div class="paragraph">
 <p>Module to deal with time strings in RFC3339 format.</p>
 </div>
-<div class="dlist">
-<dl>
-<dt class="hdlist1"><code>#define RCM_RFC3339_BUFSIZE 21</code></dt>
-<dd>
+<div class="sect3">
+<h4 id="_defines_3">Defines</h4>
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight"><code data-lang="c"><span class="cp">#define RCM_RFC3339_BUFSIZE 21</span></code></pre>
+</div>
+</div>
+<div class="paragraph">
 <p>The default RFC3339 string buffer size.</p>
-</dd>
-<dt class="hdlist1"><code>typedef struct rcm_rfc3339_t rcm_rfc3339_t;</code></dt>
-<dd>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_typedefs_4">Typedefs</h4>
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight"><code data-lang="c"><span class="k">typedef</span> <span class="k">struct</span> <span class="n">rcm_rfc3339_t</span> <span class="n">rcm_rfc3339_t</span><span class="p">;</span></code></pre>
+</div>
+</div>
+<div class="paragraph">
 <p>The RCF3339 time type.</p>
-</dd>
-<dt class="hdlist1"><code>int rcm_rfc3339_parse(rcm_rfc3339_t *time, const char *value, char *err);</code></dt>
-<dd>
-<p>Parse time <code>value</code> in RFC3339 format and store the result in <code>time</code> (if not <code>NULL</code>). Returns -1, if the parsing failed. 0, otherwise. In case of error, the error message is written to <code>err</code>.</p>
-</dd>
-<dt class="hdlist1"><code>int rcm_rfc3339_now(rcm_rfc3339_t *t, char *err);</code></dt>
-<dd>
-<p>Return the current time (now) in UTC and store it in <code>t</code>. Returns -1, if the time could not be determined. 0, otherwise. In case of error, the error message is written to <code>err</code>.</p>
-</dd>
-<dt class="hdlist1"><code>void rcm_rfc3339_format(char *out, rcm_rfc3339_t time);</code></dt>
-<dd>
-<p>Format time as RFC3339 in UTC to <code>out</code> buffer (<code>\0</code>-terminated). The <code>out</code> buffer must have at least size <code>RCM_RFC3339_BUFSIZE</code>!</p>
-</dd>
-<dt class="hdlist1"><code>bool rcm_rfc3339_after(rcm_rfc3339_t ltime, rcm_rfc3339_t rtime);</code></dt>
-<dd>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_functions_8">Functions</h4>
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight"><code data-lang="c"><span class="kt">int</span> <span class="nf">rcm_rfc3339_parse</span><span class="p">(</span><span class="n">rcm_rfc3339_t</span> <span class="o">*</span><span class="n">time</span><span class="p">,</span> <span class="k">const</span> <span class="kt">char</span> <span class="o">*</span><span class="n">value</span><span class="p">,</span>
+                      <span class="kt">char</span> <span class="o">*</span><span class="n">err</span><span class="p">);</span></code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Parse time <code>value</code> in RFC3339 format and store the result in <code>time</code>
+   (if not <code>NULL</code>).
+   Returns -1, if the parsing failed. 0, otherwise.
+   In case of error, the error message is written to <code>err</code>.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight"><code data-lang="c"><span class="kt">int</span> <span class="nf">rcm_rfc3339_now</span><span class="p">(</span><span class="n">rcm_rfc3339_t</span> <span class="o">*</span><span class="n">t</span><span class="p">,</span> <span class="kt">char</span> <span class="o">*</span><span class="n">err</span><span class="p">);</span></code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Return the current time (now) in UTC and store it in <code>t</code>.
+   Returns -1, if the time could not be determined. 0, otherwise.
+   In case of error, the error message is written to <code>err</code>.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight"><code data-lang="c"><span class="kt">void</span> <span class="nf">rcm_rfc3339_format</span><span class="p">(</span><span class="kt">char</span> <span class="o">*</span><span class="n">out</span><span class="p">,</span> <span class="n">rcm_rfc3339_t</span> <span class="n">time</span><span class="p">);</span></code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Format time as RFC3339 in UTC to <code>out</code> buffer (<code>\0</code>-terminated).
+   The <code>out</code> buffer must have at least size <code>RCM_RFC3339_BUFSIZE</code>!</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight"><code data-lang="c"><span class="n">bool</span> <span class="nf">rcm_rfc3339_after</span><span class="p">(</span><span class="n">rcm_rfc3339_t</span> <span class="n">ltime</span><span class="p">,</span> <span class="n">rcm_rfc3339_t</span> <span class="n">rtime</span><span class="p">);</span></code></pre>
+</div>
+</div>
+<div class="paragraph">
 <p>Return true if <code>ltime</code> is after <code>rtime</code>, false otherwise.</p>
-</dd>
-<dt class="hdlist1"><code>bool rcm_rfc3339_before(rcm_rfc3339_t ltime, rcm_rfc3339_t rtime);</code></dt>
-<dd>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight"><code data-lang="c"><span class="n">bool</span> <span class="nf">rcm_rfc3339_before</span><span class="p">(</span><span class="n">rcm_rfc3339_t</span> <span class="n">ltime</span><span class="p">,</span> <span class="n">rcm_rfc3339_t</span> <span class="n">rtime</span><span class="p">);</span></code></pre>
+</div>
+</div>
+<div class="paragraph">
 <p>Return true if <code>ltime</code> is before <code>rtime</code>, false otherwise.</p>
-</dd>
-<dt class="hdlist1"><code>rcm_rfc3339_t rcm_rfc3339_from_time_t(time_t time);</code></dt>
-<dd>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight"><code data-lang="c"><span class="n">rcm_rfc3339_t</span> <span class="nf">rcm_rfc3339_from_time_t</span><span class="p">(</span><span class="kt">time_t</span> <span class="n">time</span><span class="p">);</span></code></pre>
+</div>
+</div>
+<div class="paragraph">
 <p>Convert from <code>time_t</code> to <code>rfc3339_t</code>.</p>
-</dd>
-</dl>
+</div>
 </div>
 </div>
 </div>

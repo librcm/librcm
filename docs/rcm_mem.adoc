@@ -5,9 +5,20 @@
 
 This modules defines the memory allocator for _reusable C modules_.
 
-`void *rcm_mem_malloc(size_t size);`::
-Allocates size bytes and returns a pointer to the allocated memory. The memory is not initialized.
+==== Functions
 
-`void rcm_mem_free(void *ptr);`::
+[source,c]
+----
+void *rcm_mem_malloc(size_t size);
+----
+
+Allocates size bytes and returns a pointer to the allocated memory.
+   The memory is not initialized.
+
+[source,c]
+----
+void rcm_mem_free(void *ptr);
+----
+
 Frees the memory space pointed to by ptr.
 

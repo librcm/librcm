@@ -1,6 +1,3 @@
-- document rcm_assert.h
-- extract documentation from header files, Go style (`rcmdoc`)
-  - use regular expressions?
 - switch to `int rc` for return codes!
 - rcm_assert, ban assert.h (rfc3339 module)
 - clang-analyzer

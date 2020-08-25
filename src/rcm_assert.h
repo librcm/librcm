@@ -31,6 +31,7 @@ testing.
 
 #include <stdbool.h>
 
+/* The assert error type. */
 typedef enum {
   RCM_ASSERT_OK = 0,
   RCM_ASSERT_ERR_FAILED_ASSERT = -4
