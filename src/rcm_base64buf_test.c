@@ -2,11 +2,7 @@
 
 #include "greatest.h"
 
-#include "rcm_assert.c"
-#include "rcm_base64.c"
-#include "rcm_base64buf.c"
-#include "rcm_errbuf.c"
-#include "rcm_mem.c"
+#include "rcm_base64buf.h"
 
 TEST rcm_base64buf_test_encode_rfc3339(void)
 {

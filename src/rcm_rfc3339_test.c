@@ -2,9 +2,7 @@
 
 #include "greatest.h"
 
-#include "rcm_assert.c"
-#include "rcm_errbuf.c"
-#include "rcm_rfc3339.c"
+#include "rcm_rfc3339.h"
 
 #define RCM_RFC3339_EXAMPLE "2525-12-31T23:59:59Z"
 

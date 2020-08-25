@@ -1,11 +1,8 @@
 /* SPDX-License-Identifier: Unlicense OR MIT */
 
-#include <string.h>
-
 #include "greatest.h"
 
-#include "rcm_assert.c"
-#include "rcm_base64.c"
+#include "rcm_base64.h"
 
 TEST rcm_base64_test_encode_len(void)
 {

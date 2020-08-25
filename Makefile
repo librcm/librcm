@@ -1,4 +1,4 @@
-CFLAGS?=-O2 -pipe
+CFLAGS?=-pipe
 CFLAGS+=-Wall -Werror -Wpedantic -Wextra -fPIC \
         -Wpointer-arith \
         -Wcast-qual \
@@ -8,8 +8,9 @@ CFLAGS+=-Wall -Werror -Wpedantic -Wextra -fPIC \
         -Wconversion \
         -Wshadow \
         -Wswitch-enum \
-        -g \
-        -Wno-unused-parameter # TODO: remove
+        -Wno-unused-parameter \
+        -g
+LDFLAGS+=-Llib -lrcm
 
 DOCS:=$(wildcard docs/*.adoc)
 DOCS+=docs/module_deps.dot
@@ -21,7 +22,16 @@ TEST_BIN:=$(TEST_SRC:src/%.c=bin/%)
 HEADER:=$(wildcard src/rcm_*.h)
 LIBOBJ:=$(HEADER:src/%.h=obj/%.o)
 
-all: $(OBJ) $(TEST_BIN) lib/librcm.a tools docs
+ifneq ($(opt),no)
+  CFLAGS+=-Os
+endif
+
+ifeq ($(cov),yes)
+  CFLAGS+=-fprofile-arcs -ftest-coverage
+  LDFLAGS+=-fprofile-arcs -ftest-coverage
+endif
+
+all: $(OBJ) lib/librcm.a $(TEST_BIN) tools docs
 
 # read dependencies
 -include $(DEP)
@@ -37,7 +47,7 @@ obj/%.o: src/%.c
 
 bin/%: obj/%.o
 	@test -d $(@D) || mkdir -p $(@D)
-	$(CC) $< -o $@
+	$(CC) $< $(LDFLAGS) -o $@
 
 tools:
 	go install -v ./cmd/...
@@ -55,7 +65,7 @@ chk: tools
 	rcmchk src/rcm_*.[ch]
 
 clean:
-	rm -rf obj
+	rm -rf obj *.c.gcov
 
 cleanup: clean
 	rm -rf bin lib

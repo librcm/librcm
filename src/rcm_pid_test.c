@@ -2,9 +2,7 @@
 
 #include "greatest.h"
 
-#define RCM_API static
-
-#include "rcm_pid.c"
+#include "rcm_pid.h"
 
 TEST rcm_pid_test(void)
 {

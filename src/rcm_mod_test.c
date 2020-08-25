@@ -2,9 +2,7 @@
 
 #include "greatest.h"
 
-#define RCM_API static
-
-#include "rcm_mod.c"
+#include "rcm_mod.h"
 
 TEST rcm_mod_test_foo(void)
 {
