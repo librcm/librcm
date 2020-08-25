@@ -17,7 +17,7 @@ RCM_API rcm_base64buf_err_t rcm_base64buf_encode(char **out,
     rcm_errbuf_set(err, "%s", rcm_base64buf_errstr(RCM_BASE64BUF_ERR_NOMEM));
     return RCM_BASE64BUF_ERR_NOMEM;
   }
-  if (!(rc = rcm_base64_encode(enc, in, len))) {
+  if ((rc = rcm_base64_encode(enc, in, len))) {
     rcm_errbuf_set(err, "%s", rcm_base64buf_errstr(rc));
     rcm_mem_free(enc);
     return rc;
@@ -43,7 +43,7 @@ RCM_API rcm_base64buf_err_t rcm_base64buf_decode(unsigned char **out,
     rcm_errbuf_set(err, "%s", rcm_base64buf_errstr(RCM_BASE64BUF_ERR_NOMEM));
     return RCM_BASE64BUF_ERR_NOMEM;
   }
-  if (!(rc = rcm_base64_decode(dec, in, len))) {
+  if ((rc = rcm_base64_decode(dec, in, len))) {
     rcm_mem_free(dec);
     return rc;
   }
