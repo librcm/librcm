@@ -22,6 +22,10 @@ TEST_BIN:=$(TEST_SRC:src/%.c=bin/%)
 HEADER:=$(wildcard src/rcm_*.h)
 LIBOBJ:=$(HEADER:src/%.h=obj/%.o)
 
+ifeq ($(assert),no)
+  CFLAGS+=-DNDEBUG
+endif
+
 ifneq ($(opt),no)
   CFLAGS+=-Os
 endif

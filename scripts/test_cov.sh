@@ -1,8 +1,8 @@
 #!/bin/sh -e
 
 make cleanup
-make opt=no cov=yes
-make opt=no cov=yes test
+make assert=no opt=no cov=yes
+make assert=no opt=no cov=yes test
 
 RCM_HEADER=`ls src/rcm_*.h`
 

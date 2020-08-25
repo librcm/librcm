@@ -4,6 +4,18 @@
 
 #include "rcm_assert.h"
 
+TEST rcm_assert_test_success(void)
+{
+  ASSERT_EQ(true, rcm_assert(true));
+  PASS();
+}
+
+TEST rcm_assert_test_failure(void)
+{
+  ASSERT_EQ(false, rcm_assert(false));
+  PASS();
+}
+
 static bool rcm_assert_test_handler(const char *file, int line,
                                     const char *expr, void *data)
 {
@@ -12,7 +24,7 @@ static bool rcm_assert_test_handler(const char *file, int line,
   return false;
 }
 
-TEST rcm_assert_test_success(void)
+TEST rcm_assert_test_handler_success(void)
 {
   bool called = false;
   rcm_assert_set_handler(rcm_assert_test_handler);
@@ -22,7 +34,7 @@ TEST rcm_assert_test_success(void)
   PASS();
 }
 
-TEST rcm_assert_test_failure(void)
+TEST rcm_assert_test_handler_failure(void)
 {
   bool called = false;
   rcm_assert_set_handler(rcm_assert_test_handler);
@@ -36,6 +48,8 @@ SUITE(rcm_assert_suite)
 {
   RUN_TEST(rcm_assert_test_success);
   RUN_TEST(rcm_assert_test_failure);
+  RUN_TEST(rcm_assert_test_handler_success);
+  RUN_TEST(rcm_assert_test_handler_failure);
 }
 
 GREATEST_MAIN_DEFS();
