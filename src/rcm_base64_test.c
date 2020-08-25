@@ -74,23 +74,20 @@ TEST rcm_base64_test_decode_len(void)
 
 TEST rcm_base64_test_decode_rfc3339(void)
 {
-  char out[9];
-  ASSERT(!rcm_base64_encode(out, (unsigned char *)"", strlen("")));
+  unsigned char out[9];
+  ASSERT(!rcm_base64_decode(out, "", strlen("")));
   ASSERT_STRN_EQ("", out, 0);
-  ASSERT(!rcm_base64_encode(out, (unsigned char *)"Zg==", strlen("Zg==")));
+  ASSERT(!rcm_base64_decode(out, "Zg==", strlen("Zg==")));
   ASSERT_STRN_EQ("f", out, 1);
-  ASSERT(!rcm_base64_encode(out, (unsigned char *)"Zm8=", strlen("Zm8=")));
+  ASSERT(!rcm_base64_decode(out, "Zm8=", strlen("Zm8=")));
   ASSERT_STRN_EQ("fo", out, 2);
-  ASSERT(!rcm_base64_encode(out, (unsigned char *)"Zm9v", strlen("Zm9v")));
+  ASSERT(!rcm_base64_decode(out, "Zm9v", strlen("Zm9v")));
   ASSERT_STRN_EQ("foo", out, 3);
-  ASSERT(
-      !rcm_base64_encode(out, (unsigned char *)"Zm9vYg==", strlen("Zm9vYg==")));
+  ASSERT(!rcm_base64_decode(out, "Zm9vYg==", strlen("Zm9vYg==")));
   ASSERT_STRN_EQ("foob", out, 4);
-  ASSERT(
-      !rcm_base64_encode(out, (unsigned char *)"Zm9vYmE=", strlen("Zm9vYmE=")));
+  ASSERT(!rcm_base64_decode(out, "Zm9vYmE=", strlen("Zm9vYmE=")));
   ASSERT_STRN_EQ("fooba", out, 5);
-  ASSERT(
-      !rcm_base64_encode(out, (unsigned char *)"Zm9vYmFy", strlen("Zm9vYmFy")));
+  ASSERT(!rcm_base64_decode(out, "Zm9vYmFy", strlen("Zm9vYmFy")));
   ASSERT_STRN_EQ("foobar", out, 6);
   PASS();
 }
@@ -102,7 +99,8 @@ TEST rcm_base64_test_decode_wikipedia(void)
   for (i = 0; i < sizeof *rcm_base64_test_results; i++) {
     const char *res = rcm_base64_test_results[i];
     ASSERT(!rcm_base64_decode(out, res, strlen(res)));
-    ASSERT_STR_EQ(rcm_base64_test_strings[i], out);
+    ASSERT_STRN_EQ(rcm_base64_test_strings[i], out,
+                   rcm_base64_decode_len(res, strlen(res)));
   }
   PASS();
 }

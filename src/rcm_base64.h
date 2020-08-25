@@ -25,7 +25,8 @@ higher-level functions (with memory allocation and error buffers).
 typedef enum {
   RCM_BASE64_OK = 0,
   RCM_BASE64_ERR_FAILED_ASSERT = -4,
-  RCM_BASE64_ERR_ILLEGAL_CHAR = -10
+  RCM_BASE64_ERR_ILLEGAL_LENGTH = -10,
+  RCM_BASE64_ERR_ILLEGAL_CHAR = -11
 } rcm_base64_err_t;
 
 /* Returns the base64 encoded length of a binary input buffer of size len. */
