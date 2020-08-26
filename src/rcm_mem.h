@@ -24,4 +24,21 @@ RCM_API void *rcm_mem_malloc(size_t size);
 /* Frees the memory space pointed to by ptr. */
 RCM_API void rcm_mem_free(void *ptr);
 
+/* Reset number of allocations. Debug only.
+   Returns the total number of allocations so far. */
+#ifndef NDEBUG
+RCM_API int rcm_mem_num_of_allocs(void);
+#endif
+
+/*  Abort memory allocation. Debug only.
+    Parameter n is the memory allocation to abort. */
+#ifndef NDEBUG
+RCM_API void rcm_mem_abort(int n);
+#endif
+
+/* Reset memory allocation abortion. Debug only. */
+#ifndef NDEBUG
+RCM_API void rcm_mem_reset_abort(void);
+#endif
+
 #endif /* RCM_MEM_H */

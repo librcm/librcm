@@ -9,6 +9,7 @@ CFLAGS+=-Wall -Werror -Wpedantic -Wextra -fPIC \
         -Wshadow \
         -Wswitch-enum \
         -Wno-unused-parameter \
+        -DRCM_NO_ABORT \
         -g
 LDFLAGS+=-Llib -lrcm
 

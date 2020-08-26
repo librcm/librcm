@@ -30,7 +30,7 @@ RCM_API bool rcm_assert_default_handler(const char *file, int line,
                                         const char *expr, void *data)
 {
   fprintf(stderr, "%s,%d: assertion '%s' failed\n", file, line, expr);
-#ifndef NDEBUG
+#if !defined(NDEBUG) && !defined(RCM_NO_ABORT)
   abort();
 #endif
   return false;
