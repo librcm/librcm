@@ -140,12 +140,12 @@ RCM_API rcm_base64_err_t rcm_base64_decode(unsigned char *out, const char *in,
       out[o] = (unsigned char)(dec << 2);
       break;
     case 1:
-      out[o - 1] |= (unsigned char)((dec & 0x30U) >> 4U);
-      carry = (unsigned char)((dec & 0x0fU) << 4U);
+      out[o - 1] |= ((unsigned char)((dec & 0x30) >> 4));
+      carry = ((unsigned char)((dec & 0x0f) << 4));
       break;
     case 2:
       out[o - 1] = carry | dec >> 2;
-      carry = (unsigned char)((dec & 0x03U) << 6U);
+      carry = ((unsigned char)((dec & 0x03) << 6));
       o--;
       break;
     case 3:
