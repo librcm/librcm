@@ -1,5 +1,7 @@
 /* SPDX-License-Identifier: Unlicense OR MIT */
 
+#include <assert.h>
+
 #include "rcm_base64buf.h"
 
 RCM_API rcm_base64buf_err_t rcm_base64buf_encode(char **out,
@@ -22,6 +24,7 @@ RCM_API rcm_base64buf_err_t rcm_base64buf_encode(char **out,
     rcm_mem_free(enc);
     return rc;
   }
+  assert(out); /* scan-build, already checked above */
   *out = enc;
   return RCM_BASE64BUF_OK;
 }
@@ -50,6 +53,7 @@ RCM_API rcm_base64buf_err_t rcm_base64buf_decode(unsigned char **out,
   if (outlen) {
     *outlen = declen;
   }
+  assert(out); /* scan-build, already checked above */
   *out = dec;
   return RCM_BASE64BUF_OK;
 }

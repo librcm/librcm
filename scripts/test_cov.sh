@@ -17,3 +17,7 @@ for HEADER in $RCM_HEADER; do
   echo "checking full coverage for $GCOV"
   ! grep "^    #####" $GCOV || exit 1
 done
+
+# scan-build
+make cleanup
+scan-build --status-bugs make

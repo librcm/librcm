@@ -1,5 +1,4 @@
 - fix docs/rcm_mfatest.adoc and add to docu
-- clang-analyzer
 - only header file should include rcm deps, C file only corresponding header file
 - replace travis with github actions
 
@@ -10,7 +9,6 @@
 - https://github.com/kokke/tiny-regex-c
 
 modules:
-- base64
 - json parser
 - TweetNaCl
 - dir
@@ -24,8 +22,6 @@ modules:
 - jsonrpc
 - hash table (which one?)
 - membuf
-- mem
-- mftest
 - printf
 - rand
 - semver
