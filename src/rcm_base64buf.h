@@ -27,7 +27,8 @@ typedef enum {
   RCM_BASE64BUF_OK = 0,
   RCM_BASE64BUF_ERR_NOMEM = -2,
   RCM_BASE64BUF_ERR_FAILED_ASSERT = -4,
-  RCM_BASE64BUF_ERR_ILLEGAL_CHAR = -10
+  RCM_BASE64BUF_ERR_ILLEGAL_LENGTH = -10,
+  RCM_BASE64BUF_ERR_ILLEGAL_CHAR = -11
 } rcm_base64buf_err_t;
 
 /* Encodes the base64 encoding of the input buffer in of lenght len and writes

@@ -90,11 +90,11 @@ TEST rcm_base64buf_test_encode_wikipedia(void)
 static int rcm_base64buf_test_decode_rfc3339_internal(char *err)
 {
   unsigned char *out = NULL;
-  size_t i;
+  size_t i, outlen;
   int rc = 0;
   for (i = 0; i < RCM_BASE64BUF_TEST_RFC3339_CASES; i++) {
     const char *res = rcm_base64buf_test_rfc3339_results[i];
-    if ((rc = rcm_base64buf_decode(&out, NULL, res, strlen(res), err))) {
+    if ((rc = rcm_base64buf_decode(&out, &outlen, res, strlen(res), err))) {
       return rc;
     }
     if (strncmp(rcm_base64buf_test_rfc3339_strings[i], (const char *)out,
@@ -145,12 +145,24 @@ TEST rcm_base64buf_test_decode_wikipedia(void)
   return rcm_mfatest_wrap(rcm_base64buf_test_decode_wikipedia_internal);
 }
 
+TEST rcm_base64buf_test_errstr(void)
+{
+  ASSERT_STR_EQ("", rcm_base64buf_errstr(RCM_BASE64BUF_OK));
+  ASSERT_STR_EQ("rcm_base64buf: undefined errnum", rcm_base64buf_errstr(-1));
+  ASSERT_STR_EQ("rcm_base64: illegal length (must be multiple of 4)",
+                rcm_base64buf_errstr(RCM_BASE64BUF_ERR_ILLEGAL_LENGTH));
+  ASSERT_STR_EQ("rcm_base64: illegal character",
+                rcm_base64buf_errstr(RCM_BASE64BUF_ERR_ILLEGAL_CHAR));
+  PASS();
+}
+
 SUITE(rcm_base64buf_suite)
 {
   RUN_TEST(rcm_base64buf_test_encode_rfc3339);
   RUN_TEST(rcm_base64buf_test_encode_wikipedia);
   RUN_TEST(rcm_base64buf_test_decode_rfc3339);
   RUN_TEST(rcm_base64buf_test_decode_wikipedia);
+  RUN_TEST(rcm_base64buf_test_errstr);
 }
 
 GREATEST_MAIN_DEFS();

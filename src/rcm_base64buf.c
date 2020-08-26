@@ -63,6 +63,8 @@ RCM_API const char *rcm_base64buf_errstr(rcm_base64buf_err_t errnum)
     return "rcm_base64buf: out of memory";
   case RCM_BASE64BUF_ERR_FAILED_ASSERT:
     return "rcm_base64buf: assertion failed";
+  case RCM_BASE64BUF_ERR_ILLEGAL_LENGTH:
+    return rcm_base64_errstr(errnum);
   case RCM_BASE64BUF_ERR_ILLEGAL_CHAR:
     return rcm_base64_errstr(errnum);
   }
