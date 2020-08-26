@@ -1,0 +1,27 @@
+[[reference]]
+== API reference
+
+=== `librcm` module dependencies
+
+[graphviz,module_deps]
+....
+include::module_deps.dot[]
+....
+
+== `librcm` module APIs
+
+include::rcm_assert.adoc[]
+
+include::rcm_base64.adoc[]
+
+include::rcm_base64buf.adoc[]
+
+include::rcm_errbuf.adoc[]
+
+include::rcm_mem.adoc[]
+
+include::rcm_mod.adoc[]
+
+include::rcm_pid.adoc[]
+
+include::rcm_rfc3339.adoc[]

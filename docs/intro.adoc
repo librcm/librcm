@@ -1,0 +1,114 @@
+[[intro]]
+== Introduction
+
+The C programming language was first introduced in 1972
+and first standardized in 1989 as ANSI C (called C89).
+The most important revision of ANSI C in regards to this document is C99.
+We ignore all later revisions.
+
+=== The importance of C today
+
+According to the
+https://www.tiobe.com/tiobe-index/[TIOBE Index for August 2020]
+C is the most popular programming language in the world.
+
+Many operating systems, programming languages,
+and widely used libraries are written in C.
+
+High-quality examples:
+
+- The https://www.openbsd.org/[OpenBSD] operating system.
+- The https://www.lua.org/[Lua] programming language.
+- The https://www.sqlite.org/[SQLite] database engine.
+
+Many higher-level programming programming languages allow to interface with the
+C https://en.wikipedia.org/wiki/Application_binary_interface[ABI].
+
+Several new programming languages have the explicit goal to produce libraries
+compatible with the C ABI, for example https://ziglang.org/[Zig] and
+https://www.rust-lang.org/[Rust].
+Others, like https://golang.org/[Go], are criticized for not conforming to the
+C ABI.
+Conforming to the C ABI is mutually exclusive with garbage collection.
+
+=== The importance of C in the future
+
+Given the importance of C today, it's high performance, it's high portability
+(if written correctly), and the rise of
+low-performance https://en.wikipedia.org/wiki/Internet_of_things[IoT] devices,
+C is likely to stay for many decades.
+
+This means that *well written* C can be used and reused for a very long time.
+However, C suffers from a lot of poor quality code.
+The C ecosystem also lacks a repository of  *easily reusable* C libraries,
+especially ones that can be embedded in other libraries,
+can be used in embedded devices, and are highly portable.
+
+The problem of poor quality code is being addressed by restrictive coding
+standards and static analysis tools.
+We know that doesn't make C a safe language,
+but that doesn't mean C will go away.
+
+Reusable C libraries, however, are still a major problem.
+This is mostly due to the fact that the C programming language is so low-level
+and flexible that it neither defines a standard way on _how_ to write libraries,
+nor does it have a standardized way to handle errors, manage memory,
+and deal with dependencies.
+
+Having standardized ways to do things greatly helps to reduce cognitive overhead
+thereby and raises program quality and programmer productivity.
+
+This is arguable a major reason that Go became so successful.
+The language itself is not extremely powerful, but making
+https://golang.org/ref/spec#Package_clause[package names] part of the language
+specification and having widely shared opinions in the Go community what
+comprises idiomatic code makes Go highly reusable and reduces the cognitive
+burden when reading and editing code written by others.
+
+In this document we describe an opinionated method on how to write high quality,
+future-proof C code, giving rationales for the decisions made.
+The power of this approach mainly comes from the *simplicity* that comes from
+standardizing on the _only true-way of doing things_ (TM).
+It forces the programmer into a standardized way of writing C code with less
+decisions to be made along the way, freeing up mental capacity for writing the
+_actual_ code.
+
+But it comes at the cost that even less C code is reusable, because it doesn't
+conform to the future-proof C method described herein.
+However, as more and more C code becomes a future-proof *reusable C module* this
+is less and less of a problem.
+And it gives as an excuse to rewrite the low-level stuff we always wanted to
+rewrite. So let's get to it.
+
+== Resusable C modules
+
+=== What does module mean?
+
+A C module is a single C header file which defines and implements an API
+that can be used by _consumers_ of the module. The module should
+_consume_ as little other modules and header files as possible, to keep
+the dependency graph small.
+
+=== What does reusable mean?
+
+Reusable means that such a module should be useful on as many platforms
+as possible. Supported platforms include:
+
+- All major POSIX systems: Linux, Mac OS, OpenBSD, and FreeBSD.
+- Both major mobile platforms: Android and iOS.
+- Embedded systems (like Arduino/AVR microcontrollers).
+- 32-bit and 64-bit systems.
+- Little-endian and big-endian systems.
+- All major compilers: GCC, Clang, MinGW, and Visual Studio.
+- All major processor architectures: x86, ARM, PowerPC, and MIPS.
+
+== Goals
+
+- Modules must not leak symbols into the global name space.
+- Modules must be compilable as `static` in an amalgamation file, to
+  make them reusable in libraries without any symbol leakage.
+- Modules must minimize cognitive overhead. Standardize everything.
+- Modules should avoid dynamic memory allocation wherever possible.
+
+See also the
+https://github.com/nothings/stb/blob/master/docs/stb_howto.txt[STB how-to].

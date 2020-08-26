@@ -449,7 +449,7 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <div id="toc" class="toc2">
 <div id="toctitle">Table of Contents</div>
 <ul class="sectlevel1">
-<li><a href="#_introduction">Introduction</a>
+<li><a href="#intro">Introduction</a>
 <ul class="sectlevel2">
 <li><a href="#_the_importance_of_c_today">The importance of C today</a></li>
 <li><a href="#_the_importance_of_c_in_the_future">The importance of C in the future</a></li>
@@ -462,11 +462,10 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 </ul>
 </li>
 <li><a href="#_goals">Goals</a></li>
+<li><a href="#guide">User guide</a>
+<ul class="sectlevel2">
 <li><a href="#_error_handling">Error handling</a></li>
 <li><a href="#_memory_managment">Memory managment</a></li>
-<li><a href="#_how_to_write_a_module">How to write a module</a>
-<ul class="sectlevel2">
-<li><a href="#_how_to_write_the_header_file">How to write the header file</a></li>
 </ul>
 </li>
 <li><a href="#_rules">Rules</a>
@@ -482,7 +481,17 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <li><a href="#_goto_is_not_allowed"><code>goto</code> is not allowed</a></li>
 </ul>
 </li>
+<li><a href="#tutorials">Tutorials</a>
+<ul class="sectlevel2">
+<li><a href="#_how_to_write_a_module">How to write a module</a></li>
+<li><a href="#_how_to_write_the_header_file">How to write the header file</a></li>
+</ul>
+</li>
+<li><a href="#reference">API reference</a>
+<ul class="sectlevel2">
 <li><a href="#_librcm_module_dependencies"><code>librcm</code> module dependencies</a></li>
+</ul>
+</li>
 <li><a href="#_librcm_module_apis"><code>librcm</code> module APIs</a>
 <ul class="sectlevel2">
 <li><a href="#rcm_assert.h"><code>rcm_assert.h</code>&#8201;&#8212;&#8201;Robust assertions</a></li>
@@ -495,7 +504,6 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <li><a href="#rcm_rfc3339.h"><code>rcm_rfc3339.h</code>&#8201;&#8212;&#8201;RFC3339 time</a></li>
 </ul>
 </li>
-<li><a href="#_deliverables">Deliverables</a></li>
 </ul>
 </div>
 </div>
@@ -511,10 +519,29 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <a href="https://librcm.org/librcm.pdf">PDF</a>.
 Source code on <a href="https://github.com/librcm/librcm">GitHub</a>.</p>
 </div>
+<div class="paragraph">
+<p>This document has four main parts:</p>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>The <a href="#introduction">[introduction]</a>.</p>
+</li>
+<li>
+<p>The <a href="#guide">User guide</a>.</p>
+</li>
+<li>
+<p>The <a href="#tutorials">Tutorials</a>.</p>
+</li>
+<li>
+<p>The <a href="#reference">API reference</a>.</p>
+</li>
+</ol>
+</div>
 </div>
 </div>
 <div class="sect1">
-<h2 id="_introduction">Introduction</h2>
+<h2 id="intro">Introduction</h2>
 <div class="sectionbody">
 <div class="paragraph">
 <p>The C programming language was first introduced in 1972
@@ -695,8 +722,10 @@ make them reusable in libraries without any symbol leakage.</p>
 </div>
 </div>
 <div class="sect1">
-<h2 id="_error_handling">Error handling</h2>
+<h2 id="guide">User guide</h2>
 <div class="sectionbody">
+<div class="sect2">
+<h3 id="_error_handling">Error handling</h3>
 <div class="paragraph">
 <p>TODO:</p>
 </div>
@@ -717,111 +746,10 @@ make them reusable in libraries without any symbol leakage.</p>
 </ul>
 </div>
 </div>
-</div>
-<div class="sect1">
-<h2 id="_memory_managment">Memory managment</h2>
-<div class="sectionbody">
+<div class="sect2">
+<h3 id="_memory_managment">Memory managment</h3>
 <div class="paragraph">
 <p>TODO</p>
-</div>
-</div>
-</div>
-<div class="sect1">
-<h2 id="_how_to_write_a_module">How to write a module</h2>
-<div class="sectionbody">
-<div class="paragraph">
-<p>A reusable C module <code>mod</code> consists of four components:</p>
-</div>
-<div class="olist arabic">
-<ol class="arabic">
-<li>
-<p>The header file: <code>rcm_mod.h</code></p>
-</li>
-<li>
-<p>The implementation C file: <code>rcm_mod.c</code></p>
-</li>
-<li>
-<p>The unit test file: <code>rcm_mod_test.c</code></p>
-</li>
-<li>
-<p>The module documentation (generated): <code>rcm_mod.adoc</code></p>
-</li>
-</ol>
-</div>
-<div class="paragraph">
-<p>Only the header and the C files are really necessary to reuse the module.
-The online documentation for a module is linked from the header file.</p>
-</div>
-<div class="sect2">
-<h3 id="_how_to_write_the_header_file">How to write the header file</h3>
-<div class="listingblock">
-<div class="content">
-<pre class="rouge highlight"><code data-lang="c"><span class="cm">/* SPDX-License-Identifier: Unlicense OR MIT */</span> <i class="conum" data-value="1"></i><b>(1)</b>
-
-<span class="cp">#ifndef RCM_MOD_H <i class="conum" data-value="2"></i><b>(2)</b>
-#define RCM_MOD_H
-</span>
-<span class="cm">/* Documentation: https://librcm.org/#rcm_mod.h */</span> <i class="conum" data-value="3"></i><b>(3)</b>
-
-<span class="cp">#ifndef RCM_API
-#define RCM_API extern <i class="conum" data-value="4"></i><b>(4)</b>
-#endif
-</span>
-<span class="cm">/*
-Example module: <i class="conum" data-value="5"></i><b>(5)</b>
-
-Example module which shows how to write _reusable C modules_. <i class="conum" data-value="6"></i><b>(6)</b>
-*/</span>
-
-<span class="cm">/* Does nothing. */</span> <i class="conum" data-value="7"></i><b>(7)</b>
-<span class="n">RCM_API</span> <span class="kt">void</span> <span class="nf">rcm_mod_foo</span><span class="p">(</span><span class="kt">void</span><span class="p">);</span> <i class="conum" data-value="8"></i><b>(8)</b>
-
-<span class="cm">/* Returns 23. */</span>
-<span class="n">RCM_API</span> <span class="kt">int</span> <span class="nf">rcm_mod_bar</span><span class="p">(</span><span class="kt">void</span><span class="p">);</span>
-
-<span class="cp">#endif </span><span class="cm">/* RCM_MOD_H */</span><span class="cp"> <i class="conum" data-value="9"></i><b>(9)</b>
-</span></code></pre>
-</div>
-</div>
-<div class="colist arabic">
-<table>
-<tr>
-<td><i class="conum" data-value="1"></i><b>1</b></td>
-<td>License identifier</td>
-</tr>
-<tr>
-<td><i class="conum" data-value="2"></i><b>2</b></td>
-<td><a href="https://en.wikipedia.org/wiki/Include_guard">Include guard</a></td>
-</tr>
-<tr>
-<td><i class="conum" data-value="3"></i><b>3</b></td>
-<td>Link to online documentation</td>
-</tr>
-<tr>
-<td><i class="conum" data-value="4"></i><b>4</b></td>
-<td>Define <code>RCM_API</code>. Allows to compile all module functions as <code>static</code></td>
-</tr>
-<tr>
-<td><i class="conum" data-value="5"></i><b>5</b></td>
-<td>Module name, ends with <code>:</code></td>
-</tr>
-<tr>
-<td><i class="conum" data-value="6"></i><b>6</b></td>
-<td>Module description</td>
-</tr>
-<tr>
-<td><i class="conum" data-value="7"></i><b>7</b></td>
-<td>Function comment(s)</td>
-</tr>
-<tr>
-<td><i class="conum" data-value="8"></i><b>8</b></td>
-<td>Function definition(s)</td>
-</tr>
-<tr>
-<td><i class="conum" data-value="9"></i><b>9</b></td>
-<td>End of include guard</td>
-</tr>
-</table>
 </div>
 </div>
 </div>
@@ -972,11 +900,117 @@ platform).</p>
 </div>
 </div>
 <div class="sect1">
-<h2 id="_librcm_module_dependencies"><code>librcm</code> module dependencies</h2>
+<h2 id="tutorials">Tutorials</h2>
 <div class="sectionbody">
+<div class="sect2">
+<h3 id="_how_to_write_a_module">How to write a module</h3>
+<div class="paragraph">
+<p>A reusable C module <code>mod</code> consists of four components:</p>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>The header file: <code>rcm_mod.h</code></p>
+</li>
+<li>
+<p>The implementation C file: <code>rcm_mod.c</code></p>
+</li>
+<li>
+<p>The unit test file: <code>rcm_mod_test.c</code></p>
+</li>
+<li>
+<p>The module documentation (generated): <code>rcm_mod.adoc</code></p>
+</li>
+</ol>
+</div>
+<div class="paragraph">
+<p>Only the header and the C files are really necessary to reuse the module.
+The online documentation for a module is linked from the header file.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_how_to_write_the_header_file">How to write the header file</h3>
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight"><code data-lang="c"><span class="cm">/* SPDX-License-Identifier: Unlicense OR MIT */</span> <i class="conum" data-value="1"></i><b>(1)</b>
+
+<span class="cp">#ifndef RCM_MOD_H <i class="conum" data-value="2"></i><b>(2)</b>
+#define RCM_MOD_H
+</span>
+<span class="cm">/* Documentation: https://librcm.org/#rcm_mod.h */</span> <i class="conum" data-value="3"></i><b>(3)</b>
+
+<span class="cp">#ifndef RCM_API
+#define RCM_API extern <i class="conum" data-value="4"></i><b>(4)</b>
+#endif
+</span>
+<span class="cm">/*
+Example module: <i class="conum" data-value="5"></i><b>(5)</b>
+
+Example module which shows how to write _reusable C modules_. <i class="conum" data-value="6"></i><b>(6)</b>
+*/</span>
+
+<span class="cm">/* Does nothing. */</span> <i class="conum" data-value="7"></i><b>(7)</b>
+<span class="n">RCM_API</span> <span class="kt">void</span> <span class="nf">rcm_mod_foo</span><span class="p">(</span><span class="kt">void</span><span class="p">);</span> <i class="conum" data-value="8"></i><b>(8)</b>
+
+<span class="cm">/* Returns 23. */</span>
+<span class="n">RCM_API</span> <span class="kt">int</span> <span class="nf">rcm_mod_bar</span><span class="p">(</span><span class="kt">void</span><span class="p">);</span>
+
+<span class="cp">#endif </span><span class="cm">/* RCM_MOD_H */</span><span class="cp"> <i class="conum" data-value="9"></i><b>(9)</b>
+</span></code></pre>
+</div>
+</div>
+<div class="colist arabic">
+<table>
+<tr>
+<td><i class="conum" data-value="1"></i><b>1</b></td>
+<td>License identifier</td>
+</tr>
+<tr>
+<td><i class="conum" data-value="2"></i><b>2</b></td>
+<td><a href="https://en.wikipedia.org/wiki/Include_guard">Include guard</a></td>
+</tr>
+<tr>
+<td><i class="conum" data-value="3"></i><b>3</b></td>
+<td>Link to online documentation</td>
+</tr>
+<tr>
+<td><i class="conum" data-value="4"></i><b>4</b></td>
+<td>Define <code>RCM_API</code>. Allows to compile all module functions as <code>static</code></td>
+</tr>
+<tr>
+<td><i class="conum" data-value="5"></i><b>5</b></td>
+<td>Module name, ends with <code>:</code></td>
+</tr>
+<tr>
+<td><i class="conum" data-value="6"></i><b>6</b></td>
+<td>Module description</td>
+</tr>
+<tr>
+<td><i class="conum" data-value="7"></i><b>7</b></td>
+<td>Function comment(s)</td>
+</tr>
+<tr>
+<td><i class="conum" data-value="8"></i><b>8</b></td>
+<td>Function definition(s)</td>
+</tr>
+<tr>
+<td><i class="conum" data-value="9"></i><b>9</b></td>
+<td>End of include guard</td>
+</tr>
+</table>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="reference">API reference</h2>
+<div class="sectionbody">
+<div class="sect2">
+<h3 id="_librcm_module_dependencies"><code>librcm</code> module dependencies</h3>
 <div class="imageblock">
 <div class="content">
 <img src="module_deps.png" alt="module deps" width="660" height="251">
+</div>
 </div>
 </div>
 </div>
@@ -1517,25 +1551,6 @@ lower-level functions (without memory allocation and error buffers).</p>
    For <code>RCM_RFC3339_OK</code> an empty string is returned ("", not NULL).</p>
 </div>
 </div>
-</div>
-</div>
-</div>
-<div class="sect1">
-<h2 id="_deliverables">Deliverables</h2>
-<div class="sectionbody">
-<div class="ulist">
-<ul>
-<li>
-<p>user guide: How to write future-proof C. With coding rules and
-rationales.</p>
-</li>
-<li>
-<p>reference: What APIs are offered?</p>
-</li>
-<li>
-<p>tutorials: How to write library module. How to use library.</p>
-</li>
-</ul>
 </div>
 </div>
 </div>

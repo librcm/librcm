@@ -1,0 +1,53 @@
+[[tutorials]]
+== Tutorials
+
+=== How to write a module
+
+A reusable C module `mod` consists of four components:
+
+1. The header file: `rcm_mod.h`
+2. The implementation C file: `rcm_mod.c`
+3. The unit test file: `rcm_mod_test.c`
+4. The module documentation (generated): `rcm_mod.adoc`
+
+Only the header and the C files are really necessary to reuse the module.
+The online documentation for a module is linked from the header file.
+
+=== How to write the header file
+
+[source,c]
+----
+/* SPDX-License-Identifier: Unlicense OR MIT */ <1>
+
+#ifndef RCM_MOD_H <2>
+#define RCM_MOD_H
+
+/* Documentation: https://librcm.org/#rcm_mod.h */ <3>
+
+#ifndef RCM_API
+#define RCM_API extern <4>
+#endif
+
+/*
+Example module: <5>
+
+Example module which shows how to write _reusable C modules_. <6>
+*/
+
+/* Does nothing. */ <7>
+RCM_API void rcm_mod_foo(void); <8>
+
+/* Returns 23. */
+RCM_API int rcm_mod_bar(void);
+
+#endif /* RCM_MOD_H */ <9>
+----
+<1> License identifier
+<2> https://en.wikipedia.org/wiki/Include_guard[Include guard]
+<3> Link to online documentation
+<4> Define `RCM_API`. Allows to compile all module functions as `static`
+<5> Module name, ends with `:`
+<6> Module description
+<7> Function comment(s)
+<8> Function definition(s)
+<9> End of include guard
