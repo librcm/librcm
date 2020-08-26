@@ -96,7 +96,7 @@ as possible. Supported platforms include:
 
 - All major POSIX systems: Linux, Mac OS, OpenBSD, and FreeBSD.
 - Both major mobile platforms: Android and iOS.
-- Embedded systems (like Arduino/AVR microcontrollers).
+- Embedded systems (like Arduino/AVR microcontrollers). Currently untested.
 - 32-bit and 64-bit systems.
 - Little-endian and big-endian systems.
 - All major compilers: GCC, Clang, MinGW, and Visual Studio.

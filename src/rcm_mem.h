@@ -46,8 +46,8 @@ RCM_API void rcm_mem_set_malloc(rcm_mem_malloc_func *func);
 RCM_API int rcm_mem_num_of_allocs(void);
 #endif
 
-/*  Abort memory allocation. Debug only.
-    Parameter n is the memory allocation to abort. */
+/* Abort memory allocation. Debug only.
+   Parameter n is the memory allocation to abort. */
 #ifndef NDEBUG
 RCM_API void rcm_mem_abort(int n);
 #endif

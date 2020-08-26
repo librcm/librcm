@@ -656,7 +656,7 @@ as possible. Supported platforms include:</p>
 <p>Both major mobile platforms: Android and iOS.</p>
 </li>
 <li>
-<p>Embedded systems (like Arduino/AVR microcontrollers).</p>
+<p>Embedded systems (like Arduino/AVR microcontrollers). Currently untested.</p>
 </li>
 <li>
 <p>32-bit and 64-bit systems.</p>
@@ -1385,11 +1385,9 @@ lower-level functions (without memory allocation and error buffers).</p>
 <pre class="rouge highlight"><code data-lang="c"><span class="kt">void</span> <span class="nf">rcm_mem_abort</span><span class="p">(</span><span class="kt">int</span> <span class="n">n</span><span class="p">);</span></code></pre>
 </div>
 </div>
-<div class="literalblock">
-<div class="content">
-<pre>Abort memory allocation. Debug only.
-   Parameter n is the memory allocation to abort.</pre>
-</div>
+<div class="paragraph">
+<p>Abort memory allocation. Debug only.
+   Parameter n is the memory allocation to abort.</p>
 </div>
 <div class="listingblock">
 <div class="content">

@@ -73,8 +73,8 @@ Reset number of allocations. Debug only.
 void rcm_mem_abort(int n);
 ----
 
- Abort memory allocation. Debug only.
-    Parameter n is the memory allocation to abort.
+Abort memory allocation. Debug only.
+   Parameter n is the memory allocation to abort.
 
 [source,c]
 ----
