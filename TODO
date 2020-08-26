@@ -25,6 +25,5 @@ modules:
 - rand
 - semver
 - sha256 (TweetNacl contains sha512)
-- sleep
 - thread
 - windows dirent.h

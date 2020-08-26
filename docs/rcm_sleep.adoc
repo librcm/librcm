@@ -1,0 +1,17 @@
+// generated from ../src/rcm_sleep.h with `rcmdoc`
+
+[[rcm_sleep.h]]
+=== `rcm_sleep.h` -- Sleep module
+
+Implements a portable `sleep(3)` function.
+
+==== Functions
+
+[source,c]
+----
+void rcm_sleep(unsigned int seconds);
+----
+
+Makes the calling thread sleep until a given number of seconds have elapsed.
+   On POSIX systems a signal which is not ignored interrupts the function.
+
