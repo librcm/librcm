@@ -749,7 +749,8 @@ make them reusable in libraries without any symbol leakage.</p>
 </td>
 <td class="content">
 Compile with <code>-DNDEBUG</code> for production.
-This will remove the <code>abort(3)</code> call in <code>rcm_assert()</code>.
+This will remove the <code>abort(3)</code> call in <code>rcm_assert()</code>,
+but still return errors, if <code>rcm_assert()</code> fails.
 </td>
 </tr>
 </table>

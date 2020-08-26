@@ -23,7 +23,8 @@ TODO
 TODO
 
 IMPORTANT: Compile with `-DNDEBUG` for production.
-This will remove the `abort(3)` call in `rcm_assert()`.
+This will remove the `abort(3)` call in `rcm_assert()`,
+but still return errors, if `rcm_assert()` fails.
 
 === Testing
 
