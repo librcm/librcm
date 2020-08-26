@@ -1,6 +1,6 @@
 = librcm -- reusable C modules
 Frank Braun <https://frankbraun.org>
-2020-08-18
+2020-08-26
 :doctype: book
 :reproducible:
 :source-highlighter: rouge
