@@ -81,7 +81,7 @@ fmt:
 mkdocs: tools
 	rcmdoc src/rcm_*.h
 
-test: $(TEST_BIN)
+test: lib/librcm.a $(TEST_BIN)
 	@for T in $(TEST_BIN); do \
     valgrind --tool=memcheck --leak-check=full --error-exitcode=1 \
              --quiet $$T || exit 1; \
