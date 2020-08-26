@@ -9,6 +9,12 @@
 #define RCM_API extern
 #endif
 
+/*
+MFA test module:
+
+Memory/file/assertion test wrapper module.
+*/
+
 #include "greatest.h"
 
 typedef int(rcm_mfatest_func_t)(char *err);

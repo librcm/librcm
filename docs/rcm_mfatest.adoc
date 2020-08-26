@@ -1,0 +1,7 @@
+// generated from ../src/rcm_mfatest.h with `rcmdoc`
+
+[[rcm_mfatest.h]]
+=== `rcm_mfatest.h` -- MFA test module
+
+Memory/file/assertion test wrapper module.
+

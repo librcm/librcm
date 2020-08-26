@@ -22,3 +22,26 @@ void rcm_mem_free(void *ptr);
 
 Frees the memory space pointed to by ptr.
 
+[source,c]
+----
+int rcm_mem_num_of_allocs(void);
+----
+
+Reset number of allocations. Debug only.
+   Returns the total number of allocations so far.
+
+[source,c]
+----
+void rcm_mem_abort(int n);
+----
+
+ Abort memory allocation. Debug only.
+    Parameter n is the memory allocation to abort.
+
+[source,c]
+----
+void rcm_mem_reset_abort(void);
+----
+
+Reset memory allocation abortion. Debug only.
+

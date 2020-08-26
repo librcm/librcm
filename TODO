@@ -1,3 +1,4 @@
+- fix docs/rcm_mfatest.adoc and add to docu
 - clang-analyzer
 - only header file should include rcm deps, C file only corresponding header file
 - replace travis with github actions
