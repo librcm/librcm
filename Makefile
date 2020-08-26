@@ -5,7 +5,6 @@ CFLAGS+=-Wall -Werror -Wpedantic -Wextra -fPIC \
         -Wcast-align \
         -Wstrict-prototypes \
         -Wmissing-prototypes \
-        -Wconversion \
         -Wshadow \
         -Wswitch-enum \
         -Wno-unused-parameter \
