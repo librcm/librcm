@@ -48,7 +48,7 @@ RCM_API rcm_base64buf_err_t rcm_base64buf_decode(unsigned char **out,
   }
   if ((rc = rcm_base64_decode(dec, in, len))) {
     rcm_mem_free(dec);
-    return rc;
+    return (rcm_base64buf_err_t) rc;
   }
   if (outlen) {
     *outlen = declen;
@@ -68,9 +68,9 @@ RCM_API const char *rcm_base64buf_errstr(rcm_base64buf_err_t errnum)
   case RCM_BASE64BUF_ERR_FAILED_ASSERT:
     return "rcm_base64buf: assertion failed";
   case RCM_BASE64BUF_ERR_ILLEGAL_LENGTH:
-    return rcm_base64_errstr(errnum);
+    return rcm_base64_errstr((rcm_base64_err_t) errnum);
   case RCM_BASE64BUF_ERR_ILLEGAL_CHAR:
-    return rcm_base64_errstr(errnum);
+    return rcm_base64_errstr((rcm_base64_err_t) errnum);
   }
   return "rcm_base64buf: undefined errnum";
 }
