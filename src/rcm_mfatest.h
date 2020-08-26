@@ -1,7 +1,13 @@
 /* SPDX-License-Identifier: Unlicense OR MIT */
 
-#ifndef RCM_MFTEST_H
-#define RCM_MFTEST_H
+#ifndef RCM_MFATEST_H
+#define RCM_MFATEST_H
+
+/* Documentation: https://librcm.org/#rcm_mfatest.h */
+
+#ifndef RCM_API
+#define RCM_API extern
+#endif
 
 #include "greatest.h"
 

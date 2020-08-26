@@ -18,13 +18,13 @@ enum greatest_test_res rcm_mfatest_wrap_err(mftest_func_t test_func, int rval)
   int i, mallocs, /* io_ops, */ asserts, old_err;
 #endif
   char err[RCM_ERRBUF_SIZE];
-  int ret;
+  int rc;
 #ifdef NDEBUG
-  ret = test_func(err);
-  if (ret != rval) {
+  rc = test_func(err);
+  if (rc != rval) {
     fprintf(stderr, "error: %s\n", err);
   }
-  ASSERT_EQ(rval, ret);
+  ASSERT_EQ(rval, rc);
 #else
   assert(test_func);
   rcm_mem_num_of_allocs();
@@ -48,11 +48,11 @@ enum greatest_test_res rcm_mfatest_wrap_err(mftest_func_t test_func, int rval)
 #ifdef MFTEST_DEBUG
     printf("abort malloc %d\n", i + 1);
 #endif
-    ret = test_func(err);
-    if (ret != -2) {
-      printf("%d: %s\n", ret, err);
+    rc = test_func(err);
+    if (rc != -2) {
+      printf("%d: %s\n", rc, err);
     }
-    ASSERT_EQ(-2, ret);
+    ASSERT_EQ(-2, rc);
     rcm_mem_num_of_allocs();
     /* file_num_of_ops(); */
     rcm_assert_num_of_asserts();
@@ -67,8 +67,8 @@ enum greatest_test_res rcm_mfatest_wrap_err(mftest_func_t test_func, int rval)
 #ifdef MFTEST_DEBUG
     printf("abort IO op %d\n", i + 1);
 #endif
-    ret = test_func(err);
-    ASSERT_EQ(-3, ret);
+    rc = test_func(err);
+    ASSERT_EQ(-3, rc);
     rcm_mem_num_of_allocs();
     file_num_of_ops();
     rcm_assert_num_of_asserts();
@@ -85,8 +85,8 @@ enum greatest_test_res rcm_mfatest_wrap_err(mftest_func_t test_func, int rval)
 #ifdef MFTEST_DEBUG
     printf("abort assertion %d\n", i + 1);
 #endif
-    ret = test_func(err);
-    ASSERT_EQ(RCM_ASSERT_ERR_FAILED_ASSERT, ret);
+    rc = test_func(err);
+    ASSERT_EQ(RCM_ASSERT_ERR_FAILED_ASSERT, rc);
     rcm_mem_num_of_allocs();
     /* file_num_of_ops(); */
     rcm_assert_num_of_asserts();
@@ -97,8 +97,8 @@ enum greatest_test_res rcm_mfatest_wrap_err(mftest_func_t test_func, int rval)
   rcm_assert_reset_abort();
 
   /* call again and make sure the error code is the same */
-  ret = test_func(err);
-  ASSERT_EQ(old_err, ret);
+  rc = test_func(err);
+  ASSERT_EQ(old_err, rc);
   rcm_mem_num_of_allocs();
   /* file_num_of_ops(); */
   rcm_assert_num_of_asserts();
@@ -106,11 +106,11 @@ enum greatest_test_res rcm_mfatest_wrap_err(mftest_func_t test_func, int rval)
 
   /* at last make sure return value is as exected */
 #ifdef MFTEST_DEBUG
-  if (ret)
+  if (rc)
     puts(err);
-  printf("rval=%d, ret=%d\n", rval, ret);
+  printf("rval=%d, rc=%d\n", rval, rc);
 #endif
-  ASSERT_EQ(rval, ret);
+  ASSERT_EQ(rval, rc);
 #endif
 
   PASS();

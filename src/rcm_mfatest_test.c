@@ -11,28 +11,28 @@ static int rcm_mfatest_test_internal(char *err)
   FILE *fp = NULL;
 #endif
   void *mem;
-  int ret = 0;
+  int rc = 0;
   if (!rcm_assert(true)) {
     return RCM_ASSERT_ERR_FAILED_ASSERT;
   }
   if (!(mem = rcm_mem_malloc(4096))) {
     rcm_errbuf_set(err, "out of memory");
-    ret = -2;
+    rc = -2;
   }
 #if 0
-  if (!ret) {
+  if (!rc) {
     if (!(fp = file_fopen("/dev/null", "w", err))) {
-      ret = -3;
+      rc = -3;
     }
   }
-  if (!ret) {
-    ret = file_fclose(fp, err);
+  if (!rc) {
+    rc = file_fclose(fp, err);
   } else {
     file_fclose(fp, NULL); /* close file no matter what */
   }
 #endif
   rcm_mem_free(mem);
-  return ret;
+  return rc;
 }
 
 TEST rcm_mfatest_test(void)
