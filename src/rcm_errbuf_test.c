@@ -12,9 +12,16 @@ TEST rcm_errbuf_test(void)
   PASS();
 }
 
+TEST rcm_errbuf_test_null(void)
+{
+  rcm_errbuf_set(NULL, "test %d", 123);
+  PASS();
+}
+
 SUITE(rcm_errbuf_suite)
 {
   RUN_TEST(rcm_errbuf_test);
+  RUN_TEST(rcm_errbuf_test_null);
 }
 
 GREATEST_MAIN_DEFS();
