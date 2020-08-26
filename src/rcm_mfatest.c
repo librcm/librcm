@@ -50,9 +50,6 @@ enum greatest_test_res rcm_mfatest_wrap_err(rcm_mfatest_func_t test_func,
     printf("abort malloc %d\n", i + 1);
 #endif
     rc = test_func(err);
-    if (rc != -2) {
-      printf("%d: %s\n", rc, err);
-    }
     ASSERT_EQ(-2, rc);
     rcm_mem_num_of_allocs();
     /* file_num_of_ops(); */
