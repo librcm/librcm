@@ -15,7 +15,8 @@ RCM_API void *rcm_mem_malloc(size_t size)
 {
   void *p;
 #ifndef NDEBUG
-  if (rcm_mem_abort_malloc && rcm_mem_num_of_mallocs + 1 == rcm_mem_abort_malloc) {
+  if (rcm_mem_abort_malloc &&
+      rcm_mem_num_of_mallocs + 1 == rcm_mem_abort_malloc) {
     assert(!rcm_mem_abort_in_progress);
     rcm_mem_abort_in_progress = true;
     return NULL;
@@ -61,4 +62,3 @@ RCM_API void rcm_mem_reset_abort(void)
   rcm_mem_abort_in_progress = false;
 }
 #endif
-
