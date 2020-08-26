@@ -97,6 +97,13 @@ TEST rcm_rfc3339_test_from_time_t(void)
 TEST rcm_rfc3339_test_errstr(void)
 {
   ASSERT_STR_EQ("", rcm_rfc3339_errstr(RCM_RFC3339_OK));
+  ASSERT_STR_EQ("rcm_rfc3339: undefined errnum", rcm_rfc3339_errstr(-1));
+  ASSERT_STR_EQ("rcm_rfc3339: assertion failed",
+                rcm_rfc3339_errstr(RCM_RFC3339_ERR_FAILED_ASSERT));
+  ASSERT_STR_EQ("rcm_rfc3339: parse error",
+                rcm_rfc3339_errstr(RCM_RFC3339_ERR_PARSE));
+  ASSERT_STR_EQ("rcm_rfc3339: cannot get time",
+                rcm_rfc3339_errstr(RCM_RFC3339_ERR_TIME));
   PASS();
 }
 
