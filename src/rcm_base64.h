@@ -49,7 +49,7 @@ RCM_API rcm_base64_err_t rcm_base64_decode(unsigned char *out, const char *in,
                                            size_t len);
 
 /* Return an error string describing the given error number errnum.
-   For `RCM_BASE64_OK` an empty string is returned ("", not NULL). */
+   For `RCM_BASE64_OK` an empty string is returned ("", not `NULL`). */
 RCM_API const char *rcm_base64_errstr(rcm_base64_err_t errnum);
 
 #endif /* RCM_BASE64_H */

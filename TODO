@@ -2,7 +2,7 @@
 - only header file should include rcm deps, C file only corresponding header file
 - replace travis with github actions
 
-- explain goto chain for error handling
+- explain goto chain for error handling (goto target 'error')
 - outrule other goto uses (except inner break)
 - describe memory allocator, make it settable
 - outrule setjmp, longjmp (MISRA does that, too?)
@@ -15,7 +15,7 @@ modules:
 - ed25519
 - executable
 - file
-- fileset?
+- fileset
 - fileutil
 - hex
 - http

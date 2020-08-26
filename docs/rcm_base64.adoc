@@ -64,5 +64,5 @@ const char *rcm_base64_errstr(rcm_base64_err_t errnum);
 ----
 
 Return an error string describing the given error number errnum.
-   For `RCM_BASE64_OK` an empty string is returned ("", not NULL).
+   For `RCM_BASE64_OK` an empty string is returned ("", not `NULL`).
 

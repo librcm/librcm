@@ -1185,7 +1185,7 @@ higher-level functions (with memory allocation and error buffers).</p>
 </div>
 <div class="paragraph">
 <p>Return an error string describing the given error number errnum.
-   For <code>RCM_BASE64_OK</code> an empty string is returned ("", not NULL).</p>
+   For <code>RCM_BASE64_OK</code> an empty string is returned ("", not <code>NULL</code>).</p>
 </div>
 </div>
 </div>
@@ -1204,7 +1204,8 @@ lower-level functions (without memory allocation and error buffers).</p>
   <span class="n">RCM_BASE64BUF_OK</span> <span class="o">=</span> <span class="mi">0</span><span class="p">,</span>
   <span class="n">RCM_BASE64BUF_ERR_NOMEM</span> <span class="o">=</span> <span class="o">-</span><span class="mi">2</span><span class="p">,</span>
   <span class="n">RCM_BASE64BUF_ERR_FAILED_ASSERT</span> <span class="o">=</span> <span class="o">-</span><span class="mi">4</span><span class="p">,</span>
-  <span class="n">RCM_BASE64BUF_ERR_ILLEGAL_CHAR</span> <span class="o">=</span> <span class="o">-</span><span class="mi">10</span>
+  <span class="n">RCM_BASE64BUF_ERR_ILLEGAL_LENGTH</span> <span class="o">=</span> <span class="o">-</span><span class="mi">10</span><span class="p">,</span>
+  <span class="n">RCM_BASE64BUF_ERR_ILLEGAL_CHAR</span> <span class="o">=</span> <span class="o">-</span><span class="mi">11</span>
 <span class="p">}</span> <span class="n">rcm_base64buf_err_t</span><span class="p">;</span></code></pre>
 </div>
 </div>
@@ -1223,7 +1224,7 @@ lower-level functions (without memory allocation and error buffers).</p>
 </div>
 <div class="paragraph">
 <p>Encodes the base64 encoding of the input buffer in of lenght len and writes
-   it it as a null-terminated string to out.</p>
+   it as a null-terminated string to out.</p>
 </div>
 <div class="listingblock">
 <div class="content">
@@ -1245,7 +1246,7 @@ lower-level functions (without memory allocation and error buffers).</p>
 </div>
 <div class="paragraph">
 <p>Return an error string describing the given error number errnum.
-   For <code>RCM_BASE64BUF_OK</code> an empty string is returned ("", not NULL).</p>
+   For <code>RCM_BASE64BUF_OK</code> an empty string is returned ("", not <code>NULL</code>).</p>
 </div>
 </div>
 </div>
@@ -1284,6 +1285,25 @@ lower-level functions (without memory allocation and error buffers).</p>
 <p>This modules defines the memory allocator for <em>reusable C modules</em>.</p>
 </div>
 <div class="sect3">
+<h4 id="_typedefs_4">Typedefs</h4>
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight"><code data-lang="c"><span class="k">typedef</span> <span class="k">enum</span> <span class="p">{</span> <span class="n">RCM_MEM_OK</span> <span class="o">=</span> <span class="mi">0</span><span class="p">,</span> <span class="n">RCM_MEM_ERR_NOMEM</span> <span class="o">=</span> <span class="o">-</span><span class="mi">2</span> <span class="p">}</span> <span class="n">rcm_mem_err_t</span><span class="p">;</span></code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>The memory error type.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight"><code data-lang="c"><span class="k">typedef</span> <span class="kt">void</span> <span class="o">*</span><span class="nf">rcm_mem_malloc_func</span><span class="p">(</span><span class="kt">size_t</span> <span class="n">size</span><span class="p">);</span></code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Memory allocator (malloc(3)-like).</p>
+</div>
+</div>
+<div class="sect3">
 <h4 id="_functions_5">Functions</h4>
 <div class="listingblock">
 <div class="content">
@@ -1317,6 +1337,15 @@ lower-level functions (without memory allocation and error buffers).</p>
 </div>
 <div class="paragraph">
 <p>Free the memory space pointed to by ptr and set ptr to <code>NULL</code>.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight"><code data-lang="c"><span class="kt">void</span> <span class="nf">rcm_mem_set_malloc</span><span class="p">(</span><span class="n">rcm_mem_malloc_func</span> <span class="o">*</span><span class="n">func</span><span class="p">);</span></code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Set malloc function used by this module.
+   If func is <code>NULL</code> the default allocator is set.</p>
 </div>
 <div class="listingblock">
 <div class="content">
@@ -1407,7 +1436,7 @@ lower-level functions (without memory allocation and error buffers).</p>
 </div>
 </div>
 <div class="sect3">
-<h4 id="_typedefs_4">Typedefs</h4>
+<h4 id="_typedefs_5">Typedefs</h4>
 <div class="listingblock">
 <div class="content">
 <pre class="rouge highlight"><code data-lang="c"><span class="k">typedef</span> <span class="k">enum</span> <span class="p">{</span>

@@ -5,6 +5,22 @@
 
 This modules defines the memory allocator for _reusable C modules_.
 
+==== Typedefs
+
+[source,c]
+----
+typedef enum { RCM_MEM_OK = 0, RCM_MEM_ERR_NOMEM = -2 } rcm_mem_err_t;
+----
+
+The memory error type.
+
+[source,c]
+----
+typedef void *rcm_mem_malloc_func(size_t size);
+----
+
+Memory allocator (malloc(3)-like).
+
 ==== Functions
 
 [source,c]
@@ -35,6 +51,14 @@ void rcm_mem_freeucharptr(unsigned char **ptr);
 ----
 
 Free the memory space pointed to by ptr and set ptr to `NULL`.
+
+[source,c]
+----
+void rcm_mem_set_malloc(rcm_mem_malloc_func *func);
+----
+
+Set malloc function used by this module.
+   If func is `NULL` the default allocator is set.
 
 [source,c]
 ----
