@@ -44,9 +44,9 @@ RCM_API rcm_rfc3339_err_t rcm_rfc3339_parse(rcm_rfc3339_t *time,
     rcm_errbuf_set(err, "rcm_rfc3339: year could not be parsed: %s", value);
     return RCM_RFC3339_ERR_PARSE;
   }
-  if (year < 1900 || year > 2525) {
+  if (year < 1900 || year > 9998) {
     rcm_errbuf_set(
-        err, "rcm_rfc3339: year must be in the range [1900,2525]: %s", value);
+        err, "rcm_rfc3339: year must be in the range [1900,9998]: %s", value);
     return RCM_RFC3339_ERR_PARSE;
   }
 
@@ -113,12 +113,11 @@ RCM_API rcm_rfc3339_err_t rcm_rfc3339_parse(rcm_rfc3339_t *time,
   tm.tm_min = (int)minute;
   tm.tm_sec = (int)second;
   t = mktime(&tm);
-  if (t == (time_t)-1) {
-    rcm_errbuf_set(err,
-                   "rcm_rfc3339: could not convert value to time (must have "
-                   "format \"YYYY-MM-DDTHH:MM:SSZ\"): %s",
-                   value);
-    return RCM_RFC3339_ERR_PARSE;
+  /* mktime(3) cannot overflow with the ranges we allow above */
+  if (!rcm_assert(t != (time_t)-1)) {
+    rcm_errbuf_set(err, "%s",
+                   rcm_rfc3339_errstr(RCM_RFC3339_ERR_FAILED_ASSERT));
+    return RCM_RFC3339_ERR_FAILED_ASSERT;
   }
   if (time) {
     time->year = (int)year;
@@ -149,9 +148,12 @@ RCM_API rcm_rfc3339_err_t rcm_rfc3339_now(rcm_rfc3339_t *t, char *err)
                    rcm_rfc3339_errstr(RCM_RFC3339_ERR_FAILED_ASSERT));
     return RCM_RFC3339_ERR_FAILED_ASSERT;
   }
-  if (time(&now) == (time_t)-1) {
-    rcm_errbuf_set(err, "rcm_rfc3339: cannot get time: %s", strerror(errno));
-    return RCM_RFC3339_ERR_TIME;
+  now = time(NULL);
+  /* time(NULL) cannot fail */
+  if (!rcm_assert(now != (time_t)-1)) {
+    rcm_errbuf_set(err, "%s",
+                   rcm_rfc3339_errstr(RCM_RFC3339_ERR_FAILED_ASSERT));
+    return RCM_RFC3339_ERR_FAILED_ASSERT;
   }
   rcm_rfc3339_gmtime(&tm, now);
   t->sec = tm.tm_sec;

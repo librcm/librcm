@@ -94,6 +94,84 @@ TEST rcm_rfc3339_test_from_time_t(void)
   PASS();
 }
 
+TEST rcm_rfc3339_test_illegal(void)
+{
+  rcm_rfc3339_t t;
+  char err[RCM_ERRBUF_SIZE];
+  ASSERT_EQ(RCM_RFC3339_ERR_PARSE,
+            rcm_rfc3339_parse(&t, "2020-12-31T00:00:00X", err));
+  ASSERT_EQ(RCM_RFC3339_ERR_PARSE,
+            rcm_rfc3339_parse(&t, "202x-12-31T00:00:00Z", err));
+  ASSERT_EQ(RCM_RFC3339_ERR_PARSE,
+            rcm_rfc3339_parse(&t, "2020-1x-31T00:00:00Z", err));
+  ASSERT_EQ(RCM_RFC3339_ERR_PARSE,
+            rcm_rfc3339_parse(&t, "2020-13-31T00:00:00Z", err));
+  ASSERT_EQ(RCM_RFC3339_ERR_PARSE,
+            rcm_rfc3339_parse(&t, "2020-12-3xT00:00:00Z", err));
+  ASSERT_EQ(RCM_RFC3339_ERR_PARSE,
+            rcm_rfc3339_parse(&t, "2020-12-32T00:00:00Z", err));
+  ASSERT_EQ(RCM_RFC3339_ERR_PARSE,
+            rcm_rfc3339_parse(&t, "2020-12-31T0x:00:00Z", err));
+  ASSERT_EQ(RCM_RFC3339_ERR_PARSE,
+            rcm_rfc3339_parse(&t, "2020-12-31T24:00:00Z", err));
+  ASSERT_EQ(RCM_RFC3339_ERR_PARSE,
+            rcm_rfc3339_parse(&t, "2020-12-31T00:0x:00Z", err));
+  ASSERT_EQ(RCM_RFC3339_ERR_PARSE,
+            rcm_rfc3339_parse(&t, "2020-12-31T00:60:00Z", err));
+  ASSERT_EQ(RCM_RFC3339_ERR_PARSE,
+            rcm_rfc3339_parse(&t, "2020-12-31T00:00:0xZ", err));
+  ASSERT_EQ(RCM_RFC3339_ERR_PARSE,
+            rcm_rfc3339_parse(&t, "2020-12-31T00:00:60Z", err));
+  ASSERT_EQ(RCM_RFC3339_ERR_PARSE,
+            rcm_rfc3339_parse(&t, "1899-12-31T00:00:00Z", err));
+  ASSERT_EQ(RCM_RFC3339_ERR_PARSE,
+            rcm_rfc3339_parse(&t, "9999-12-31T00:00:00Z", err));
+  puts(err);
+  PASS();
+}
+
+TEST rcm_rfc3339_test_after(void)
+{
+  rcm_rfc3339_t ltime, rtime;
+  ASSERT(!rcm_rfc3339_parse(&ltime, "2020-12-31T00:00:00Z", NULL));
+  ASSERT(!rcm_rfc3339_parse(&rtime, "2020-11-31T00:00:00Z", NULL));
+  ASSERT(rcm_rfc3339_after(ltime, rtime));
+  ASSERT(!rcm_rfc3339_parse(&ltime, "2020-12-31T00:00:00Z", NULL));
+  ASSERT(!rcm_rfc3339_parse(&rtime, "2020-12-30T00:00:00Z", NULL));
+  ASSERT(rcm_rfc3339_after(ltime, rtime));
+  ASSERT(!rcm_rfc3339_parse(&ltime, "2020-12-31T01:00:00Z", NULL));
+  ASSERT(!rcm_rfc3339_parse(&rtime, "2020-12-31T00:00:00Z", NULL));
+  ASSERT(rcm_rfc3339_after(ltime, rtime));
+  ASSERT(!rcm_rfc3339_parse(&ltime, "2020-12-31T00:01:00Z", NULL));
+  ASSERT(!rcm_rfc3339_parse(&rtime, "2020-12-31T00:00:00Z", NULL));
+  ASSERT(rcm_rfc3339_after(ltime, rtime));
+  ASSERT(!rcm_rfc3339_parse(&ltime, "2020-12-31T00:00:01Z", NULL));
+  ASSERT(!rcm_rfc3339_parse(&rtime, "2020-12-31T00:00:00Z", NULL));
+  ASSERT(rcm_rfc3339_after(ltime, rtime));
+  PASS();
+}
+
+TEST rcm_rfc3339_test_before(void)
+{
+  rcm_rfc3339_t ltime, rtime;
+  ASSERT(!rcm_rfc3339_parse(&ltime, "2020-11-31T00:00:00Z", NULL));
+  ASSERT(!rcm_rfc3339_parse(&rtime, "2020-12-31T00:00:00Z", NULL));
+  ASSERT(rcm_rfc3339_before(ltime, rtime));
+  ASSERT(!rcm_rfc3339_parse(&ltime, "2020-12-30T00:00:00Z", NULL));
+  ASSERT(!rcm_rfc3339_parse(&rtime, "2020-12-31T00:00:00Z", NULL));
+  ASSERT(rcm_rfc3339_before(ltime, rtime));
+  ASSERT(!rcm_rfc3339_parse(&ltime, "2020-12-31T00:00:00Z", NULL));
+  ASSERT(!rcm_rfc3339_parse(&rtime, "2020-12-31T01:00:00Z", NULL));
+  ASSERT(rcm_rfc3339_before(ltime, rtime));
+  ASSERT(!rcm_rfc3339_parse(&ltime, "2020-12-31T00:00:00Z", NULL));
+  ASSERT(!rcm_rfc3339_parse(&rtime, "2020-12-31T00:01:00Z", NULL));
+  ASSERT(rcm_rfc3339_before(ltime, rtime));
+  ASSERT(!rcm_rfc3339_parse(&ltime, "2020-12-31T00:00:00Z", NULL));
+  ASSERT(!rcm_rfc3339_parse(&rtime, "2020-12-31T00:00:01Z", NULL));
+  ASSERT(rcm_rfc3339_before(ltime, rtime));
+  PASS();
+}
+
 TEST rcm_rfc3339_test_errstr(void)
 {
   ASSERT_STR_EQ("", rcm_rfc3339_errstr(RCM_RFC3339_OK));
@@ -112,6 +190,9 @@ SUITE(rcm_rfc3339_suite)
   RUN_TEST(rcm_rfc3339_test_indefinite);
   RUN_TEST(rcm_rfc3339_test_points);
   RUN_TEST(rcm_rfc3339_test_from_time_t);
+  RUN_TEST(rcm_rfc3339_test_illegal);
+  RUN_TEST(rcm_rfc3339_test_after);
+  RUN_TEST(rcm_rfc3339_test_before);
   RUN_TEST(rcm_rfc3339_test_errstr);
 }
 
