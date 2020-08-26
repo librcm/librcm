@@ -1,6 +1,10 @@
 [[tutorials]]
 == Tutorials
 
+=== How to use `librcm` modules
+
+TODO
+
 === How to write a module
 
 A reusable C module `mod` consists of four components:
@@ -8,12 +12,12 @@ A reusable C module `mod` consists of four components:
 1. The header file: `rcm_mod.h`
 2. The implementation C file: `rcm_mod.c`
 3. The unit test file: `rcm_mod_test.c`
-4. The module documentation (generated): `rcm_mod.adoc`
+4. The module documentation (generated with `rcmdoc`): `rcm_mod.adoc`
 
 Only the header and the C files are really necessary to reuse the module.
 The online documentation for a module is linked from the header file.
 
-=== How to write the header file
+==== How to write the header file
 
 [source,c]
 ----
@@ -51,3 +55,11 @@ RCM_API int rcm_mod_bar(void);
 <7> Function comment(s)
 <8> Function definition(s)
 <9> End of include guard
+
+==== How to write the C file
+
+TODO
+
+==== How to write the test file
+
+TODO

@@ -80,16 +80,16 @@ is less and less of a problem.
 And it gives as an excuse to rewrite the low-level stuff we always wanted to
 rewrite. So let's get to it.
 
-== Resusable C modules
+=== Resusable C modules
 
-=== What does module mean?
+==== What does module mean?
 
 A C module is a single C header file which defines and implements an API
 that can be used by _consumers_ of the module. The module should
 _consume_ as little other modules and header files as possible, to keep
 the dependency graph small.
 
-=== What does reusable mean?
+==== What does reusable mean?
 
 Reusable means that such a module should be useful on as many platforms
 as possible. Supported platforms include:
@@ -102,7 +102,7 @@ as possible. Supported platforms include:
 - All major compilers: GCC, Clang, MinGW, and Visual Studio.
 - All major processor architectures: x86, ARM, PowerPC, and MIPS.
 
-== Goals
+=== Goals
 
 - Modules must not leak symbols into the global name space.
 - Modules must be compilable as `static` in an amalgamation file, to

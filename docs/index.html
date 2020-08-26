@@ -453,47 +453,29 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <ul class="sectlevel2">
 <li><a href="#_the_importance_of_c_today">The importance of C today</a></li>
 <li><a href="#_the_importance_of_c_in_the_future">The importance of C in the future</a></li>
-</ul>
-</li>
-<li><a href="#_resusable_c_modules">Resusable C modules</a>
-<ul class="sectlevel2">
-<li><a href="#_what_does_module_mean">What does module mean?</a></li>
-<li><a href="#_what_does_reusable_mean">What does reusable mean?</a></li>
-</ul>
-</li>
+<li><a href="#_resusable_c_modules">Resusable C modules</a></li>
 <li><a href="#_goals">Goals</a></li>
+</ul>
+</li>
 <li><a href="#guide">User guide</a>
 <ul class="sectlevel2">
 <li><a href="#_error_handling">Error handling</a></li>
 <li><a href="#_memory_managment">Memory managment</a></li>
-</ul>
-</li>
-<li><a href="#_rules">Rules</a>
-<ul class="sectlevel2">
-<li><a href="#_allowed_defines">Allowed defines</a></li>
-<li><a href="#_coding_style">Coding style</a></li>
-<li><a href="#_example_module">Example module</a></li>
-</ul>
-</li>
-<li><a href="#_how_to_test">How to test</a>
-<ul class="sectlevel2">
-<li><a href="#_use_ansi_c89">Use ANSI C89</a></li>
-<li><a href="#_goto_is_not_allowed"><code>goto</code> is not allowed</a></li>
+<li><a href="#_file_handling">File handling</a></li>
+<li><a href="#_assertions">Assertions</a></li>
+<li><a href="#_testing">Testing</a></li>
+<li><a href="#_coding_rules">Coding rules</a></li>
 </ul>
 </li>
 <li><a href="#tutorials">Tutorials</a>
 <ul class="sectlevel2">
+<li><a href="#_how_to_use_librcm_modules">How to use <code>librcm</code> modules</a></li>
 <li><a href="#_how_to_write_a_module">How to write a module</a></li>
-<li><a href="#_how_to_write_the_header_file">How to write the header file</a></li>
 </ul>
 </li>
 <li><a href="#reference">API reference</a>
 <ul class="sectlevel2">
 <li><a href="#_librcm_module_dependencies"><code>librcm</code> module dependencies</a></li>
-</ul>
-</li>
-<li><a href="#_librcm_module_apis"><code>librcm</code> module APIs</a>
-<ul class="sectlevel2">
 <li><a href="#rcm_assert.h"><code>rcm_assert.h</code>&#8201;&#8212;&#8201;Robust assertions</a></li>
 <li><a href="#rcm_base64.h"><code>rcm_base64.h</code>&#8201;&#8212;&#8201;Base64 encoding</a></li>
 <li><a href="#rcm_base64buf.h"><code>rcm_base64buf.h</code>&#8201;&#8212;&#8201;Base64 buffer</a></li>
@@ -525,7 +507,7 @@ Source code on <a href="https://github.com/librcm/librcm">GitHub</a>.</p>
 <div class="olist arabic">
 <ol class="arabic">
 <li>
-<p>The <a href="#introduction">[introduction]</a>.</p>
+<p>The <a href="#intro">Introduction</a>.</p>
 </li>
 <li>
 <p>The <a href="#guide">User guide</a>.</p>
@@ -647,13 +629,10 @@ And it gives as an excuse to rewrite the low-level stuff we always wanted to
 rewrite. So let&#8217;s get to it.</p>
 </div>
 </div>
-</div>
-</div>
-<div class="sect1">
-<h2 id="_resusable_c_modules">Resusable C modules</h2>
-<div class="sectionbody">
 <div class="sect2">
-<h3 id="_what_does_module_mean">What does module mean?</h3>
+<h3 id="_resusable_c_modules">Resusable C modules</h3>
+<div class="sect3">
+<h4 id="_what_does_module_mean">What does module mean?</h4>
 <div class="paragraph">
 <p>A C module is a single C header file which defines and implements an API
 that can be used by <em>consumers</em> of the module. The module should
@@ -661,8 +640,8 @@ that can be used by <em>consumers</em> of the module. The module should
 the dependency graph small.</p>
 </div>
 </div>
-<div class="sect2">
-<h3 id="_what_does_reusable_mean">What does reusable mean?</h3>
+<div class="sect3">
+<h4 id="_what_does_reusable_mean">What does reusable mean?</h4>
 <div class="paragraph">
 <p>Reusable means that such a module should be useful on as many platforms
 as possible. Supported platforms include:</p>
@@ -694,10 +673,8 @@ as possible. Supported platforms include:</p>
 </div>
 </div>
 </div>
-</div>
-<div class="sect1">
-<h2 id="_goals">Goals</h2>
-<div class="sectionbody">
+<div class="sect2">
+<h3 id="_goals">Goals</h3>
 <div class="ulist">
 <ul>
 <li>
@@ -718,6 +695,7 @@ make them reusable in libraries without any symbol leakage.</p>
 <div class="paragraph">
 <p>See also the
 <a href="https://github.com/nothings/stb/blob/master/docs/stb_howto.txt">STB how-to</a>.</p>
+</div>
 </div>
 </div>
 </div>
@@ -752,15 +730,62 @@ make them reusable in libraries without any symbol leakage.</p>
 <p>TODO</p>
 </div>
 </div>
+<div class="sect2">
+<h3 id="_file_handling">File handling</h3>
+<div class="paragraph">
+<p>TODO</p>
 </div>
 </div>
-<div class="sect1">
-<h2 id="_rules">Rules</h2>
-<div class="sectionbody">
+<div class="sect2">
+<h3 id="_assertions">Assertions</h3>
+<div class="paragraph">
+<p>TODO</p>
+</div>
+<div class="admonitionblock important">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-important" title="Important"></i>
+</td>
+<td class="content">
+Compile with <code>-DNDEBUG</code> for production.
+This will remove the <code>abort(3)</code> call in <code>rcm_assert()</code>.
+</td>
+</tr>
+</table>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_testing">Testing</h3>
+<div class="paragraph">
+<p>TODO:</p>
+</div>
 <div class="ulist">
 <ul>
 <li>
-<p>Write portable ANSI C89.</p>
+<p>valgrind, clang, greatest</p>
+</li>
+<li>
+<p>assertions</p>
+</li>
+<li>
+<p>allowed types</p>
+</li>
+<li>
+<p>simulated failure with <a href="#rcm_mfatest.h">[rcm_mfatest.h]</a></p>
+</li>
+<li>
+<p>100% code coverage</p>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_coding_rules">Coding rules</h3>
+<div class="ulist">
+<ul>
+<li>
+<p>Write portable ANSI C89 (Visual Studio has poor support for C99).</p>
 </li>
 <li>
 <p><code>#include &lt;stdbool.h&gt;</code> is OK.</p>
@@ -769,7 +794,7 @@ make them reusable in libraries without any symbol leakage.</p>
 <p>Modules are single header files.</p>
 </li>
 <li>
-<p>Public domain for new code (use the [Unlicense]).</p>
+<p>Public domain for new code (use the <a href="https://unlicense.org/">Unlicense</a>).</p>
 </li>
 <li>
 <p>Permissive license (BSD, MIT, or ISC) for modified third party code.</p>
@@ -785,10 +810,16 @@ file).</p>
 <p>Write unit tests for the code with the
 <a href="https://github.com/silentbicycle/greatest">greatest</a> testing library.</p>
 </li>
+<li>
+<p><code>goto</code> is not allowed except for error handling as described above.</p>
+</li>
+<li>
+<p>No calls to <code>exit(3)</code> or <code>abort(3)</code>.</p>
+</li>
 </ul>
 </div>
-<div class="sect2">
-<h3 id="_allowed_defines">Allowed defines</h3>
+<div class="sect3">
+<h4 id="_allowed_defines">Allowed defines</h4>
 <div class="paragraph">
 <p>The number of defines used in reusable C modules must be kept to the
 absolute minimum! Otherwise <code>#ifdef</code>-hell ensues.</p>
@@ -831,8 +862,8 @@ platform).</p>
 </ul>
 </div>
 </div>
-<div class="sect2">
-<h3 id="_coding_style">Coding style</h3>
+<div class="sect3">
+<h4 id="_coding_style">Coding style</h4>
 <div class="ulist">
 <ul>
 <li>
@@ -841,67 +872,27 @@ platform).</p>
 <li>
 <p>Return variables: <code>int rc</code></p>
 </li>
-</ul>
-</div>
-</div>
-<div class="sect2">
-<h3 id="_example_module">Example module</h3>
-<div class="paragraph">
-<p>TODO: <code>rcm_mod.h</code> example module.</p>
-</div>
-</div>
-</div>
-</div>
-<div class="sect1">
-<h2 id="_how_to_test">How to test</h2>
-<div class="sectionbody">
-<div class="paragraph">
-<p>TODO:</p>
-</div>
-<div class="ulist">
-<ul>
 <li>
-<p>valgrind, clang, greatest</p>
+<p>Check coding style with <code>rcmchk</code></p>
 </li>
 <li>
-<p>assertions</p>
-</li>
-<li>
-<p>allowed types</p>
-</li>
-<li>
-<p>licensensing</p>
+<p>Format code with <code>clang-format -i -style=file</code> (using the style file <code>.clang-format</code>)</p>
 </li>
 </ul>
 </div>
-<div class="sect2">
-<h3 id="_use_ansi_c89">Use ANSI C89</h3>
-<div class="paragraph">
-<p>Stick to C89 with the following exceptions from C99:</p>
 </div>
-<div class="ulist">
-<ul>
-<li>
-<p><code>#include &lt;stdbool.h&gt;</code> is allowed.</p>
-</li>
-</ul>
-</div>
-<div class="sect3">
-<h4 id="_rationale">Rationale</h4>
-<div class="paragraph">
-<p>Visual Studio has poor support for C99.</p>
-</div>
-</div>
-</div>
-<div class="sect2">
-<h3 id="_goto_is_not_allowed"><code>goto</code> is not allowed</h3>
-
 </div>
 </div>
 </div>
 <div class="sect1">
 <h2 id="tutorials">Tutorials</h2>
 <div class="sectionbody">
+<div class="sect2">
+<h3 id="_how_to_use_librcm_modules">How to use <code>librcm</code> modules</h3>
+<div class="paragraph">
+<p>TODO</p>
+</div>
+</div>
 <div class="sect2">
 <h3 id="_how_to_write_a_module">How to write a module</h3>
 <div class="paragraph">
@@ -919,7 +910,7 @@ platform).</p>
 <p>The unit test file: <code>rcm_mod_test.c</code></p>
 </li>
 <li>
-<p>The module documentation (generated): <code>rcm_mod.adoc</code></p>
+<p>The module documentation (generated with <code>rcmdoc</code>): <code>rcm_mod.adoc</code></p>
 </li>
 </ol>
 </div>
@@ -927,9 +918,8 @@ platform).</p>
 <p>Only the header and the C files are really necessary to reuse the module.
 The online documentation for a module is linked from the header file.</p>
 </div>
-</div>
-<div class="sect2">
-<h3 id="_how_to_write_the_header_file">How to write the header file</h3>
+<div class="sect3">
+<h4 id="_how_to_write_the_header_file">How to write the header file</h4>
 <div class="listingblock">
 <div class="content">
 <pre class="rouge highlight"><code data-lang="c"><span class="cm">/* SPDX-License-Identifier: Unlicense OR MIT */</span> <i class="conum" data-value="1"></i><b>(1)</b>
@@ -1000,6 +990,19 @@ Example module which shows how to write _reusable C modules_. <i class="conum" d
 </table>
 </div>
 </div>
+<div class="sect3">
+<h4 id="_how_to_write_the_c_file">How to write the C file</h4>
+<div class="paragraph">
+<p>TODO</p>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_how_to_write_the_test_file">How to write the test file</h4>
+<div class="paragraph">
+<p>TODO</p>
+</div>
+</div>
+</div>
 </div>
 </div>
 <div class="sect1">
@@ -1013,11 +1016,6 @@ Example module which shows how to write _reusable C modules_. <i class="conum" d
 </div>
 </div>
 </div>
-</div>
-</div>
-<div class="sect1">
-<h2 id="_librcm_module_apis"><code>librcm</code> module APIs</h2>
-<div class="sectionbody">
 <div class="sect2">
 <h3 id="rcm_assert.h"><code>rcm_assert.h</code>&#8201;&#8212;&#8201;Robust assertions</h3>
 <div class="paragraph">

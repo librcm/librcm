@@ -6,7 +6,6 @@
 - outrule other goto uses (except inner break)
 - describe memory allocator, make it settable
 - outrule setjmp, longjmp (MISRA does that, too?)
-- https://github.com/kokke/tiny-regex-c
 
 modules:
 - json parser

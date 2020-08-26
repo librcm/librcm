@@ -10,25 +10,47 @@ TODO:
 - error flow
 - exceptions
 
-
 === Memory managment
 
 TODO
 
-== Rules
+=== File handling
 
-- Write portable ANSI C89.
+TODO
+
+=== Assertions
+
+TODO
+
+IMPORTANT: Compile with `-DNDEBUG` for production.
+This will remove the `abort(3)` call in `rcm_assert()`.
+
+=== Testing
+
+TODO:
+
+- valgrind, clang, greatest
+- assertions
+- allowed types
+- simulated failure with <<rcm_mfatest.h>>
+- 100% code coverage
+
+=== Coding rules
+
+- Write portable ANSI C89 (Visual Studio has poor support for C99).
 - `#include <stdbool.h>` is OK.
 - Modules are single header files.
-- Public domain for new code (use the [Unlicense]).
+- Public domain for new code (use the https://unlicense.org/[Unlicense]).
 - Permissive license (BSD, MIT, or ISC) for modified third party code.
 - No GPL.
 - Format the code with `clang-format` (standardized `.clang-format`
   file).
 - Write unit tests for the code with the
   https://github.com/silentbicycle/greatest[greatest] testing library.
+- `goto` is not allowed except for error handling as described above.
+- No calls to `exit(3)` or `abort(3)`.
 
-=== Allowed defines
+==== Allowed defines
 
 The number of defines used in reusable C modules must be kept to the
 absolute minimum! Otherwise `#ifdef`-hell ensues.
@@ -48,32 +70,9 @@ List of allowed `#ifdef`-statements:
   platform).
 - `_WIN32`: Windows (usually with `#ifndef` to implement POSIX first).
 
-=== Coding style
+==== Coding style
 
 - Error buffer: `char err[ERRBUF_SIZE]` (module `rcm_errbuf.h`)
 - Return variables: `int rc`
-
-=== Example module
-
-TODO: `rcm_mod.h` example module.
-
-== How to test
-
-TODO:
-
-- valgrind, clang, greatest
-- assertions
-- allowed types
-- licensensing
-
-=== Use ANSI C89
-
-Stick to C89 with the following exceptions from C99:
-
-- `#include <stdbool.h>` is allowed.
-
-==== Rationale
-
-Visual Studio has poor support for C99.
-
-=== `goto` is not allowed
+- Check coding style with `rcmchk`
+- Format code with `clang-format -i -style=file` (using the style file `.clang-format`)

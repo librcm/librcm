@@ -21,7 +21,7 @@ Source code on https://github.com/librcm/librcm[GitHub].
 
 This document has four main parts:
 
-1. The <<introduction>>.
+1. The <<intro>>.
 2. The <<guide>>.
 3. The <<tutorials>>.
 4. The <<reference>>.
