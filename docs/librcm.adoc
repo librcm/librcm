@@ -66,6 +66,8 @@ can be used in embedded devices, and are highly portable.
 
 The problem of poor quality code is being addressed by restrictive coding
 standards and static analysis tools.
+We know that doesn't make C a safe language,
+but that doesn't mean C will go away.
 
 Reusable C libraries, however, are still a major problem.
 This is mostly due to the fact that the C programming language is so low-level
@@ -76,24 +78,27 @@ and deal with dependencies.
 Having standardized ways to do things greatly helps to reduce cognitive overhead
 thereby and raises program quality and programmer productivity.
 
-This is arguable a big reason that Go became so successful.
+This is arguable a major reason that Go became so successful.
 The language itself is not extremely powerful, but making
 https://golang.org/ref/spec#Package_clause[package names] part of the language
 specification and having widely shared opinions in the Go community what
 comprises idiomatic code makes Go highly reusable and reduces the cognitive
 burden when reading and editing code written by others.
 
-In this document we describe a method on how to write highly quality,
-future-proof C code, giving rationales for decisions made.
+In this document we describe an opinionated method on how to write high quality,
+future-proof C code, giving rationales for the decisions made.
 The power of this approach mainly comes from the *simplicity* that comes from
 standardizing on the _only true-way of doing things_ (TM).
-It forces the programmer in standardized way of writing C code with less
+It forces the programmer into a standardized way of writing C code with less
 decisions to be made along the way, freeing up mental capacity for writing the
 _actual_ code.
 
 But it comes at the cost that even less C code is reusable, because it doesn't
-conform to the future-proof C method. However, as more and more C code becomes
-a future-proof *reusable C module* this is less and less of a problem.
+conform to the future-proof C method described herein.
+However, as more and more C code becomes a future-proof *reusable C module* this
+is less and less of a problem.
+And it gives as an excuse to rewrite the low-level stuff we always wanted to
+rewrite. So let's get to it.
 
 == Resusable C modules
 
@@ -115,7 +120,7 @@ as possible. Supported platforms include:
 - 32-bit and 64-bit systems.
 - Little-endian and big-endian systems.
 - All major compilers: GCC, Clang, MinGW, and Visual Studio.
-- All major processor architectures: x86, ARM, and PowerPC.
+- All major processor architectures: x86, ARM, PowerPC, and MIPS.
 
 == Goals
 
@@ -154,13 +159,6 @@ A reusable C module `mod` consists of four components:
 
 Only the header and the C files are really necessary to reuse the module.
 The online documentation for a module is linked from the header file.
-
-We write the documentation in a separate file for the following reasons:
-
-- It gives us the design capabilities of a lightweight markdown language.
-- Generated documentation is often of poor quality, because it is written as an
-  afterthought. Writing the documentation separately, in the API design stage,
-  makes it better.
 
 === How to write the header file
 

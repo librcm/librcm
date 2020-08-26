@@ -579,7 +579,9 @@ can be used in embedded devices, and are highly portable.</p>
 </div>
 <div class="paragraph">
 <p>The problem of poor quality code is being addressed by restrictive coding
-standards and static analysis tools.</p>
+standards and static analysis tools.
+We know that doesn&#8217;t make C a safe language,
+but that doesn&#8217;t mean C will go away.</p>
 </div>
 <div class="paragraph">
 <p>Reusable C libraries, however, are still a major problem.
@@ -593,7 +595,7 @@ and deal with dependencies.</p>
 thereby and raises program quality and programmer productivity.</p>
 </div>
 <div class="paragraph">
-<p>This is arguable a big reason that Go became so successful.
+<p>This is arguable a major reason that Go became so successful.
 The language itself is not extremely powerful, but making
 <a href="https://golang.org/ref/spec#Package_clause">package names</a> part of the language
 specification and having widely shared opinions in the Go community what
@@ -601,18 +603,21 @@ comprises idiomatic code makes Go highly reusable and reduces the cognitive
 burden when reading and editing code written by others.</p>
 </div>
 <div class="paragraph">
-<p>In this document we describe a method on how to write highly quality,
-future-proof C code, giving rationales for decisions made.
+<p>In this document we describe an opinionated method on how to write high quality,
+future-proof C code, giving rationales for the decisions made.
 The power of this approach mainly comes from the <strong>simplicity</strong> that comes from
 standardizing on the <em>only true-way of doing things</em> &#8482;.
-It forces the programmer in standardized way of writing C code with less
+It forces the programmer into a standardized way of writing C code with less
 decisions to be made along the way, freeing up mental capacity for writing the
 <em>actual</em> code.</p>
 </div>
 <div class="paragraph">
 <p>But it comes at the cost that even less C code is reusable, because it doesn&#8217;t
-conform to the future-proof C method. However, as more and more C code becomes
-a future-proof <strong>reusable C module</strong> this is less and less of a problem.</p>
+conform to the future-proof C method described herein.
+However, as more and more C code becomes a future-proof <strong>reusable C module</strong> this
+is less and less of a problem.
+And it gives as an excuse to rewrite the low-level stuff we always wanted to
+rewrite. So let&#8217;s get to it.</p>
 </div>
 </div>
 </div>
@@ -656,7 +661,7 @@ as possible. Supported platforms include:</p>
 <p>All major compilers: GCC, Clang, MinGW, and Visual Studio.</p>
 </li>
 <li>
-<p>All major processor architectures: x86, ARM, and PowerPC.</p>
+<p>All major processor architectures: x86, ARM, PowerPC, and MIPS.</p>
 </li>
 </ul>
 </div>
@@ -746,21 +751,6 @@ make them reusable in libraries without any symbol leakage.</p>
 <div class="paragraph">
 <p>Only the header and the C files are really necessary to reuse the module.
 The online documentation for a module is linked from the header file.</p>
-</div>
-<div class="paragraph">
-<p>We write the documentation in a separate file for the following reasons:</p>
-</div>
-<div class="ulist">
-<ul>
-<li>
-<p>It gives us the design capabilities of a lightweight markdown language.</p>
-</li>
-<li>
-<p>Generated documentation is often of poor quality, because it is written as an
-afterthought. Writing the documentation separately, in the API design stage,
-makes it better.</p>
-</li>
-</ul>
 </div>
 <div class="sect2">
 <h3 id="_how_to_write_the_header_file">How to write the header file</h3>
