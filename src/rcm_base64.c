@@ -69,7 +69,7 @@ RCM_API size_t rcm_base64_decode_len(const char *in, size_t len)
     return 0;
   }
   if (len < 4) {
-    return 3; /* incomplete encoding */
+    return 3; /* incomplete encoding, error will be caught when decoding */
   }
   if (in[len - 1] == rcm_base64_padding) {
     paddings++;
