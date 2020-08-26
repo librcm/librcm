@@ -24,6 +24,12 @@ RCM_API void *rcm_mem_malloc(size_t size);
 /* Frees the memory space pointed to by ptr. */
 RCM_API void rcm_mem_free(void *ptr);
 
+/* Free the memory space pointed to by ptr and set ptr to `NULL`. */
+RCM_API void rcm_mem_freecharptr(char **ptr);
+
+/* Free the memory space pointed to by ptr and set ptr to `NULL`. */
+RCM_API void rcm_mem_freeucharptr(unsigned char **ptr);
+
 /* Reset number of allocations. Debug only.
    Returns the total number of allocations so far. */
 #ifndef NDEBUG

@@ -1304,6 +1304,22 @@ lower-level functions (without memory allocation and error buffers).</p>
 </div>
 <div class="listingblock">
 <div class="content">
+<pre class="rouge highlight"><code data-lang="c"><span class="kt">void</span> <span class="nf">rcm_mem_freecharptr</span><span class="p">(</span><span class="kt">char</span> <span class="o">**</span><span class="n">ptr</span><span class="p">);</span></code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Free the memory space pointed to by ptr and set ptr to <code>NULL</code>.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight"><code data-lang="c"><span class="kt">void</span> <span class="nf">rcm_mem_freeucharptr</span><span class="p">(</span><span class="kt">unsigned</span> <span class="kt">char</span> <span class="o">**</span><span class="n">ptr</span><span class="p">);</span></code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Free the memory space pointed to by ptr and set ptr to <code>NULL</code>.</p>
+</div>
+<div class="listingblock">
+<div class="content">
 <pre class="rouge highlight"><code data-lang="c"><span class="kt">int</span> <span class="nf">rcm_mem_num_of_allocs</span><span class="p">(</span><span class="kt">void</span><span class="p">);</span></code></pre>
 </div>
 </div>

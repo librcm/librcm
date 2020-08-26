@@ -39,6 +39,24 @@ RCM_API void rcm_mem_free(void *ptr)
   free(ptr);
 }
 
+RCM_API void rcm_mem_freecharptr(char **ptr)
+{
+  if (!ptr) {
+    return;
+  }
+  rcm_mem_free(*ptr);
+  *ptr = NULL;
+}
+
+RCM_API void rcm_mem_freeucharptr(unsigned char **ptr)
+{
+  if (!ptr) {
+    return;
+  }
+  rcm_mem_free(*ptr);
+  *ptr = NULL;
+}
+
 #ifndef NDEBUG
 RCM_API int rcm_mem_num_of_allocs(void)
 {

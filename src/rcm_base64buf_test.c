@@ -3,107 +3,146 @@
 #include "greatest.h"
 
 #include "rcm_base64buf.h"
+#include "rcm_errbuf.h"
+#include "rcm_mfatest.h"
+
+#define RCM_BASE64BUF_TEST_RFC3339_CASES 7
+
+static const char *rcm_base64buf_test_rfc3339_strings[] = {
+  "", "f", "fo", "foo", "foob", "fooba", "foobar"
+};
+
+static const char *rcm_base64buf_test_rfc3339_results[] = {
+  "", "Zg==", "Zm8=", "Zm9v", "Zm9vYg==", "Zm9vYmE=", "Zm9vYmFy"
+};
+
+static int rcm_base64buf_test_encode_rfc3339_internal(char *err)
+{
+  char *out = NULL;
+  size_t i;
+  int rc = 0;
+
+  for (i = 0; i < RCM_BASE64BUF_TEST_RFC3339_CASES; i++) {
+    const char *str = rcm_base64buf_test_rfc3339_strings[i];
+    puts(str);
+    if ((rc = rcm_base64buf_encode(&out, (const unsigned char *)str,
+                                   strlen(str), err))) {
+      return rc;
+    }
+    if (strcmp(rcm_base64buf_test_rfc3339_results[i], out)) {
+      rcm_errbuf_set(err, "want: %s\nhave: %s",
+                     rcm_base64buf_test_rfc3339_results[i], out);
+      rc = -1;
+      goto error;
+    }
+    rcm_mem_freecharptr(&out);
+  }
+error:
+  rcm_mem_free(out);
+  return rc;
+}
 
 TEST rcm_base64buf_test_encode_rfc3339(void)
 {
-  char err[RCM_ERRBUF_SIZE];
-  char *out;
-  ASSERT(!rcm_base64buf_encode(&out, (unsigned char *)"", strlen(""), err));
-  ASSERT_STR_EQ("", out);
-  rcm_mem_free(out);
-  ASSERT(!rcm_base64buf_encode(&out, (unsigned char *)"f", strlen("f"), err));
-  ASSERT_STR_EQ("Zg==", out);
-  rcm_mem_free(out);
-  ASSERT(!rcm_base64buf_encode(&out, (unsigned char *)"fo", strlen("fo"), err));
-  ASSERT_STR_EQ("Zm8=", out);
-  rcm_mem_free(out);
-  ASSERT(
-      !rcm_base64buf_encode(&out, (unsigned char *)"foo", strlen("foo"), err));
-  ASSERT_STR_EQ("Zm9v", out);
-  rcm_mem_free(out);
-  ASSERT(!rcm_base64buf_encode(&out, (unsigned char *)"foob", strlen("foob"),
-                               err));
-  ASSERT_STR_EQ("Zm9vYg==", out);
-  rcm_mem_free(out);
-  ASSERT(!rcm_base64buf_encode(&out, (unsigned char *)"fooba", strlen("fooba"),
-                               err));
-  ASSERT_STR_EQ("Zm9vYmE=", out);
-  rcm_mem_free(out);
-  ASSERT(!rcm_base64buf_encode(&out, (unsigned char *)"foobar",
-                               strlen("foobar"), err));
-  ASSERT_STR_EQ("Zm9vYmFy", out);
-  rcm_mem_free(out);
-  PASS();
+  return rcm_mfatest_wrap(rcm_base64buf_test_encode_rfc3339_internal);
 }
 
-static const char *rcm_base64buf_test_strings[] = {
+#define RCM_BASE64BUF_TEST_WIKIPEDIA_CASES 8
+
+static const char *rcm_base64buf_test_wikipedia_strings[] = {
   "sure.", "sure", "sur", "su", "leasure.", "easure.", "asure.", "sure."
 };
 
-static const char *rcm_base64buf_test_results[] = {
+static const char *rcm_base64buf_test_wikipedia_results[] = {
   "c3VyZS4=",     "c3VyZQ==",     "c3Vy",     "c3U=",
   "bGVhc3VyZS4=", "ZWFzdXJlLg==", "YXN1cmUu", "c3VyZS4="
 };
 
+static int rcm_base64buf_test_encode_wikipedia_internal(char *err)
+{
+  char *out = NULL;
+  size_t i;
+  int rc = 0;
+  for (i = 0; i < RCM_BASE64BUF_TEST_WIKIPEDIA_CASES; i++) {
+    const char *str = rcm_base64buf_test_wikipedia_strings[i];
+    if ((rc = rcm_base64buf_encode(&out, (const unsigned char *)str,
+                                   strlen(str), err))) {
+      return rc;
+    }
+    if (strcmp(rcm_base64buf_test_wikipedia_results[i], out)) {
+      rcm_errbuf_set(err, "want: %s\nhave: %s",
+                     rcm_base64buf_test_wikipedia_results[i], out);
+      rc = -1;
+      goto error;
+    }
+    rcm_mem_freecharptr(&out);
+  }
+error:
+  rcm_mem_free(out);
+  return rc;
+}
+
 TEST rcm_base64buf_test_encode_wikipedia(void)
 {
-  char err[RCM_ERRBUF_SIZE];
-  char *out;
+  return rcm_mfatest_wrap(rcm_base64buf_test_encode_wikipedia_internal);
+}
+
+static int rcm_base64buf_test_decode_rfc3339_internal(char *err)
+{
+  unsigned char *out = NULL;
   size_t i;
-  for (i = 0; i < sizeof *rcm_base64buf_test_strings; i++) {
-    const char *str = rcm_base64buf_test_strings[i];
-    ASSERT(!rcm_base64buf_encode(&out, (const unsigned char *)str, strlen(str),
-                                 err));
-    ASSERT_STR_EQ(rcm_base64buf_test_results[i], out);
-    rcm_mem_free(out);
+  int rc = 0;
+  for (i = 0; i < RCM_BASE64BUF_TEST_RFC3339_CASES; i++) {
+    const char *res = rcm_base64buf_test_rfc3339_results[i];
+    if ((rc = rcm_base64buf_decode(&out, NULL, res, strlen(res), err))) {
+      return rc;
+    }
+    if (strncmp(rcm_base64buf_test_rfc3339_strings[i], (const char *)out,
+                rcm_base64_decode_len(res, strlen(res)))) {
+      rcm_errbuf_set(err, "want: %s\nhave: %s",
+                     rcm_base64buf_test_rfc3339_strings[i], out);
+      rc = -1;
+      goto error;
+    }
+    rcm_mem_freeucharptr(&out);
   }
-  PASS();
+error:
+  rcm_mem_free(out);
+  return rc;
 }
 
 TEST rcm_base64buf_test_decode_rfc3339(void)
 {
-  char err[RCM_ERRBUF_SIZE];
-  unsigned char *out;
-  size_t outlen;
-  ASSERT(!rcm_base64buf_decode(&out, &outlen, "", strlen(""), err));
-  ASSERT_STRN_EQ("", out, 0);
+  return rcm_mfatest_wrap(rcm_base64buf_test_decode_rfc3339_internal);
+}
+
+static int rcm_base64buf_test_decode_wikipedia_internal(char *err)
+{
+  unsigned char *out = NULL;
+  size_t i;
+  int rc = 0;
+  for (i = 0; i < RCM_BASE64BUF_TEST_WIKIPEDIA_CASES; i++) {
+    const char *res = rcm_base64buf_test_wikipedia_results[i];
+    if ((rc = rcm_base64buf_decode(&out, NULL, res, strlen(res), err))) {
+      return rc;
+    }
+    if (strncmp(rcm_base64buf_test_wikipedia_strings[i], (const char *)out,
+                rcm_base64_decode_len(res, strlen(res)))) {
+      rcm_errbuf_set(err, "want: %s\nhave: %s",
+                     rcm_base64buf_test_wikipedia_strings[i], out);
+      rc = -1;
+      goto error;
+    }
+    rcm_mem_freeucharptr(&out);
+  }
+error:
   rcm_mem_free(out);
-  ASSERT(!rcm_base64buf_decode(&out, &outlen, "Zg==", strlen("Zg=="), err));
-  ASSERT_STRN_EQ("f", out, 1);
-  rcm_mem_free(out);
-  ASSERT(!rcm_base64buf_decode(&out, &outlen, "Zm8=", strlen("Zm8="), err));
-  ASSERT_STRN_EQ("fo", out, 2);
-  rcm_mem_free(out);
-  ASSERT(!rcm_base64buf_decode(&out, &outlen, "Zm9v", strlen("Zm9v"), err));
-  ASSERT_STRN_EQ("foo", out, 3);
-  rcm_mem_free(out);
-  ASSERT(!rcm_base64buf_decode(&out, &outlen, "Zm9vYg==", strlen("Zm9vYg=="),
-                               err));
-  ASSERT_STRN_EQ("foob", out, 4);
-  rcm_mem_free(out);
-  ASSERT(!rcm_base64buf_decode(&out, &outlen, "Zm9vYmE=", strlen("Zm9vYmE="),
-                               err));
-  ASSERT_STRN_EQ("fooba", out, 5);
-  rcm_mem_free(out);
-  ASSERT(!rcm_base64buf_decode(&out, &outlen, "Zm9vYmFy", strlen("Zm9vYmFy"),
-                               err));
-  ASSERT_STRN_EQ("foobar", out, 6);
-  rcm_mem_free(out);
-  PASS();
+  return rc;
 }
 
 TEST rcm_base64buf_test_decode_wikipedia(void)
 {
-  unsigned char *out;
-  size_t i;
-  for (i = 0; i < sizeof *rcm_base64buf_test_results; i++) {
-    const char *res = rcm_base64buf_test_results[i];
-    ASSERT(!rcm_base64buf_decode(&out, NULL, res, strlen(res), NULL));
-    ASSERT_STRN_EQ(rcm_base64buf_test_strings[i], out,
-                   rcm_base64_decode_len(res, strlen(res)));
-    rcm_mem_free(out);
-  }
-  PASS();
+  return rcm_mfatest_wrap(rcm_base64buf_test_decode_wikipedia_internal);
 }
 
 SUITE(rcm_base64buf_suite)
