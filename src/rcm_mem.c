@@ -11,6 +11,8 @@ static int rcm_mem_abort_malloc = 0;
 static bool rcm_mem_abort_in_progress = false;
 #endif
 
+static rcm_mem_malloc_func *rcm_mem_internal_malloc = malloc;
+
 RCM_API void *rcm_mem_malloc(size_t size)
 {
   void *p;
@@ -22,7 +24,7 @@ RCM_API void *rcm_mem_malloc(size_t size)
     return NULL;
   }
 #endif
-  if (!(p = malloc(size))) {
+  if (!(p = rcm_mem_internal_malloc(size))) {
     return NULL;
   }
 #ifndef NDEBUG
@@ -55,6 +57,15 @@ RCM_API void rcm_mem_freeucharptr(unsigned char **ptr)
   }
   rcm_mem_free(*ptr);
   *ptr = NULL;
+}
+
+RCM_API void rcm_mem_set_malloc(rcm_mem_malloc_func *func)
+{
+  if (func) {
+    rcm_mem_internal_malloc = func;
+  } else {
+    rcm_mem_internal_malloc = malloc;
+  }
 }
 
 #ifndef NDEBUG
