@@ -1,7 +1,7 @@
 /* SPDX-License-Identifier: Unlicense OR MIT */
 
-#ifndef RCM_MOD_H
-#define RCM_MOD_H
+#ifndef RCM_MEMBUF_H
+#define RCM_MEMBUF_H
 
 /* Documentation: https://librcm.org/#rcm_membuf.h */
 
