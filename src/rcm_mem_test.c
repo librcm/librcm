@@ -20,6 +20,21 @@ TEST rcm_mem_test_malloc(void)
   return rcm_mfatest_wrap(rcm_mem_test_malloc_internal);
 }
 
+static int rcm_mem_test_calloc_internal(char *err)
+{
+  void *ptr = NULL;
+  if (!(ptr = rcm_mem_calloc(4, 1024))) {
+    return RCM_MEM_ERR_NOMEM;
+  }
+  rcm_mem_free(ptr);
+  return RCM_MEM_OK;
+}
+
+TEST rcm_mem_test_calloc(void)
+{
+  return rcm_mfatest_wrap(rcm_mem_test_calloc_internal);
+}
+
 TEST rcm_mem_test_null(void)
 {
   rcm_mem_free(NULL);
@@ -41,11 +56,26 @@ TEST rcm_mem_test_custom_malloc(void)
   PASS();
 }
 
+static void *rcm_mem_test_calloc_noop(size_t nmemb, size_t size)
+{
+  return NULL;
+}
+
+TEST rcm_mem_test_custom_calloc(void)
+{
+  rcm_mem_set_calloc(rcm_mem_test_calloc_noop);
+  ASSERT(!rcm_mem_calloc(4, 1024));
+  rcm_mem_set_calloc(NULL);
+  PASS();
+}
+
 SUITE(rcm_mem_suite)
 {
   RUN_TEST(rcm_mem_test_malloc);
+  RUN_TEST(rcm_mem_test_calloc);
   RUN_TEST(rcm_mem_test_null);
   RUN_TEST(rcm_mem_test_custom_malloc);
+  RUN_TEST(rcm_mem_test_custom_calloc);
 }
 
 GREATEST_MAIN_DEFS();

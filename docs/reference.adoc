@@ -18,6 +18,8 @@ include::rcm_errbuf.adoc[]
 
 include::rcm_mem.adoc[]
 
+include::rcm_membuf.adoc[]
+
 include::rcm_mfatest.adoc[]
 
 include::rcm_mod.adoc[]

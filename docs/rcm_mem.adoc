@@ -21,6 +21,13 @@ typedef void *rcm_mem_malloc_func(size_t size);
 
 Memory allocator (malloc(3)-like).
 
+[source,c]
+----
+typedef void *rcm_mem_calloc_func(size_t nmemb, size_t size);
+----
+
+Memory allocator (calloc(3)-like).
+
 ==== Functions
 
 [source,c]
@@ -30,6 +37,14 @@ void *rcm_mem_malloc(size_t size);
 
 Allocates size bytes and returns a pointer to the allocated memory.
    The memory is not initialized.
+
+[source,c]
+----
+void *rcm_mem_calloc(size_t nmemb, size_t size);
+----
+
+Allocates memory for an array of nmemb elements of size bytes and returns a
+   pointer to the allocated memory. The memory is set to zero.
 
 [source,c]
 ----
@@ -58,6 +73,14 @@ void rcm_mem_set_malloc(rcm_mem_malloc_func *func);
 ----
 
 Set malloc function used by this module.
+   If func is `NULL` the default allocator is set.
+
+[source,c]
+----
+void rcm_mem_set_calloc(rcm_mem_calloc_func *func);
+----
+
+Set calloc function used by this module.
    If func is `NULL` the default allocator is set.
 
 [source,c]

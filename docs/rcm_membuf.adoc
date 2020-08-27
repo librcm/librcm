@@ -1,0 +1,46 @@
+// generated from ../src/rcm_membuf.h with `rcmdoc`
+
+[[rcm_membuf.h]]
+=== `rcm_membuf.h` -- Memory buffer
+
+Higher level memory allocation API which sets an error buffer if allocations
+fail.
+
+==== Typedefs
+
+[source,c]
+----
+typedef enum {
+  RCM_MEMBUF_OK = 0,
+  RCM_MEMBUF_ERR_NOMEM = -2,
+  RCM_MEMBUF_ERR_FAILED_ASSERT = -4,
+} rcm_membuf_err_t;
+----
+
+The membuf error type.
+
+==== Functions
+
+[source,c]
+----
+rcm_membuf_err_t rcm_membuf_new(void **out, size_t size, char *err);
+----
+
+Allocate memory buffer out of the given size. The memory is initialized to
+   zero.
+
+[source,c]
+----
+void rcm_membuf_free(void *buf);
+----
+
+Free memory buffer buf.
+
+[source,c]
+----
+const char *rcm_membuf_errstr(rcm_membuf_err_t errnum);
+----
+
+Return an error string describing the given error number errnum.
+   For `RCM_MEMBUF_OK` an empty string is returned ("", not `NULL`).
+

@@ -23,9 +23,16 @@ typedef enum { RCM_MEM_OK = 0, RCM_MEM_ERR_NOMEM = -2 } rcm_mem_err_t;
 /* Memory allocator (malloc(3)-like). */
 typedef void *rcm_mem_malloc_func(size_t size);
 
+/* Memory allocator (calloc(3)-like). */
+typedef void *rcm_mem_calloc_func(size_t nmemb, size_t size);
+
 /* Allocates size bytes and returns a pointer to the allocated memory.
    The memory is not initialized. */
 RCM_API void *rcm_mem_malloc(size_t size);
+
+/* Allocates memory for an array of nmemb elements of size bytes and returns a
+   pointer to the allocated memory. The memory is set to zero. */
+RCM_API void *rcm_mem_calloc(size_t nmemb, size_t size);
 
 /* Frees the memory space pointed to by ptr. */
 RCM_API void rcm_mem_free(void *ptr);
@@ -39,6 +46,10 @@ RCM_API void rcm_mem_freeucharptr(unsigned char **ptr);
 /* Set malloc function used by this module.
    If func is `NULL` the default allocator is set. */
 RCM_API void rcm_mem_set_malloc(rcm_mem_malloc_func *func);
+
+/* Set calloc function used by this module.
+   If func is `NULL` the default allocator is set. */
+RCM_API void rcm_mem_set_calloc(rcm_mem_calloc_func *func);
 
 /* Reset number of allocations. Debug only.
    Returns the total number of allocations so far. */
