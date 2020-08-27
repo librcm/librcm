@@ -4,4 +4,33 @@
 === `rcm_mfatest.h` -- MFA test module
 
 Memory/file/assertion test wrapper module.
+To be used for unit tests written with the C testing library `greatest.h`.
+
+==== Typedefs
+
+[source,c]
+----
+typedef int rcm_mfatest_func(char *err);
+----
+
+Test function type.
+
+==== Functions
+
+[source,c]
+----
+enum greatest_test_res rcm_mfatest_wrap(rcm_mfatest_func test_func);
+----
+
+Memory/file/assertion test wrapper function. The expected error value is 0.
+   Just wrap the test_func with it.
+
+[source,c]
+----
+enum greatest_test_res rcm_mfatest_wrap_err(rcm_mfatest_func test_func,
+                                            int rval);
+----
+
+Memory/file/assertion test wrapper function with expected error value rval.
+   Just wrap the test_func with it.
 

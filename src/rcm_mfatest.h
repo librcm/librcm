@@ -13,19 +13,21 @@
 MFA test module:
 
 Memory/file/assertion test wrapper module.
+To be used for unit tests written with the C testing library `greatest.h`.
 */
 
 #include "greatest.h"
 
-typedef int(rcm_mfatest_func_t)(char *err);
+/* Test function type. */
+typedef int rcm_mfatest_func(char *err);
 
-/* Memory/file/assertion test wrapper function. Just wrap the test func with it.
- */
-enum greatest_test_res rcm_mfatest_wrap(rcm_mfatest_func_t test_func);
+/* Memory/file/assertion test wrapper function. The expected error value is 0.
+   Just wrap the test_func with it. */
+RCM_API enum greatest_test_res rcm_mfatest_wrap(rcm_mfatest_func test_func);
 
 /* Memory/file/assertion test wrapper function with expected error value rval.
- */
-enum greatest_test_res rcm_mfatest_wrap_err(rcm_mfatest_func_t test_func,
-                                            int rval);
+   Just wrap the test_func with it. */
+RCM_API enum greatest_test_res rcm_mfatest_wrap_err(rcm_mfatest_func test_func,
+                                                    int rval);
 
 #endif /* RCM_MFATEST_H */

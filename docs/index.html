@@ -481,6 +481,7 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <li><a href="#rcm_base64buf.h"><code>rcm_base64buf.h</code>&#8201;&#8212;&#8201;Base64 buffer</a></li>
 <li><a href="#rcm_errbuf.h"><code>rcm_errbuf.h</code>&#8201;&#8212;&#8201;Error buffer</a></li>
 <li><a href="#rcm_mem.h"><code>rcm_mem.h</code>&#8201;&#8212;&#8201;Memory allocator</a></li>
+<li><a href="#rcm_mfatest.h"><code>rcm_mfatest.h</code>&#8201;&#8212;&#8201;MFA test module</a></li>
 <li><a href="#rcm_mod.h"><code>rcm_mod.h</code>&#8201;&#8212;&#8201;Example module</a></li>
 <li><a href="#rcm_pid.h"><code>rcm_pid.h</code>&#8201;&#8212;&#8201;Process ID</a></li>
 <li><a href="#rcm_sleep.h"><code>rcm_sleep.h</code>&#8201;&#8212;&#8201;Sleep module</a></li>
@@ -774,7 +775,7 @@ but still return errors, if <code>rcm_assert()</code> fails.
 <p>allowed types</p>
 </li>
 <li>
-<p>simulated failure with <a href="#rcm_mfatest.h">[rcm_mfatest.h]</a></p>
+<p>simulated failure with <a href="#rcm_mfatest.h"><code>rcm_mfatest.h</code>&#8201;&#8212;&#8201;MFA test module</a></p>
 </li>
 <li>
 <p>100% code coverage</p>
@@ -1402,12 +1403,52 @@ lower-level functions (without memory allocation and error buffers).</p>
 </div>
 </div>
 <div class="sect2">
+<h3 id="rcm_mfatest.h"><code>rcm_mfatest.h</code>&#8201;&#8212;&#8201;MFA test module</h3>
+<div class="paragraph">
+<p>Memory/file/assertion test wrapper module.
+To be used for unit tests written with the C testing library <code>greatest.h</code>.</p>
+</div>
+<div class="sect3">
+<h4 id="_typedefs_5">Typedefs</h4>
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight"><code data-lang="c"><span class="k">typedef</span> <span class="kt">int</span> <span class="nf">rcm_mfatest_func</span><span class="p">(</span><span class="kt">char</span> <span class="o">*</span><span class="n">err</span><span class="p">);</span></code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Test function type.</p>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_functions_6">Functions</h4>
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight"><code data-lang="c"><span class="k">enum</span> <span class="n">greatest_test_res</span> <span class="nf">rcm_mfatest_wrap</span><span class="p">(</span><span class="n">rcm_mfatest_func</span> <span class="n">test_func</span><span class="p">);</span></code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Memory/file/assertion test wrapper function. The expected error value is 0.
+   Just wrap the test_func with it.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight"><code data-lang="c"><span class="k">enum</span> <span class="n">greatest_test_res</span> <span class="nf">rcm_mfatest_wrap_err</span><span class="p">(</span><span class="n">rcm_mfatest_func</span> <span class="n">test_func</span><span class="p">,</span>
+                                            <span class="kt">int</span> <span class="n">rval</span><span class="p">);</span></code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Memory/file/assertion test wrapper function with expected error value rval.
+   Just wrap the test_func with it.</p>
+</div>
+</div>
+</div>
+<div class="sect2">
 <h3 id="rcm_mod.h"><code>rcm_mod.h</code>&#8201;&#8212;&#8201;Example module</h3>
 <div class="paragraph">
 <p>Example module which shows how to write <em>reusable C modules</em>.</p>
 </div>
 <div class="sect3">
-<h4 id="_functions_6">Functions</h4>
+<h4 id="_functions_7">Functions</h4>
 <div class="listingblock">
 <div class="content">
 <pre class="rouge highlight"><code data-lang="c"><span class="kt">void</span> <span class="nf">rcm_mod_foo</span><span class="p">(</span><span class="kt">void</span><span class="p">);</span></code></pre>
@@ -1432,7 +1473,7 @@ lower-level functions (without memory allocation and error buffers).</p>
 <p>Module to deal with process IDs (PIDs).</p>
 </div>
 <div class="sect3">
-<h4 id="_functions_7">Functions</h4>
+<h4 id="_functions_8">Functions</h4>
 <div class="listingblock">
 <div class="content">
 <pre class="rouge highlight"><code data-lang="c"><span class="kt">int</span> <span class="nf">rcm_pid_get</span><span class="p">(</span><span class="kt">void</span><span class="p">);</span></code></pre>
@@ -1449,7 +1490,7 @@ lower-level functions (without memory allocation and error buffers).</p>
 <p>Implements a portable <code>sleep(3)</code> function.</p>
 </div>
 <div class="sect3">
-<h4 id="_functions_8">Functions</h4>
+<h4 id="_functions_9">Functions</h4>
 <div class="listingblock">
 <div class="content">
 <pre class="rouge highlight"><code data-lang="c"><span class="kt">void</span> <span class="nf">rcm_sleep</span><span class="p">(</span><span class="kt">unsigned</span> <span class="kt">int</span> <span class="n">seconds</span><span class="p">);</span></code></pre>
@@ -1478,7 +1519,7 @@ lower-level functions (without memory allocation and error buffers).</p>
 </div>
 </div>
 <div class="sect3">
-<h4 id="_typedefs_5">Typedefs</h4>
+<h4 id="_typedefs_6">Typedefs</h4>
 <div class="listingblock">
 <div class="content">
 <pre class="rouge highlight"><code data-lang="c"><span class="k">typedef</span> <span class="k">enum</span> <span class="p">{</span>
@@ -1502,7 +1543,7 @@ lower-level functions (without memory allocation and error buffers).</p>
 </div>
 </div>
 <div class="sect3">
-<h4 id="_functions_9">Functions</h4>
+<h4 id="_functions_10">Functions</h4>
 <div class="listingblock">
 <div class="content">
 <pre class="rouge highlight"><code data-lang="c"><span class="n">rcm_rfc3339_err_t</span> <span class="nf">rcm_rfc3339_parse</span><span class="p">(</span><span class="n">rcm_rfc3339_t</span> <span class="o">*</span><span class="n">time</span><span class="p">,</span>

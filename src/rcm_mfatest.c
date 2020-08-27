@@ -7,13 +7,13 @@
 #include "rcm_mem.h"
 #include "rcm_mfatest.h"
 
-enum greatest_test_res rcm_mfatest_wrap(rcm_mfatest_func_t test_func)
+RCM_API enum greatest_test_res rcm_mfatest_wrap(rcm_mfatest_func test_func)
 {
   return rcm_mfatest_wrap_err(test_func, 0);
 }
 
-enum greatest_test_res rcm_mfatest_wrap_err(rcm_mfatest_func_t test_func,
-                                            int rval)
+RCM_API enum greatest_test_res rcm_mfatest_wrap_err(rcm_mfatest_func test_func,
+                                                    int rval)
 {
 #ifndef NDEBUG
   int i, mallocs, /* io_ops, */ asserts, old_err;
