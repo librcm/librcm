@@ -38,9 +38,10 @@ RCM_API size_t rcm_base64_encode_len(size_t len);
 RCM_API rcm_base64_err_t rcm_base64_encode(char *out, const unsigned char *in,
                                            size_t len);
 
-/* Returns the decoded length of an base64 encoded input buffer in of size len.
- */
-RCM_API size_t rcm_base64_decode_len(const char *in, size_t len);
+/* Returns the decoded length of an base64 encoded input buffer in of size len
+   and writes it to out. */
+RCM_API rcm_base64_err_t rcm_base64_decode_len(size_t *out, const char *in,
+                                               size_t len);
 
 /* Decodes the base64 encoded input in of length len and writes it to out (if
    not NULL). If the the output buffer out is not NULL it has to be at least of

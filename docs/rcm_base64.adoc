@@ -42,11 +42,12 @@ Writes the base64 encoding of the input buffer in of lenght len to out and
 
 [source,c]
 ----
-size_t rcm_base64_decode_len(const char *in, size_t len);
+rcm_base64_err_t rcm_base64_decode_len(size_t *out, const char *in,
+                                       size_t len);
 ----
 
-Returns the decoded length of an base64 encoded input buffer in of size len.
-
+Returns the decoded length of an base64 encoded input buffer in of size len
+   and writes it to out.
 
 [source,c]
 ----

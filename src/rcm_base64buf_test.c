@@ -98,7 +98,7 @@ static int rcm_base64buf_test_decode_rfc3339_internal(char *err)
       return rc;
     }
     if (strncmp(rcm_base64buf_test_rfc3339_strings[i], (const char *)out,
-                rcm_base64_decode_len(res, strlen(res)))) {
+                outlen)) {
       rcm_errbuf_set(err, "want: %s\nhave: %s",
                      rcm_base64buf_test_rfc3339_strings[i], out);
       rc = -1;
@@ -119,15 +119,18 @@ TEST rcm_base64buf_test_decode_rfc3339(void)
 static int rcm_base64buf_test_decode_wikipedia_internal(char *err)
 {
   unsigned char *out = NULL;
-  size_t i;
+  size_t i, outlen;
   int rc = 0;
   for (i = 0; i < RCM_BASE64BUF_TEST_WIKIPEDIA_CASES; i++) {
     const char *res = rcm_base64buf_test_wikipedia_results[i];
     if ((rc = rcm_base64buf_decode(&out, NULL, res, strlen(res), err))) {
       return rc;
     }
+    if ((rc = rcm_base64_decode_len(&outlen, res, strlen(res)))) {
+      goto error;
+    }
     if (strncmp(rcm_base64buf_test_wikipedia_strings[i], (const char *)out,
-                rcm_base64_decode_len(res, strlen(res)))) {
+                outlen)) {
       rcm_errbuf_set(err, "want: %s\nhave: %s",
                      rcm_base64buf_test_wikipedia_strings[i], out);
       rc = -1;

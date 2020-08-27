@@ -65,14 +65,20 @@ RCM_API rcm_base64_err_t rcm_base64_encode(char *out, const unsigned char *in,
   return RCM_BASE64_OK;
 }
 
-RCM_API size_t rcm_base64_decode_len(const char *in, size_t len)
+RCM_API rcm_base64_err_t rcm_base64_decode_len(size_t *out, const char *in,
+                                               size_t len)
 {
   size_t paddings = 0;
-  if (len == 0) {
-    return 0;
+  if (!rcm_assert(out && in)) {
+    return RCM_BASE64_ERR_FAILED_ASSERT;
   }
-  if (len < 4) {
-    return 3; /* incomplete encoding, error will be caught when decoding */
+  assert(out); /* scan-build, already checked above */
+  if (len == 0) {
+    *out = 0;
+    return RCM_BASE64_OK;
+  }
+  if (len % 4 != 0) {
+    return RCM_BASE64_ERR_ILLEGAL_LENGTH;
   }
   if (in[len - 1] == rcm_base64_padding) {
     paddings++;
@@ -82,7 +88,8 @@ RCM_API size_t rcm_base64_decode_len(const char *in, size_t len)
   }
   /* A len which is not evenly divisible is makes no sense, the error will be
      caught in the actual decoding. */
-  return len / 4 * 3 - paddings;
+  *out = len / 4 * 3 - paddings;
+  return RCM_BASE64_OK;
 }
 
 /* generated with base64map.go */

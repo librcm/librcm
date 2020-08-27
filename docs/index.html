@@ -444,7 +444,7 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <div class="details">
 <span id="author" class="author">Frank Braun</span><br>
 <span id="email" class="email"><a href="https://frankbraun.org" class="bare">https://frankbraun.org</a></span><br>
-<span id="revdate">2020-08-26</span>
+<span id="revdate">2020-08-27</span>
 </div>
 <div id="toc" class="toc2">
 <div id="toctitle">Table of Contents</div>
@@ -1185,11 +1185,13 @@ higher-level functions (with memory allocation and error buffers).</p>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="rouge highlight"><code data-lang="c"><span class="kt">size_t</span> <span class="nf">rcm_base64_decode_len</span><span class="p">(</span><span class="k">const</span> <span class="kt">char</span> <span class="o">*</span><span class="n">in</span><span class="p">,</span> <span class="kt">size_t</span> <span class="n">len</span><span class="p">);</span></code></pre>
+<pre class="rouge highlight"><code data-lang="c"><span class="n">rcm_base64_err_t</span> <span class="nf">rcm_base64_decode_len</span><span class="p">(</span><span class="kt">size_t</span> <span class="o">*</span><span class="n">out</span><span class="p">,</span> <span class="k">const</span> <span class="kt">char</span> <span class="o">*</span><span class="n">in</span><span class="p">,</span>
+                                       <span class="kt">size_t</span> <span class="n">len</span><span class="p">);</span></code></pre>
 </div>
 </div>
 <div class="paragraph">
-<p>Returns the decoded length of an base64 encoded input buffer in of size len.</p>
+<p>Returns the decoded length of an base64 encoded input buffer in of size len
+   and writes it to out.</p>
 </div>
 <div class="listingblock">
 <div class="content">

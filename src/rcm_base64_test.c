@@ -91,31 +91,43 @@ TEST rcm_base64_test_encode_wikipedia(void)
 
 TEST rcm_base64_test_decode_len(void)
 {
-  ASSERT_EQ(0, rcm_base64_decode_len("", strlen("")));
-  ASSERT_EQ(1, rcm_base64_decode_len("Zg==", strlen("Zg==")));
-  ASSERT_EQ(2, rcm_base64_decode_len("Zm8=", strlen("Zm8=")));
-  ASSERT_EQ(3, rcm_base64_decode_len("Zm9v", strlen("Zm9v")));
-  ASSERT_EQ(4, rcm_base64_decode_len("Zm9vYg==", strlen("Zm9vYg==")));
-  ASSERT_EQ(5, rcm_base64_decode_len("Zm9vYmE=", strlen("Zm9vYmE=")));
-  ASSERT_EQ(6, rcm_base64_decode_len("Zm9vYmFy", strlen("Zm9vYmFy")));
+  size_t len;
+
+  ASSERT(!rcm_base64_decode_len(&len, "", strlen("")));
+  ASSERT_EQ(0, len);
+  ASSERT(!rcm_base64_decode_len(&len, "Zg==", strlen("Zg==")));
+  ASSERT_EQ(1, len);
+  ASSERT(!rcm_base64_decode_len(&len, "Zm8=", strlen("Zm8=")));
+  ASSERT_EQ(2, len);
+  ASSERT(!rcm_base64_decode_len(&len, "Zm9v", strlen("Zm9v")));
+  ASSERT_EQ(3, len);
+  ASSERT(!rcm_base64_decode_len(&len, "Zm9vYg==", strlen("Zm9vYg==")));
+  ASSERT_EQ(4, len);
+  ASSERT(!rcm_base64_decode_len(&len, "Zm9vYmE=", strlen("Zm9vYmE=")));
+  ASSERT_EQ(5, len);
+  ASSERT(!rcm_base64_decode_len(&len, "Zm9vYmFy", strlen("Zm9vYmFy")));
+  ASSERT_EQ(6, len);
 
   /* illegal encoding */
-  ASSERT_EQ(3, rcm_base64_decode_len("xxx", strlen("xxx")));
+  ASSERT_EQ(RCM_BASE64_ERR_ILLEGAL_LENGTH,
+            rcm_base64_decode_len(&len, "xxx", strlen("xxx")));
   PASS();
 }
 
 static int rcm_base64_test_decode_rfc3339_internal(char *err)
 {
   unsigned char out[5];
-  size_t i;
+  size_t i, len;
   int rc = 0;
   for (i = 0; i < sizeof RCM_BASE64_TEST_RFC3339_CASES; i++) {
     const char *res = rcm_base64_test_rfc3339_results[i];
     if ((rc = rcm_base64_decode(out, res, strlen(res)))) {
       return rc;
     }
-    if (strncmp(rcm_base64_test_rfc3339_strings[i], (const char *)out,
-                rcm_base64_decode_len(res, strlen(res)))) {
+    if ((rc = rcm_base64_decode_len(&len, res, strlen(res)))) {
+      return rc;
+    }
+    if (strncmp(rcm_base64_test_rfc3339_strings[i], (const char *)out, len)) {
       rcm_errbuf_set(err, "want: %s\nhave: %s",
                      rcm_base64_test_rfc3339_strings[i], out);
       return -1;
@@ -132,15 +144,17 @@ TEST rcm_base64_test_decode_rfc3339(void)
 static int rcm_base64_test_decode_wikipedia_internal(char *err)
 {
   unsigned char out[9];
-  size_t i;
+  size_t i, len;
   int rc = 0;
   for (i = 0; i < sizeof RCM_BASE64_TEST_WIKIPEDIA_CASES; i++) {
     const char *res = rcm_base64_test_wikipedia_results[i];
     if ((rc = rcm_base64_decode(out, res, strlen(res)))) {
       return rc;
     }
-    if (strncmp(rcm_base64_test_wikipedia_strings[i], (const char *)out,
-                rcm_base64_decode_len(res, strlen(res)))) {
+    if ((rc = rcm_base64_decode_len(&len, res, strlen(res)))) {
+      return rc;
+    }
+    if (strncmp(rcm_base64_test_wikipedia_strings[i], (const char *)out, len)) {
       rcm_errbuf_set(err, "want: %s\nhave: %s",
                      rcm_base64_test_wikipedia_strings[i], out);
       return -1;
