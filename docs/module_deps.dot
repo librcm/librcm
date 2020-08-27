@@ -8,6 +8,7 @@ strict digraph {
   rcm_mfatest [shape=box]
   rcm_mod [shape=box]
   rcm_pid [shape=box]
+  rcm_rand [shape=box]
   rcm_rfc3339 [shape=box]
   rcm_sleep [shape=box]
   rcm_base64 -> rcm_assert
@@ -18,6 +19,7 @@ strict digraph {
   rcm_membuf -> rcm_assert
   rcm_membuf -> rcm_errbuf
   rcm_membuf -> rcm_mem
+  rcm_rand -> rcm_assert
   rcm_rfc3339 -> rcm_assert
   rcm_rfc3339 -> rcm_errbuf
 }

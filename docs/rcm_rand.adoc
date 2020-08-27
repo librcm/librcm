@@ -1,0 +1,39 @@
+// generated from ../src/rcm_rand.h with `rcmdoc`
+
+[[rcm_rand.h]]
+=== `rcm_rand.h` -- Number generator
+
+Portable call to the system random number generator (RNG).
+
+==== Typedefs
+
+[source,c]
+----
+typedef enum {
+  RCM_RAND_OK = 0,
+  RCM_RAND_ERR_FAILED_ASSERT = -4,
+  RCM_RAND_ERR_RANDOM = -14
+} rcm_rand_err_t;
+----
+
+The rand error type.
+
+==== Functions
+
+[source,c]
+----
+rcm_rand_err_t rcm_rand_bytes(unsigned char *out, size_t len);
+----
+
+Read len random bytes from the sytem RNG and write it to out.
+   If not enought bytes could be read `RCM_RAND_ERR_RANDOM` is returned (and
+   out can be partially written to).
+
+[source,c]
+----
+const char *rcm_rand_errstr(rcm_rand_err_t errnum);
+----
+
+Return an error string describing the given error number errnum.
+   For `RCM_RAND_OK` an empty string is returned ("", not `NULL`).
+

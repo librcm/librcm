@@ -5,6 +5,7 @@
 - outrule other goto uses (except inner break)
 - describe memory allocator, make it settable
 - outrule setjmp, longjmp (MISRA does that, too?)
+- use rcm_file in rcm_rand to simulate failures
 
 modules:
 - json parser
@@ -19,7 +20,6 @@ modules:
 - jsonrpc
 - hash table (which one?)
 - printf
-- rand
 - semver
 - sha256 (TweetNacl contains sha512)
 - thread

@@ -17,6 +17,8 @@ A reusable C module `mod` consists of four components:
 Only the header and the C files are really necessary to reuse the module.
 The online documentation for a module is linked from the header file.
 
+TODO: use `rcm_membuf` as example on how to write a module.
+
 ==== How to write the header file
 
 [source,c]

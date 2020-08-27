@@ -25,8 +25,8 @@ Module to deal with time strings in RFC3339 format.
 typedef enum {
   RCM_RFC3339_OK = 0,
   RCM_RFC3339_ERR_FAILED_ASSERT = -4,
-  RCM_RFC3339_ERR_PARSE = -10,
-  RCM_RFC3339_ERR_TIME = -11
+  RCM_RFC3339_ERR_PARSE = -12,
+  RCM_RFC3339_ERR_TIME = -13
 } rcm_rfc3339_err_t;
 
 /* The RCF3339 time type. */
