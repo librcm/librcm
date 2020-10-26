@@ -32,6 +32,8 @@ include::rcm_rand.adoc[]
 
 include::rcm_sha256.adoc[]
 
+include::rcm_sha512.adoc[]
+
 include::rcm_sleep.adoc[]
 
 include::rcm_rfc3339.adoc[]

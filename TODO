@@ -1,4 +1,4 @@
-- analog for sha512 (ref impelmentation from NaCl)
+- add asserts to sha implementations
 
 - explain goto chain for error handling (goto target 'error')
 - outrule other goto uses (except inner break)
