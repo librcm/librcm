@@ -9,12 +9,15 @@ TEST rcm_errbuf_test(void)
   char err[RCM_ERRBUF_SIZE];
   rcm_errbuf_set(err, "test %d", 123);
   ASSERT_MEM_EQ("test 123", err, 8);
+  rcm_errbuf_set_str(err, "test 456");
+  ASSERT_MEM_EQ("test 456", err, 8);
   PASS();
 }
 
 TEST rcm_errbuf_test_null(void)
 {
   rcm_errbuf_set(NULL, "test %d", 123);
+  rcm_errbuf_set_str(NULL, "test");
   PASS();
 }
 
