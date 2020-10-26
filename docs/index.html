@@ -480,6 +480,7 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <li><a href="#rcm_base64.h"><code>rcm_base64.h</code>&#8201;&#8212;&#8201;Base64 encoding</a></li>
 <li><a href="#rcm_base64buf.h"><code>rcm_base64buf.h</code>&#8201;&#8212;&#8201;Base64 buffer</a></li>
 <li><a href="#rcm_errbuf.h"><code>rcm_errbuf.h</code>&#8201;&#8212;&#8201;Error buffer</a></li>
+<li><a href="#rcm_hex.h"><code>rcm_hex.h</code>&#8201;&#8212;&#8201;Hex module</a></li>
 <li><a href="#rcm_mem.h"><code>rcm_mem.h</code>&#8201;&#8212;&#8201;Memory allocator</a></li>
 <li><a href="#rcm_membuf.h"><code>rcm_membuf.h</code>&#8201;&#8212;&#8201;Memory buffer</a></li>
 <li><a href="#rcm_mfatest.h"><code>rcm_mfatest.h</code>&#8201;&#8212;&#8201;MFA test module</a></li>
@@ -1032,7 +1033,7 @@ Example module which shows how to write _reusable C modules_. <i class="conum" d
 <h3 id="_librcm_module_dependencies"><code>librcm</code> module dependencies</h3>
 <div class="imageblock">
 <div class="content">
-<img src="module_deps.png" alt="module deps" width="1357" height="251">
+<img src="module_deps.png" alt="module deps" width="1484" height="251">
 </div>
 </div>
 </div>
@@ -1332,12 +1333,55 @@ lower-level functions (without memory allocation and error buffers).</p>
 </div>
 </div>
 <div class="sect2">
+<h3 id="rcm_hex.h"><code>rcm_hex.h</code>&#8201;&#8212;&#8201;Hex module</h3>
+<div class="paragraph">
+<p>Hex parsing functions.</p>
+</div>
+<div class="sect3">
+<h4 id="_typedefs_4">Typedefs</h4>
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight"><code data-lang="c"><span class="k">typedef</span> <span class="k">enum</span> <span class="p">{</span>
+  <span class="n">RCM_HEX_OK</span> <span class="o">=</span> <span class="mi">0</span><span class="p">,</span>
+  <span class="n">RCM_HEX_ERR_FAILED_ASSERT</span> <span class="o">=</span> <span class="o">-</span><span class="mi">4</span><span class="p">,</span>
+  <span class="n">RCM_HEX_ERR_PARSE</span> <span class="o">=</span> <span class="o">-</span><span class="mi">15</span>
+<span class="p">}</span> <span class="n">rcm_hex_err_t</span><span class="p">;</span></code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>The hex error type.</p>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_functions_5">Functions</h4>
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight"><code data-lang="c"><span class="n">rcm_hex_err_t</span> <span class="nf">rcm_hex_parse_byte</span><span class="p">(</span><span class="kt">unsigned</span> <span class="kt">char</span> <span class="o">*</span><span class="n">byte</span><span class="p">,</span>
+                                 <span class="k">const</span> <span class="kt">char</span> <span class="o">*</span><span class="n">bytestr</span><span class="p">);</span></code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Parse two-character hex bytestr and store the result in a single byte.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight"><code data-lang="c"><span class="n">rcm_hex_err_t</span> <span class="nf">rcm_hex_parse_str</span><span class="p">(</span><span class="kt">unsigned</span> <span class="kt">char</span> <span class="o">*</span><span class="n">out</span><span class="p">,</span> <span class="k">const</span> <span class="kt">char</span> <span class="o">*</span><span class="n">hex</span><span class="p">,</span>
+                                <span class="kt">size_t</span> <span class="n">len</span><span class="p">);</span></code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Parse hex string of given len and store the resulting bytes in out.
+   The Output buffer out must have at least the length len/2!</p>
+</div>
+</div>
+</div>
+<div class="sect2">
 <h3 id="rcm_mem.h"><code>rcm_mem.h</code>&#8201;&#8212;&#8201;Memory allocator</h3>
 <div class="paragraph">
 <p>This modules defines the memory allocator for <em>reusable C modules</em>.</p>
 </div>
 <div class="sect3">
-<h4 id="_typedefs_4">Typedefs</h4>
+<h4 id="_typedefs_5">Typedefs</h4>
 <div class="listingblock">
 <div class="content">
 <pre class="rouge highlight"><code data-lang="c"><span class="k">typedef</span> <span class="k">enum</span> <span class="p">{</span> <span class="n">RCM_MEM_OK</span> <span class="o">=</span> <span class="mi">0</span><span class="p">,</span> <span class="n">RCM_MEM_ERR_NOMEM</span> <span class="o">=</span> <span class="o">-</span><span class="mi">2</span> <span class="p">}</span> <span class="n">rcm_mem_err_t</span><span class="p">;</span></code></pre>
@@ -1364,7 +1408,7 @@ lower-level functions (without memory allocation and error buffers).</p>
 </div>
 </div>
 <div class="sect3">
-<h4 id="_functions_5">Functions</h4>
+<h4 id="_functions_6">Functions</h4>
 <div class="listingblock">
 <div class="content">
 <pre class="rouge highlight"><code data-lang="c"><span class="kt">void</span> <span class="o">*</span><span class="nf">rcm_mem_malloc</span><span class="p">(</span><span class="kt">size_t</span> <span class="n">size</span><span class="p">);</span></code></pre>
@@ -1460,7 +1504,7 @@ lower-level functions (without memory allocation and error buffers).</p>
 fail.</p>
 </div>
 <div class="sect3">
-<h4 id="_typedefs_5">Typedefs</h4>
+<h4 id="_typedefs_6">Typedefs</h4>
 <div class="listingblock">
 <div class="content">
 <pre class="rouge highlight"><code data-lang="c"><span class="k">typedef</span> <span class="k">enum</span> <span class="p">{</span>
@@ -1475,7 +1519,7 @@ fail.</p>
 </div>
 </div>
 <div class="sect3">
-<h4 id="_functions_6">Functions</h4>
+<h4 id="_functions_7">Functions</h4>
 <div class="listingblock">
 <div class="content">
 <pre class="rouge highlight"><code data-lang="c"><span class="n">rcm_membuf_err_t</span> <span class="nf">rcm_membuf_new</span><span class="p">(</span><span class="kt">void</span> <span class="o">**</span><span class="n">out</span><span class="p">,</span> <span class="kt">size_t</span> <span class="n">size</span><span class="p">,</span> <span class="kt">char</span> <span class="o">*</span><span class="n">err</span><span class="p">);</span></code></pre>
@@ -1511,7 +1555,7 @@ fail.</p>
 To be used for unit tests written with the C testing library <code>greatest.h</code>.</p>
 </div>
 <div class="sect3">
-<h4 id="_typedefs_6">Typedefs</h4>
+<h4 id="_typedefs_7">Typedefs</h4>
 <div class="listingblock">
 <div class="content">
 <pre class="rouge highlight"><code data-lang="c"><span class="k">typedef</span> <span class="kt">int</span> <span class="nf">rcm_mfatest_func</span><span class="p">(</span><span class="kt">char</span> <span class="o">*</span><span class="n">err</span><span class="p">);</span></code></pre>
@@ -1522,7 +1566,7 @@ To be used for unit tests written with the C testing library <code>greatest.h</c
 </div>
 </div>
 <div class="sect3">
-<h4 id="_functions_7">Functions</h4>
+<h4 id="_functions_8">Functions</h4>
 <div class="listingblock">
 <div class="content">
 <pre class="rouge highlight"><code data-lang="c"><span class="k">enum</span> <span class="n">greatest_test_res</span> <span class="nf">rcm_mfatest_wrap</span><span class="p">(</span><span class="n">rcm_mfatest_func</span> <span class="n">test_func</span><span class="p">);</span></code></pre>
@@ -1550,7 +1594,7 @@ To be used for unit tests written with the C testing library <code>greatest.h</c
 <p>Example module which shows how to write <em>reusable C modules</em>.</p>
 </div>
 <div class="sect3">
-<h4 id="_functions_8">Functions</h4>
+<h4 id="_functions_9">Functions</h4>
 <div class="listingblock">
 <div class="content">
 <pre class="rouge highlight"><code data-lang="c"><span class="kt">void</span> <span class="nf">rcm_mod_foo</span><span class="p">(</span><span class="kt">void</span><span class="p">);</span></code></pre>
@@ -1575,7 +1619,7 @@ To be used for unit tests written with the C testing library <code>greatest.h</c
 <p>Module to deal with process IDs (PIDs).</p>
 </div>
 <div class="sect3">
-<h4 id="_functions_9">Functions</h4>
+<h4 id="_functions_10">Functions</h4>
 <div class="listingblock">
 <div class="content">
 <pre class="rouge highlight"><code data-lang="c"><span class="kt">int</span> <span class="nf">rcm_pid_get</span><span class="p">(</span><span class="kt">void</span><span class="p">);</span></code></pre>
@@ -1592,7 +1636,7 @@ To be used for unit tests written with the C testing library <code>greatest.h</c
 <p>Portable call to the system random number generator (RNG).</p>
 </div>
 <div class="sect3">
-<h4 id="_typedefs_7">Typedefs</h4>
+<h4 id="_typedefs_8">Typedefs</h4>
 <div class="listingblock">
 <div class="content">
 <pre class="rouge highlight"><code data-lang="c"><span class="k">typedef</span> <span class="k">enum</span> <span class="p">{</span>
@@ -1607,7 +1651,7 @@ To be used for unit tests written with the C testing library <code>greatest.h</c
 </div>
 </div>
 <div class="sect3">
-<h4 id="_functions_10">Functions</h4>
+<h4 id="_functions_11">Functions</h4>
 <div class="listingblock">
 <div class="content">
 <pre class="rouge highlight"><code data-lang="c"><span class="n">rcm_rand_err_t</span> <span class="nf">rcm_rand_bytes</span><span class="p">(</span><span class="kt">unsigned</span> <span class="kt">char</span> <span class="o">*</span><span class="n">out</span><span class="p">,</span> <span class="kt">size_t</span> <span class="n">len</span><span class="p">);</span></code></pre>
@@ -1646,7 +1690,7 @@ To be used for unit tests written with the C testing library <code>greatest.h</c
 </div>
 </div>
 <div class="sect3">
-<h4 id="_functions_11">Functions</h4>
+<h4 id="_functions_12">Functions</h4>
 <div class="listingblock">
 <div class="content">
 <pre class="rouge highlight"><code data-lang="c"><span class="kt">void</span> <span class="nf">rcm_sha256</span><span class="p">(</span><span class="kt">unsigned</span> <span class="kt">char</span> <span class="o">*</span><span class="n">out</span><span class="p">,</span> <span class="k">const</span> <span class="kt">unsigned</span> <span class="kt">char</span> <span class="o">*</span><span class="n">in</span><span class="p">,</span>
@@ -1665,7 +1709,7 @@ To be used for unit tests written with the C testing library <code>greatest.h</c
 <p>Implements a portable <code>sleep(3)</code> function.</p>
 </div>
 <div class="sect3">
-<h4 id="_functions_12">Functions</h4>
+<h4 id="_functions_13">Functions</h4>
 <div class="listingblock">
 <div class="content">
 <pre class="rouge highlight"><code data-lang="c"><span class="kt">void</span> <span class="nf">rcm_sleep</span><span class="p">(</span><span class="kt">unsigned</span> <span class="kt">int</span> <span class="n">seconds</span><span class="p">);</span></code></pre>
@@ -1694,7 +1738,7 @@ To be used for unit tests written with the C testing library <code>greatest.h</c
 </div>
 </div>
 <div class="sect3">
-<h4 id="_typedefs_8">Typedefs</h4>
+<h4 id="_typedefs_9">Typedefs</h4>
 <div class="listingblock">
 <div class="content">
 <pre class="rouge highlight"><code data-lang="c"><span class="k">typedef</span> <span class="k">enum</span> <span class="p">{</span>
@@ -1718,7 +1762,7 @@ To be used for unit tests written with the C testing library <code>greatest.h</c
 </div>
 </div>
 <div class="sect3">
-<h4 id="_functions_13">Functions</h4>
+<h4 id="_functions_14">Functions</h4>
 <div class="listingblock">
 <div class="content">
 <pre class="rouge highlight"><code data-lang="c"><span class="n">rcm_rfc3339_err_t</span> <span class="nf">rcm_rfc3339_parse</span><span class="p">(</span><span class="n">rcm_rfc3339_t</span> <span class="o">*</span><span class="n">time</span><span class="p">,</span>

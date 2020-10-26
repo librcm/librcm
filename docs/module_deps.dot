@@ -3,6 +3,7 @@ strict digraph {
   rcm_base64 [shape=box]
   rcm_base64buf [shape=box]
   rcm_errbuf [shape=box]
+  rcm_hex [shape=box]
   rcm_mem [shape=box]
   rcm_membuf [shape=box]
   rcm_mfatest [shape=box]

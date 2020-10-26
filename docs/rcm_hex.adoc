@@ -1,0 +1,39 @@
+// generated from ../src/rcm_hex.h with `rcmdoc`
+
+[[rcm_hex.h]]
+=== `rcm_hex.h` -- Hex module
+
+Hex parsing functions.
+
+==== Typedefs
+
+[source,c]
+----
+typedef enum {
+  RCM_HEX_OK = 0,
+  RCM_HEX_ERR_FAILED_ASSERT = -4,
+  RCM_HEX_ERR_PARSE = -15
+} rcm_hex_err_t;
+----
+
+The hex error type.
+
+==== Functions
+
+[source,c]
+----
+rcm_hex_err_t rcm_hex_parse_byte(unsigned char *byte,
+                                 const char *bytestr);
+----
+
+Parse two-character hex bytestr and store the result in a single byte.
+
+[source,c]
+----
+rcm_hex_err_t rcm_hex_parse_str(unsigned char *out, const char *hex,
+                                size_t len);
+----
+
+Parse hex string of given len and store the resulting bytes in out.
+   The output buffer out must have at least the length len/2!
+

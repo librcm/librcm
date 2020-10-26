@@ -16,6 +16,8 @@ include::rcm_base64buf.adoc[]
 
 include::rcm_errbuf.adoc[]
 
+include::rcm_hex.adoc[]
+
 include::rcm_mem.adoc[]
 
 include::rcm_membuf.adoc[]
