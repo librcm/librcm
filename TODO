@@ -1,5 +1,3 @@
-- add asserts to sha implementations
-
 - explain goto chain for error handling (goto target 'error')
 - outrule other goto uses (except inner break)
 - describe memory allocator, make it settable
@@ -21,7 +19,6 @@ modules:
 - jsonrpc
 - hash table (which one?)
 - printf
-- sha256 (TweetNacl contains sha512)
-- base58check (needs sha256)
+- base58check
 - thread
 - windows dirent.h

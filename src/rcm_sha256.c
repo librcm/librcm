@@ -227,13 +227,17 @@ static const unsigned char iv[32] = {
   0x68, 0x8c, 0x1f, 0x83, 0xd9, 0xab, 0x5b, 0xe0, 0xcd, 0x19,
 };
 
-RCM_API void rcm_sha256(unsigned char *out, const unsigned char *in,
-                        size_t inlen)
+RCM_API rcm_sha256_err_t rcm_sha256(unsigned char *out, const unsigned char *in,
+                                    size_t inlen)
 {
   unsigned char h[32];
   unsigned char padded[128];
   size_t i;
   unsigned long long bits = inlen << 3;
+
+  if (!rcm_assert(out && in)) {
+    return RCM_SHA256_ERR_FAILED_ASSERT;
+  }
 
   for (i = 0; i < 32; ++i) {
     h[i] = iv[i];
@@ -280,4 +284,6 @@ RCM_API void rcm_sha256(unsigned char *out, const unsigned char *in,
   for (i = 0; i < 32; ++i) {
     out[i] = h[i];
   }
+
+  return RCM_SHA256_OK;
 }

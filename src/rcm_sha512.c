@@ -258,13 +258,17 @@ static const unsigned char iv[64] = {
   0xfb, 0x41, 0xbd, 0x6b, 0x5b, 0xe0, 0xcd, 0x19, 0x13, 0x7e, 0x21, 0x79
 };
 
-RCM_API void rcm_sha512(unsigned char *out, const unsigned char *in,
-                        size_t inlen)
+RCM_API rcm_sha512_err_t rcm_sha512(unsigned char *out, const unsigned char *in,
+                                    size_t inlen)
 {
   unsigned char h[64];
   unsigned char padded[256];
   size_t i;
   unsigned long long bytes = inlen;
+
+  if (!rcm_assert(out && in)) {
+    return RCM_SHA512_ERR_FAILED_ASSERT;
+  }
 
   for (i = 0; i < 64; ++i) {
     h[i] = iv[i];
@@ -313,4 +317,6 @@ RCM_API void rcm_sha512(unsigned char *out, const unsigned char *in,
   for (i = 0; i < 64; ++i) {
     out[i] = h[i];
   }
+
+  return RCM_SHA512_OK;
 }

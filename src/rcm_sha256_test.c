@@ -48,10 +48,11 @@ TEST rcm_sha256_test(void)
   for (i = 0; i < RCM_SHA256_TEST_CASES; i++) {
     ASSERT(!rcm_hex_parse_str(res, rcm_sha256_test_results[i],
                               strlen(rcm_sha256_test_results[i])));
-    rcm_sha256(out, (const unsigned char *)rcm_sha256_test_strings[i],
-               strlen(rcm_sha256_test_strings[i]));
+    ASSERT(!rcm_sha256(out, (const unsigned char *)rcm_sha256_test_strings[i],
+                       strlen(rcm_sha256_test_strings[i])));
     ASSERT_MEM_EQ(res, out, RCM_SHA256_SIZE);
   }
+  ASSERT_EQ(RCM_SHA256_ERR_FAILED_ASSERT, rcm_sha256(NULL, NULL, 0));
   PASS();
 }
 

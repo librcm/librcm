@@ -25,4 +25,6 @@ strict digraph {
   rcm_rand -> rcm_assert
   rcm_rfc3339 -> rcm_assert
   rcm_rfc3339 -> rcm_errbuf
+  rcm_sha256 -> rcm_assert
+  rcm_sha512 -> rcm_assert
 }
