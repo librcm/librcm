@@ -19,7 +19,5 @@ jobs:
       run: make
     - name: make test
       run: make test
-    - name: make tools
-      run: make tools
     - name: make chk
       run: make chk

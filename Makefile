@@ -35,7 +35,7 @@ ifeq ($(cov),yes)
   LDFLAGS+=-fprofile-arcs -ftest-coverage
 endif
 
-all: $(OBJ) lib/librcm.a $(TEST_BIN) tools docs
+all: $(OBJ) lib/librcm.a $(TEST_BIN) tools
 
 # read dependencies
 -include $(DEP)
