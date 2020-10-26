@@ -10,7 +10,7 @@ RCM_API rcm_membuf_err_t rcm_membuf_new(void **out, size_t size, char *err)
     return RCM_MEMBUF_ERR_FAILED_ASSERT;
   }
   if (!(buf = rcm_mem_calloc(1, size))) {
-    rcm_errbuf_set(err, "%s", rcm_membuf_errstr(RCM_MEM_ERR_NOMEM));
+    rcm_errbuf_set(err, "%s", rcm_membuf_errstr(RCM_MEMBUF_ERR_NOMEM));
     return RCM_MEMBUF_ERR_NOMEM;
   }
   *out = buf;

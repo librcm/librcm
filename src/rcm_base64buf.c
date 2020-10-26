@@ -43,7 +43,7 @@ RCM_API rcm_base64buf_err_t rcm_base64buf_decode(unsigned char **out,
   }
   if ((rc = rcm_base64_decode_len(&declen, in, len))) {
     rcm_errbuf_set(err, "%s", rcm_base64_errstr(rc));
-    return rc;
+    return (rcm_base64buf_err_t)rc;
   }
   if (!(dec = rcm_mem_malloc(declen))) {
     rcm_errbuf_set(err, "%s", rcm_base64buf_errstr(RCM_BASE64BUF_ERR_NOMEM));
