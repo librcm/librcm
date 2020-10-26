@@ -1,0 +1,27 @@
+// generated from ../src/rcm_sha256.h with `rcmdoc`
+
+[[rcm_sha256.h]]
+=== `rcm_sha256.h` -- SHA-256 module
+
+Implements the SHA-256 cryptographic hash function.
+
+==== Defines
+
+[source,c]
+----
+#define RCM_SHA256_SIZE 32
+----
+
+The SHA-256 hash size.
+
+==== Functions
+
+[source,c]
+----
+void rcm_sha256(unsigned char *out, const unsigned char *in,
+                size_t inlen);
+----
+
+Calculate SHA-256 hash of in message of given inlen and store the result in
+   out. The output buffer out must be at least `RCM_SHA256_SIZE` large!
+
