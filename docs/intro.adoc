@@ -37,6 +37,7 @@ Given the importance of C today, it's high performance, it's high portability
 (if written correctly), and the rise of
 low-performance https://en.wikipedia.org/wiki/Internet_of_things[IoT] devices,
 C is likely to stay for many decades.
+The https://en.wikipedia.org/wiki/Lindy_effect[Lindy effect] also applies.
 
 This means that *well written* C can be used and reused for a very long time.
 However, C suffers from a lot of poor quality code.
@@ -56,7 +57,7 @@ nor does it have a standardized way to handle errors, manage memory,
 and deal with dependencies.
 
 Having standardized ways to do things greatly helps to reduce cognitive overhead
-thereby and raises program quality and programmer productivity.
+and thereby raises program quality and programmer productivity.
 
 This is arguable a major reason that Go became so successful.
 The language itself is not extremely powerful, but making
@@ -66,7 +67,7 @@ comprises idiomatic code makes Go highly reusable and reduces the cognitive
 burden when reading and editing code written by others.
 
 In this document we describe an opinionated method on how to write high quality,
-future-proof C code, giving rationales for the decisions made.
+future-proof C code, while giving rationales for the decisions made.
 The power of this approach mainly comes from the *simplicity* that comes from
 standardizing on the _only true-way of doing things_ (TM).
 It forces the programmer into a standardized way of writing C code with less
@@ -84,10 +85,11 @@ rewrite. So let's get to it.
 
 ==== What does module mean?
 
-A C module is a single C header file which defines and implements an API
-that can be used by _consumers_ of the module. The module should
-_consume_ as little other modules and header files as possible, to keep
-the dependency graph small.
+A C module is comprised of a single C header file (`.h`) that defines an API
+(can be used by _consumers_ of the module), a single C file (`.c`) which
+implements it, and a test C file that tests the API. The module should _consume_
+as little other modules and header files as possible, to keep the dependency
+graph small.
 
 ==== What does reusable mean?
 

@@ -1,6 +1,6 @@
 = librcm -- reusable C modules
 Frank Braun <https://frankbraun.org>
-2020-08-27
+2020-10-26
 :doctype: book
 :reproducible:
 :source-highlighter: rouge
@@ -11,13 +11,14 @@ This document describes how to write _reusable C modules_ and documents
 `librcm`.
 
 ifdef::backend-html5[]
-Download as
+NOTE: Download as
 https://librcm.org/librcm.pdf[PDF].
 endif::[]
 ifndef::backend-html5[]
-Check https://librcm.org for updates.
+NOTE: Check https://librcm.org for updates.
 endif::[]
 Source code on https://github.com/librcm/librcm[GitHub].
+
 
 This document has four main parts:
 

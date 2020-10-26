@@ -444,7 +444,7 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <div class="details">
 <span id="author" class="author">Frank Braun</span><br>
 <span id="email" class="email"><a href="https://frankbraun.org" class="bare">https://frankbraun.org</a></span><br>
-<span id="revdate">2020-08-27</span>
+<span id="revdate">2020-10-26</span>
 </div>
 <div id="toc" class="toc2">
 <div id="toctitle">Table of Contents</div>
@@ -500,10 +500,19 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <p>This document describes how to write <em>reusable C modules</em> and documents
 <code>librcm</code>.</p>
 </div>
-<div class="paragraph">
-<p>Download as
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+Download as
 <a href="https://librcm.org/librcm.pdf">PDF</a>.
-Source code on <a href="https://github.com/librcm/librcm">GitHub</a>.</p>
+Source code on <a href="https://github.com/librcm/librcm">GitHub</a>.
+</td>
+</tr>
+</table>
 </div>
 <div class="paragraph">
 <p>This document has four main parts:</p>
@@ -581,7 +590,8 @@ Conforming to the C ABI is mutually exclusive with garbage collection.</p>
 <p>Given the importance of C today, it&#8217;s high performance, it&#8217;s high portability
 (if written correctly), and the rise of
 low-performance <a href="https://en.wikipedia.org/wiki/Internet_of_things">IoT</a> devices,
-C is likely to stay for many decades.</p>
+C is likely to stay for many decades.
+The <a href="https://en.wikipedia.org/wiki/Lindy_effect">Lindy effect</a> also applies.</p>
 </div>
 <div class="paragraph">
 <p>This means that <strong>well written</strong> C can be used and reused for a very long time.
@@ -605,7 +615,7 @@ and deal with dependencies.</p>
 </div>
 <div class="paragraph">
 <p>Having standardized ways to do things greatly helps to reduce cognitive overhead
-thereby and raises program quality and programmer productivity.</p>
+and thereby raises program quality and programmer productivity.</p>
 </div>
 <div class="paragraph">
 <p>This is arguable a major reason that Go became so successful.
@@ -617,7 +627,7 @@ burden when reading and editing code written by others.</p>
 </div>
 <div class="paragraph">
 <p>In this document we describe an opinionated method on how to write high quality,
-future-proof C code, giving rationales for the decisions made.
+future-proof C code, while giving rationales for the decisions made.
 The power of this approach mainly comes from the <strong>simplicity</strong> that comes from
 standardizing on the <em>only true-way of doing things</em> &#8482;.
 It forces the programmer into a standardized way of writing C code with less
@@ -638,10 +648,11 @@ rewrite. So let&#8217;s get to it.</p>
 <div class="sect3">
 <h4 id="_what_does_module_mean">What does module mean?</h4>
 <div class="paragraph">
-<p>A C module is a single C header file which defines and implements an API
-that can be used by <em>consumers</em> of the module. The module should
-<em>consume</em> as little other modules and header files as possible, to keep
-the dependency graph small.</p>
+<p>A C module is comprised of a single C header file (<code>.h</code>) that defines an API
+(can be used by <em>consumers</em> of the module), a single C file (<code>.c</code>) which
+implements it, and a test C file that tests the API. The module should <em>consume</em>
+as little other modules and header files as possible, to keep the dependency
+graph small.</p>
 </div>
 </div>
 <div class="sect3">
