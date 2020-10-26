@@ -1,3 +1,8 @@
+- add hex module to librcm
+- add hex_parse_string
+- use hex module to implement sha256 tests (test vectors from Go, get inspired by rcm_base64buf_test.c)
+- analog for sha512 (ref impelmentation from NaCl)
+
 - explain goto chain for error handling (goto target 'error')
 - outrule other goto uses (except inner break)
 - describe memory allocator, make it settable
