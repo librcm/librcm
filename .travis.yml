@@ -1,9 +1,0 @@
-language: go
-go: 1.14
-compiler:
-  - clang
-  - gcc
-before_install:
-  - sudo apt -qq update
-  - sudo apt -qq install valgrind
-script: make chk test
