@@ -11,16 +11,16 @@ RCM_API rcm_base64buf_err_t rcm_base64buf_encode(char **out,
   char *enc;
   int rc;
   if (!rcm_assert(out && in)) {
-    rcm_errbuf_set(err, "%s",
-                   rcm_base64buf_errstr(RCM_BASE64BUF_ERR_FAILED_ASSERT));
+    rcm_errbuf_set_str(err,
+                       rcm_base64buf_errstr(RCM_BASE64BUF_ERR_FAILED_ASSERT));
     return RCM_BASE64BUF_ERR_FAILED_ASSERT;
   }
   if (!(enc = rcm_mem_malloc(rcm_base64_encode_len(len) + 1))) {
-    rcm_errbuf_set(err, "%s", rcm_base64buf_errstr(RCM_BASE64BUF_ERR_NOMEM));
+    rcm_errbuf_set_str(err, rcm_base64buf_errstr(RCM_BASE64BUF_ERR_NOMEM));
     return RCM_BASE64BUF_ERR_NOMEM;
   }
   if ((rc = rcm_base64_encode(enc, in, len))) {
-    rcm_errbuf_set(err, "%s", rcm_base64buf_errstr(rc));
+    rcm_errbuf_set_str(err, rcm_base64buf_errstr(rc));
     rcm_mem_free(enc);
     return rc;
   }
@@ -37,16 +37,16 @@ RCM_API rcm_base64buf_err_t rcm_base64buf_decode(unsigned char **out,
   size_t declen;
   rcm_base64_err_t rc;
   if (!rcm_assert(out && in)) {
-    rcm_errbuf_set(err, "%s",
-                   rcm_base64buf_errstr(RCM_BASE64BUF_ERR_FAILED_ASSERT));
+    rcm_errbuf_set_str(err,
+                       rcm_base64buf_errstr(RCM_BASE64BUF_ERR_FAILED_ASSERT));
     return RCM_BASE64BUF_ERR_FAILED_ASSERT;
   }
   if ((rc = rcm_base64_decode_len(&declen, in, len))) {
-    rcm_errbuf_set(err, "%s", rcm_base64_errstr(rc));
+    rcm_errbuf_set_str(err, rcm_base64_errstr(rc));
     return (rcm_base64buf_err_t)rc;
   }
   if (!(dec = rcm_mem_malloc(declen))) {
-    rcm_errbuf_set(err, "%s", rcm_base64buf_errstr(RCM_BASE64BUF_ERR_NOMEM));
+    rcm_errbuf_set_str(err, rcm_base64buf_errstr(RCM_BASE64BUF_ERR_NOMEM));
     return RCM_BASE64BUF_ERR_NOMEM;
   }
   if ((rc = rcm_base64_decode(dec, in, len))) {

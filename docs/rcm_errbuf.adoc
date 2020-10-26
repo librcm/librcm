@@ -24,3 +24,10 @@ void rcm_errbuf_set(char *err, const char *format, ...);
 Sets error buffer err to format string (printf(3)-like) with arguments
    `...`. Does nothing, if err is `NULL`.
 
+[source,c]
+----
+void rcm_errbuf_set_str(char *err, const char *string);
+----
+
+Sets error buffer err to string. Does nothing, if err is `NULL`.
+

@@ -34,3 +34,11 @@ RCM_API void rcm_errbuf_set(char *err, const char *format, ...)
 #endif
   va_end(ap);
 }
+
+RCM_API void rcm_errbuf_set_str(char *err, const char *string)
+{
+  if (!err) {
+    return;
+  }
+  rcm_errbuf_set(err, "%s", string);
+}

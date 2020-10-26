@@ -32,6 +32,6 @@ RCM_API void rcm_errbuf_set(char *err, const char *format, ...)
     RCM_ERRBUF_FORMAT_ATTRIBUTE(2, 3);
 
 /* Sets error buffer err to string. Does nothing, if err is `NULL`. */
-RCM_API void rcm_errbuf_sets(char *err, const char *string);
+RCM_API void rcm_errbuf_set_str(char *err, const char *string);
 
 #endif /* RCM_ERRBUF_H */

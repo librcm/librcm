@@ -1,5 +1,3 @@
-- implement and use rcm_errbuf_set_str()
-- semver should allow leading zeros for minor and patch version (-> calver)
 - only header file should include rcm deps, C file only corresponding header file
 - replace travis with github actions
 
@@ -11,7 +9,7 @@
 - portable option parsing
 
 modules:
-- semver
+- semver (should allow leading zeros for minor and patch version, see calver)
 - json parser
 - TweetNaCl
 - dir

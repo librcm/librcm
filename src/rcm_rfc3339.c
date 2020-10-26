@@ -18,8 +18,7 @@ RCM_API rcm_rfc3339_err_t rcm_rfc3339_parse(rcm_rfc3339_t *time,
   time_t t;
 
   if (!rcm_assert(value)) {
-    rcm_errbuf_set(err, "%s",
-                   rcm_rfc3339_errstr(RCM_RFC3339_ERR_FAILED_ASSERT));
+    rcm_errbuf_set_str(err, rcm_rfc3339_errstr(RCM_RFC3339_ERR_FAILED_ASSERT));
     return RCM_RFC3339_ERR_FAILED_ASSERT;
   }
 
@@ -115,8 +114,7 @@ RCM_API rcm_rfc3339_err_t rcm_rfc3339_parse(rcm_rfc3339_t *time,
   t = mktime(&tm);
   /* mktime(3) cannot overflow with the ranges we allow above */
   if (!rcm_assert(t != (time_t)-1)) {
-    rcm_errbuf_set(err, "%s",
-                   rcm_rfc3339_errstr(RCM_RFC3339_ERR_FAILED_ASSERT));
+    rcm_errbuf_set_str(err, rcm_rfc3339_errstr(RCM_RFC3339_ERR_FAILED_ASSERT));
     return RCM_RFC3339_ERR_FAILED_ASSERT;
   }
   if (time) {
@@ -144,15 +142,13 @@ RCM_API rcm_rfc3339_err_t rcm_rfc3339_now(rcm_rfc3339_t *t, char *err)
   struct tm tm;
   time_t now;
   if (!rcm_assert(t)) {
-    rcm_errbuf_set(err, "%s",
-                   rcm_rfc3339_errstr(RCM_RFC3339_ERR_FAILED_ASSERT));
+    rcm_errbuf_set_str(err, rcm_rfc3339_errstr(RCM_RFC3339_ERR_FAILED_ASSERT));
     return RCM_RFC3339_ERR_FAILED_ASSERT;
   }
   now = time(NULL);
   /* time(NULL) cannot fail */
   if (!rcm_assert(now != (time_t)-1)) {
-    rcm_errbuf_set(err, "%s",
-                   rcm_rfc3339_errstr(RCM_RFC3339_ERR_FAILED_ASSERT));
+    rcm_errbuf_set_str(err, rcm_rfc3339_errstr(RCM_RFC3339_ERR_FAILED_ASSERT));
     return RCM_RFC3339_ERR_FAILED_ASSERT;
   }
   rcm_rfc3339_gmtime(&tm, now);
@@ -169,8 +165,7 @@ RCM_API rcm_rfc3339_err_t rcm_rfc3339_format(char *out, rcm_rfc3339_t time,
                                              char *err)
 {
   if (!rcm_assert(out)) {
-    rcm_errbuf_set(err, "%s",
-                   rcm_rfc3339_errstr(RCM_RFC3339_ERR_FAILED_ASSERT));
+    rcm_errbuf_set_str(err, rcm_rfc3339_errstr(RCM_RFC3339_ERR_FAILED_ASSERT));
     return RCM_RFC3339_ERR_FAILED_ASSERT;
   }
   snprintf(out, RCM_RFC3339_BUFSIZE, "%04u-%02u-%02uT%02u:%02u:%02uZ",
