@@ -85,6 +85,22 @@ func checkHeader(filename string, lines []string) error {
 	return nil
 }
 
+func checkNonTestFile(filename string, lines []string) error {
+	filebase := filepath.Base(filename)
+	fileHeader := strings.TrimSuffix(filebase, ".c") + ".h"
+	for i, line := range lines {
+		ln := i + 1
+		want := "#include \"" + fileHeader + "\""
+		if strings.HasPrefix(line, "#include \"") &&
+			!strings.HasPrefix(line, want) &&
+			filebase != "rcm_mfatest.c" {
+			return fmt.Errorf("%s: %d: include dependencies only in header file\nhave: %s\nwant: %s",
+				filename, ln, line, want)
+		}
+	}
+	return nil
+}
+
 func check(filename string) error {
 	// read file and split into lines
 	buf, err := ioutil.ReadFile(filename)
@@ -119,6 +135,18 @@ func check(filename string) error {
 	if isHeader {
 		if err := checkHeader(filename, lines); err != nil {
 			return err
+		}
+	}
+	// non-test files only
+	if !isHeader {
+		var isNonTest bool
+		if !strings.HasSuffix(filename, "_test.c") {
+			isNonTest = true
+		}
+		if isNonTest {
+			if err := checkNonTestFile(filename, lines); err != nil {
+				return err
+			}
 		}
 	}
 	return nil
