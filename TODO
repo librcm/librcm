@@ -1,4 +1,3 @@
-- test hex_parse_string
 - use hex module to implement sha256 tests (test vectors from Go, get inspired by rcm_base64buf_test.c)
 - analog for sha512 (ref impelmentation from NaCl)
 
